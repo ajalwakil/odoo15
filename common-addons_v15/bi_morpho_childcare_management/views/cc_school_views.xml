@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="cc_school_form_view" model="ir.ui.view">
+        <field name="name">cc.school.form.view</field>
+        <field name="model">cc.school</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="School Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="school_seq" readonly="1"/>
+                            <field name="director_id"/>
+                            <field name="parent_id"/>
+                            <field name="total_intek"/>
+                            <field name="school_fees" t-options='{"widget": "monetary", "display_currency": currency_id}'/>
+                            <field name="product_id" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <label for="street" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="street" class="o_address_street" placeholder="street..."/>
+                                <field name="street1" class="o_address_street" placeholder="street2..."/>
+                                <field name="city" class="o_address_city" placeholder="city"/>
+                                <field name="state_id" class="o_address_state" placeholder="State"/>
+                                <field name="zip_code" class="o_address_zip" placeholder="Zip Code"/>
+                                <field name="country_id" class="o_address_country" placeholder="Country"/>
+                            </div>
+                            <field name="phone"/>
+                            <field name="mobile"/>
+                            <field name="email" widget="email"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="school_rooms" string="Rooms">
+                            <field name="room_ids">
+                                <tree>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="school_regis" string="Registrations" >
+                            <field name="registration_ids">
+                                <tree>
+                                    <field name="child_id" context="{'default_is_child':True, 'form_view_ref':'bi_morpho_childcare_management.child_form_view'}"/>
+                                    <field name="reg_date"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <!-- <page name="eeschool_regis" string="Reg" >
+                            <field name="registration_ids">
+                                <tree>
+                                    <field name="school_id" label="Eschool"/>
+                                    <field name="reg_date"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                </tree>
+                            </field>
+                        </page> -->
+                        <page name="school_info" string="General Info">
+                            <group>
+                                <group>
+                                    <field name="company_id"/>
+                                    <field name="user_id"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="cc_school_tree_view" model="ir.ui.view">
+        <field name="name">cc.school.tree.view</field>
+        <field name="model">cc.school</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="school_seq"/>
+                <field name="director_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cc_school_action" model="ir.actions.act_window">
+        <field name="name">Schools</field>
+        <field name="res_model">cc.school</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

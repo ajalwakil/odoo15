@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ 
+	<template id="cc_enquiry_confirm_form_template" name="Admission Enquiry">
+        <t t-call="website.layout">
+            <div id="add_main_div">
+                <div id="add_sub_div">
+                    <br/>
+                    <center><h1><b>ENQUIRY CONFIRMATION</b></h1></center>
+                    <form id="enquiry_form" action="/cc/enquiry/submit" method="post">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="lead_id" t-att-value="lead_id"/>
+                        <input type="hidden" name="waitlist" t-att-value="waitlist"/>
+                        <br/>
+                        <table class="table table-borderless form_td">
+                            <tbody>
+                                <tr>
+                                    <td id="t_title">
+                                        <span class="inp_label">CLASSROOM:</span><br/>
+                                        <select id="cc_school" name="cc_room" class="form_name">
+                                            <option value="" selected="1">Select Classroom</option>
+                                            <t t-foreach="room_ids[0]" t-as="room">
+                                                <option t-att-value="room.id" t-att-data-fees="room.school_id.school_fees"><t t-esc="room.name"/></option>
+                                            </t>
+                                        </select>
+                                    </td>
+                                    <td id="t_title">
+                                        <span class="inp_label">JOINING DATE:</span><br/>
+                                        <input name="sch_join_date" class="form_name" type="date" placeholder="Enter Probable Joining Date"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">
+                                        <span class="inp_label">ADDMISSION FOR:</span><br/>
+                                        <select id="sch_period" name="sch_period" class="form_name">
+                                            <option value="" selected="1">Select Period</option>
+                                            <option value="1">Month</option>
+                                            <option value="2">Year</option>
+                                        </select>
+                                    </td>
+                                    <td id="t_title">
+                                        <span class="inp_label">FAMILY INCOME:</span><br/>
+                                        <input name="family_income" class="form_name" type="number" placeholder="Enter Family Income"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <div id="cc_button_box">
+                        <button id="cc_form_enq_submit" class="btn btn-primary bi_btn">Submit</button>
+                        <a id="cc_form_cancel" role="button" href="/cc/add/cancel"  class="btn btn-default bi_btn">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="cc_add_full_notification" name="Admissions Full!">
+        <t t-call="website.layout">
+            <div t-if="status" id="cc_success">
+                <div class="alert alert-warning">
+                    <h3><strong>Thanks <t t-esc="name"/>,<br/> For considering our school for your child.</strong></h3>
+                    <br/><br/>
+                    Currently our school addmissions are full. Once there is any vaccancy for your child we will contact you.
+                </div>
+                <a href="/my/home" class="btn btn-primary bi_btn">Home</a> 
+            </div>
+        </t>
+    </template>
+
+
+    <template id="cc_error_message" name="Error!">
+        <t t-call="website.layout">
+            <div id="cc_success">
+                <div>
+                    Something went wrong, please check your details and try again.
+                </div>
+                <a href="/my/home" class="btn btn-primary bi_btn">Home</a> 
+            </div>
+        </t>
+    </template>
+
+
+
+    <template id="cc_waitlist_confirm_form_template" name="Confirm Addmission">
+        <t t-call="website.layout">
+            <div id="add_main_div">
+                <div id="add_sub_div">
+                    <br/>
+                    <center><h1><b>ENQUIRY CONFIRMATION</b></h1></center>
+                    <form id="enquiry_form" action="/cc/enquiry/submit" method="post">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="lead_id" t-att-value="lead_id"/>
+                        <input type="hidden" name="waitlist" t-att-value="True"/>
+                        <br/>
+                        <div style="border:1px solid white; margin-left:5%;margin-right:5%;">
+                            <strong>
+                                <span>Hello <t t-esc="name"/>,<br/><br/>
+                                Classroom vaccancy is available for your child you can make payment and complete addmission process.</span>
+                            </strong>
+                        </div>
+                        <br/>
+                        <table class="table table-borderless form_td" style="border:1px solid white; margin-left:4%;margin-right:4%;width:90%;">
+                            <tbody>
+                                <tr>
+                                    <td id="t_title">
+                                        <span class="inp_label">NEW JOINING DATE:</span><br/>
+                                        <input style="width:100%;" name="sch_join_date" class="form_name" type="date" placeholder="Enter Probable Joining Date"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span class="inp_label">ADDMISSION FOR:</span><br/>
+                                        <select id="sch_period" name="sch_period" class="form_name">
+                                            <option value="" selected="1">Select Period</option>
+                                            <option value="1">Month</option>
+                                            <option value="2">Year</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <div id="cc_button_box">
+                        <button id="cc_form_enq_submit" class="btn btn-primary bi_btn">Generate Invoice</button>
+                        <a id="cc_form_cancel" role="button" href="/cc/add/cancel"  class="btn btn-default bi_btn">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

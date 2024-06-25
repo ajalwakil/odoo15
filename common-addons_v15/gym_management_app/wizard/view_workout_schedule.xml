@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_workout_schedule_form" model="ir.ui.view">
+            <field name="name">workout.schedule.form</field>
+            <field name="model">workout.schedule</field>
+            <field name="arch" type="xml">
+                <form string="Close states of Fiscal year and periods">
+	                <group>
+                        <group>
+                            <field name="gym_members_id" domain="[('is_member','=', True)]" options="{'no_create': True, 'no_edit': True}"/>
+                            <field name="gym_trainers_id" options="{'no_create': True, 'no_edit': True}"/>
+                            <field name="workout_id"/>
+                            <field name="days_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </group>
+	                </group>
+                    <footer>
+                    <button name="create_workout" string="Assign" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_workout_schedule_form" model="ir.actions.act_window">
+            <field name="name">Workout Schedule</field>
+            <field name="res_model">workout.schedule</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_workout_schedule_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="action_view_workout_schedule_form"
+            id="menu_workout_schedule"
+            parent="gym_workout_menu" name="Assign Workout" sequence="3" groups="gym_management_app.gym_management_trainer"/>
+
+    </data>
+</odoo>

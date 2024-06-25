@@ -1,0 +1,185 @@
+<odoo>
+    <data>
+        <template id="report_saleorder_document_partner_inherit" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//t[@t-set='address']" position="replace">
+                <div class="pull-right" style="width:40%;margin-bottom:20px">
+                    <!--                            <div class="" style="display: inline-block !important;float:right">-->
+                    <!--                                <img style="float:right"-->
+                    <!--                                     t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR',doc._get_url_order(), 75, 75)"/>-->
+                    <!--                            </div>-->
+
+                    <!--                            <div t-field="doc.partner_id" style="line-height: 100%;display: inline-block !important"-->
+                    <!--                                 t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile", "email"], "phone_icons": True, "no_marker": True}'/>-->
+                    <div style="line-height: 100%;display: inline-block !important">
+                        <table style="background-color:#fff;width:345px;">
+                            <t t-if="doc.partner_id.company_type == 'company'">
+                                <tr>
+                                    <td style="background-color:#fff;width:25%">
+                                        <b>Company:</b>
+                                    </td>
+                                    <td style="background-color:#fff">
+
+                                        <span t-field="doc.partner_id.name"/>
+
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="doc.partner_id.parent_id">
+                                <tr>
+                                    <td style="background-color:#fff;width:25%">
+                                        <b>Company:</b>
+                                    </td>
+                                    <td style="background-color:#fff">
+
+                                        <span t-field="doc.partner_id.parent_id.name"/>
+
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="doc.partner_id.parent_id and doc.partner_id.name">
+                                <tr>
+                                    <td style="background-color:#fff">
+                                        <b>Contact:</b>
+                                    </td>
+                                    <td style="background-color:#fff">
+                                        <span t-field="doc.partner_id.name"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="doc.partner_id.company_type == 'person' and not doc.partner_id.parent_id">
+                                <tr>
+                                    <td style="background-color:#fff;width:25%">
+                                        <b>Contact:</b>
+                                    </td>
+                                    <td style="background-color:#fff">
+                                        <span t-field="doc.partner_id.name"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="doc.partner_id.phone">
+                                <tr>
+                                    <td style="background-color:#fff">
+                                        <b>Phone:</b>
+                                    </td>
+                                    <td style="background-color:#fff">
+
+                                        <span t-field="doc.partner_id.phone"/>
+
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="doc.partner_id.mobile">
+                                <tr>
+                                    <td style="background-color:#fff">
+                                        <b>Mobile:</b>
+                                    </td>
+                                    <td style="background-color:#fff">
+
+                                        <span t-field="doc.partner_id.mobile"/>
+
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="doc.partner_id.email">
+                                <tr>
+                                    <td style="background-color:#fff">
+                                        <b>Email:</b>
+                                    </td>
+                                    <td style="background-color:#fff">
+                                        <span t-field="doc.partner_id.email"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="doc.partner_id.vat">
+                                <tr>
+                                    <td style="background-color:#fff">
+                                        <b>Tax ID:</b>
+                                    </td>
+                                    <td style="background-color:#fff">
+                                        <span t-field="doc.partner_id.vat"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+
+                    <!--                            <p t-if="doc.partner_id.vat"><b><t-->
+                    <!--                                    t-esc="doc.company_id.account_fiscal_country_id.vat_label or 'Tax ID'"/>:</b>-->
+                    <!--                                <span t-field="doc.partner_id.vat"/>-->
+                    <!--                            </p>-->
+
+                </div>
+            </xpath>
+            <xpath expr="//div[@name='so_total_summary']" position="replace">
+                <div class="clearfix" name="so_total_summary">
+                    <div id="total" class="row" name="total">
+                        <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                            <table class="table table-sm">
+                                <tr class="border-black o_subtotal" style="">
+                                    <td name="td_amount_untaxed_label">
+                                        <strong>Subtotal</strong>
+                                    </td>
+                                    <td name="td_amount_untaxed" class="text-right">
+                                        <t t-set="current_subtotal" t-value="0"/>
+                                        <t t-foreach="doc.order_line" t-as="line">
+                                            <t t-set="current_subtotal"
+                                               t-value="current_subtotal + (line.product_uom_qty * line.price_unit)"/>
+                                        </t>
+
+                                        <span t-esc="current_subtotal"
+                                              t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr class="border-black o_subtotal" style="">
+                                    <td name="td_amount_untaxed_label">
+                                        <strong>Discount</strong>
+                                    </td>
+                                    <td name="td_amount_untaxed" class="text-right">
+                                        <t t-set="total_discount" t-value="0"/>
+                                        <t t-foreach="doc.order_line" t-as="line">
+                                            <t t-set="total_discount"
+                                               t-value="total_discount + (line.price_unit * line.discount / 100) * line.product_uom_qty or 0"/>
+                                        </t>
+
+                                        <span t-esc="total_discount"
+                                              t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+
+
+                                    </td>
+                                </tr>
+
+                                <tr class="border-black o_subtotal" style="">
+                                    <td name="td_amount_untaxed_label">
+                                        <strong>Net</strong>
+                                    </td>
+                                    <td name="td_amount_untaxed" class="text-right">
+                                        <span t-field="doc.amount_untaxed"/>
+                                    </td>
+                                </tr>
+                                <tr class="border-black o_subtotal" style="">
+                                    <td name="">
+                                        <strong>Vat</strong>
+                                    </td>
+                                    <td name="" class="text-right">
+                                        <span t-field="doc.amount_tax"/>
+                                    </td>
+                                </tr>
+
+                                <tr class="border-black o_total">
+                                    <td name="td_amount_total_label">
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td name="td_amount_total" class="text-right">
+                                        <span t-field="doc.amount_total"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+        </template>
+
+    </data>
+</odoo>

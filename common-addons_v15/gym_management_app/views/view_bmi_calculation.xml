@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_bmi_calculation_tree" model="ir.ui.view">
+        <field name="name">bmi.calculation.view.tree</field>
+        <field name="model">bmi.calculation</field>
+        <field name="arch" type="xml">
+            <tree string="Bmi Calculation">
+                <field name="name"/>
+                <field name="gender"/>
+                <field name="date"/>
+                <field name="bmi_calculation"/>
+            </tree>
+        </field>
+     </record>
+
+    <record id="view_bmi_calculation_form" model="ir.ui.view">
+        <field name="name">bmi.calculation.view.form</field>
+        <field name="model">bmi.calculation</field>
+        <field name="arch" type="xml">
+            <form string="Bmi Calculation">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            Body Mass Index
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" domain="[('is_member','=', True),]"/>
+                            <field name="gender"/>
+                            <field name="age"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="height"/>
+                            <field name="weight"/>
+                            <field name="bmi_calculation"/>
+                        </group>
+                    </group> 
+                    <notebook>
+                        <page string="Membership">
+                            <table  style="border: 1px solid;width:30%;border-color: gray;">
+                                <thead>
+                                    <tr>
+                                        <td style="border: 1px solid;line-height:250%;font-weight: bold;border-color: gray;">BMI Range</td>
+                                        <td style="border: 1px solid;line-height:250%;font-weight: bold;;border-color: gray;">Category</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">Less Than 60</td>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">Severe Thinness</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">16-17</td>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">Moderate Thinness</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">17-18.5</td>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">Mild Thinness</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">18.5-25</td>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">Normal</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">25-30</td>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">Overweight</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">30-35</td>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">Obese Class 1</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">35-40</td>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">Obese Class 2</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">grater than 40</td>
+                                        <td style="border: 1px solid;line-height:250%;border-color: gray;">Obese Class 3</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </page>
+                    </notebook> 
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bmi_calculation" model="ir.actions.act_window">
+        <field name="name">Bmi Calculation</field>
+        <field name="res_model">bmi.calculation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    
+    <menuitem id="gym_bmi_submenu"
+        name="BMI calculation" parent="gym_member_menu" action="action_bmi_calculation" sequence="2" groups="gym_management_app.gym_management_trainer"/>
+
+</odoo>

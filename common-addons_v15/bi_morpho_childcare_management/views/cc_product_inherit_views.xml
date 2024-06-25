@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="cc_product_inherit_form_view" model="ir.ui.view">
+        <field name="name">cc.product.product.view.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="default_code" position="after">
+                <field name="cc_product" invisible="1"/>
+                <field name="fees_type" attrs="{'invisible':[('cc_product','=',False)], 'required':[('cc_product','=',True)]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="cc_product_action" model="ir.actions.act_window">
+        <field name="name">School Fees</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('cc_product','=',True),('type','=','service')]</field>
+        <field name="context">{'cc_product':True, 'type':'service',}</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="cc_enquiry_mail_template" model="mail.template">
+            <field name="name">Enquiry Confirmation Email</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="email_from">{{(object.user_id.email_formatted or user.email_formatted)}}</field>
+            <field name="email_to">{{object.p_email}}</field>
+            <field name="subject">Your Enquiry Recevied</field>
+            <field name="body_html" type="html">
+                <div style="margin:0px; padding:0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+<b>Dear <t t-out="object.p_name"/>,</b>
+<br/><br/>
+Your enquiry for your child <t t-out="object.c_fname"/> <t t-out="object.c_lname"/> is submitted successfully.<br/>
+Your enquiry id is <t t-out="object.enquiry_id"/> for your reference.
+<br />
+We will process your enquiry and contact you. 
+<br/><br/>
+Thank you so much...!!!
+                    </p>
+                </div>
+            </field>
+        </record>
+
+
+
+
+        <record id="cc_enroll_confirm_mail_template" model="mail.template">
+            <field name="name">Enroll Confirmation Email</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="email_from">{{(object.user_id.email_formatted or user.email_formatted)}}</field>
+            <field name="email_to">{{object.p_email}}</field>
+            <field name="subject">Childcare Enrollment Confirmation</field>
+            <field name="body_html" type="html">
+                <div style="margin:0px; padding:0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+<b>Dear <t t-out="object.p_name"/>,</b>
+<br/><br/><br/>
+We have confirmed your enquiry request for your child <t t-out="object.c_fname"/>. 
+<br/><br/>
+Next step in enrollment is to select school and make payment for enrollment fees. You need to click on below link, use username and password given below. First consider to change password. Then after make payment.
+<br/><br/>
+<t t-set="user_list" t-value="object.get_rel_user()"/>
+link : <t t-out="object.get_payment_url()"/><br/>
+username : <t t-out="user_list[0]"/><br/>
+password : <t t-out="user_list[1]"/>
+<br/><br/>
+After we receive payment we will update you regrading futher details.
+<br/><br/>
+Thank you so much...!!!
+                    </p>
+                </div>
+            </field>
+        </record>
+
+
+
+
+        <record id="cc_waitlist_confirm_mail_template" model="mail.template">
+            <field name="name">Enroll Confirmation Email</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="email_from">{{(object.user_id.email_formatted or user.email_formatted)}}</field>
+            <field name="email_to">{{object.p_email}}</field>
+            <field name="subject">Childcare Enrollment Confirmation</field>
+            <field name="body_html" type="html">
+                <div style="margin:0px; padding:0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+<b>Dear <t t-out="object.p_name"/>,</b>
+<br/><br/><br/>
+We appreciate your patience, now you can procced further in process of addmission of your child <t t-out="object.c_fname"/>. 
+<br/><br/>
+Next step is to make payment for enrollment fees. You need to click on below link and make payment.
+<br/><br/>
+link : <t t-out="object.get_payment_url(wait=True)"/>
+<br/><br/>
+After we receive payment we will update you regrading futher details.
+<br/><br/>
+Thank you so much...!!!
+                    </p>
+                </div>
+            </field>
+        </record>
+
+
+
+        <record id="cc_enroll_done_mail_template" model="mail.template">
+            <field name="name">Enroll Completed Email</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="email_from">{{(object.user_id.email_formatted or user.email_formatted)}}</field>
+            <field name="email_to">{{object.p_email}}</field>
+            <field name="subject">Childcare Enrollment Complete</field>
+            <field name="body_html" type="html">
+                <div style="margin:0px; padding:0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+<b>Dear <t t-out="object.p_name"/>,</b>
+<br/><br/><br/>
+congratulation, your child's enrollement in <t t-out="object.room_id.name"/> classroom of <t t-out="object.school_id.name"/> school has been completed. 
+<br/><br/>
+Use below code to Check In / Out your child in school.
+<br/><br/>
+code : <t t-out="object.set_childs_pinpass()"/>
+<br/><br/>
+Thank you so much...!!!
+                    </p>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

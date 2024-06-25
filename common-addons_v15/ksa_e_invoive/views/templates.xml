@@ -1,0 +1,98 @@
+<odoo>
+    <template id="external_layout_invoice">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <!--  Multicompany  -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <div t-attf-class="header o_company_#{company.id}_layout">
+
+            <center>
+                <img t-if="company.logo"
+                     t-att-src="image_data_uri(company.logo)"
+                     alt="Logo" height="60px" width="200px"/>
+                <div class="pull-left text-center" style="width:33%; display: inline-block !important">
+                    <div>
+                        <h5 style="color:#5e5353" t-if="company.name">
+                            <span t-field="company.name"/>
+                        </h5>
+                        <span t-if="company.vat">Vat No.
+                            <span class="" t-field="company.vat"/>
+                        </span>
+                        <br/>
+                        <span t-if="company.company_registry">C.R
+                            <span class="" t-field="company.company_registry"/>
+                        </span>
+                        <br/>
+                        <span t-if="company.phone">Phone
+                            <span class="" t-field="company.phone"/>
+                        </span>
+                        <br/>
+                        <span t-if="company.city or company.city or company.street">
+                            <span class="" t-field="company.street"/>
+                            <br t-if="company.city or company.city" />
+                            <span t-if="company.city" t-field="company.city"/>
+                            <span  t-if="company.zip" t-field="company.zip"/>
+                        </span>
+                        <br/>
+                    </div>
+                </div>
+                <div class="pull-right text-center" style="width:33%;display: inline-block !important">
+                    <div>
+                        <h5 style="color:#5e5353" dir="rtl" t-if="company.name">
+                            <span t-field="company.arabic_name"/>
+                        </h5>
+                        <span t-if="company.vat">
+                            <span class="" t-field="company.vat"/>
+                        </span>
+                        الرقم الضريبي
+                        <br/>
+                        <span t-if="company.company_registry">
+                            <span class="" t-field="company.company_registry"/>
+                        </span>
+                         س.ت
+                        <br/>
+                        <span t-if="company.phone">
+                            <span class="" t-field="company.phone"/>
+                        </span>
+                        الهاتف
+                        <br/>
+                        <span dir="rtl">
+                            <span class="" t-field="company.arabic_address"/>
+                        </span>
+                        <br/>
+                    </div>
+                </div>
+
+
+            </center>
+
+        </div>
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+             t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-raw="0"/>
+        </div>
+
+
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+            <div t-if="report_type == 'pdf'" class="text-muted">
+                Page:
+                <span class="page"/>
+                /
+                <span class="topage"/>
+            </div>
+        </div>
+
+    </template>
+
+
+</odoo>

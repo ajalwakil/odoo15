@@ -1,0 +1,13 @@
+-> Fix issue for indian accounting. take gst fields only when indian account is installed.
+
+>>>>15.0.0.1 : Fixed  From the children's we cannot create the inquiry
+              :  Fixed Issue  for Once the inquiry is confirmed there is no option for the enrollment 
+
+>>>>15.0.0.2 :(1) If the enrollment is completed then in the registration tab it is not showing the details of the school
+             (2) Fixed child form 
+
+>>>>15.0.0.3 : Fixed Enquriy form issue and also fixed child form issue 
+
+>>>>15.0.0.4 : Fixed Enquriy and Enrollments list view and also fixed for invoice payment in enquriy 
+
+>>>>15.0.0.5 : Fixed child attendances creation issue.

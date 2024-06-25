@@ -1,0 +1,258 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="child_form_view" model="ir.ui.view">
+        <field name="name">child.view.form</field>
+        <field name="model">res.partner</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <form string="Childs / Students">
+                <header>
+                    <button name="emergency_alert" type="object" string="Emergency" class="btn btn-danger" attrs="{'invisible': [('cc_status','=','en')]}"/>
+                    <button name="share_media" type="object" string="Share Media"/>
+                    <button name="action_parent_messaging" type="object" string="Parent Messaging" class="oe_highlight"/>
+                    <button name="action_enrolled" type="object" string="Create Enrolled" class="oe_highlight" attrs="{'invisible': [('cc_status','=','enroll')]}"/>
+                    <field name="cc_status" widget="statusbar" statusbar_visible="draft,enquiry,in_queue,enroll"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box">
+                        <button name="action_get_child_attend" type="object" class="oe_stat_button" icon="fa-clock-o">
+                            <span>Attendances</span>
+                        </button>
+                    </div>
+                    <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_128&quot;}"/>
+                    <div class="oe_title">
+                        <h1><strong><field name="name" readonly="1"/></strong></h1>
+                    </div>
+                    <field name="is_child" invisible="1"/>
+                    <field name="group_flag" invisible="1"/>
+                    <field name="staff_ids" invisible="1"/>
+                    <field name="is_parent" invisible="1"/>
+                    <field name="all_compute" invisible="1"/>
+                    <group>
+                        <group name="personal_info" string="Personal Information">
+                            <field name="name"/>
+                            <field name="dob"/>
+                            <label for="age_year" string="Age"/>
+                            <div class="oe_inline">
+                                <field name="age_year"/> year(s), 
+                                <field name="age_month"/> month(s),
+                                <field name="age_days"/> day(s) 
+                            </div>
+                            <field name="gender"/>
+                            <field name="doctor_id"/>
+                        </group>
+
+                        <group name="rooms_info" string="Rooms">
+                            <field name="main_room_id"/>
+                            <field name="other_room_ids" widget="many2many_tags"/>
+                        </group>
+
+                        <group name="address" string="Address">
+                            <span class="o_form_label o_td_label" name="address_name">
+                                Address
+                            </span>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Street..." class="o_address_street"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                            </div>
+                        </group>
+
+                        <group name="school_details" string="School Details">
+                            <!-- <field name="schedule"/> -->
+                            <field name="gender"/>
+                            <field name="meal_type"/>
+                            <field name="child_seq_id" readonly="1"/>
+                        </group>
+
+                        <group name="fin_details" string="Financial Details">
+                            <field name="family_income"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+
+                        <group name="enroll_details" string="Enrollment Details">
+                            <field name="enquiry_date"/>
+                            <field name="enroll_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="contacts" string="Contacts">
+                            <button type="object" name="open_add_new_parent" string="Add New Parent"/>
+                            <button type="object" name="open_add_exit_parent" string="Add Existing Parent"/>
+                            <field name="parent_ids" context="{'default_is_parent': True,'default_is_child': False,}" domain="[('is_parent','=',True)]" widget="many2many_tags,one2many">
+                                <kanban create="0">
+                                    <field name="id"/>
+                                    <field name="color"/>
+                                    <field name="name"/>
+                                    <field name="title"/>
+                                    <field name="type"/>
+                                    <field name="email"/>
+                                    <field name="parent_id"/>
+                                    <field name="is_company"/>
+                                    <field name="function"/>
+                                    <field name="phone"/>
+                                    <field name="street"/>
+                                    <field name="street2"/>
+                                    <field name="zip"/>
+                                    <field name="city"/>
+                                    <field name="country_id"/>
+                                    <field name="mobile"/>
+                                    <field name="state_id"/>
+                                    <field name="image_128"/>
+                                    <field name="lang"/>
+                                    <!-- fields in form x2many view to diminish requests -->
+                                    <field name="comment"/>
+                                    <field name="display_name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <t t-set="color" t-value="kanban_color(record.color.raw_value)"/>
+                                            <div t-att-class="color + (record.title.raw_value == 1 ? ' oe_kanban_color_alert' : '') + ' oe_kanban_global_click'">
+                                                <div class="o_kanban_image">
+                                                    <img alt="Contact image" t-if="record.image_128.raw_value" t-att-src="kanban_image('res.partner', 'image_128', record.id.raw_value)"/>
+                                                    <t t-if="!record.image_128.raw_value">
+                                                        <img alt="Delivery" t-if="record.type.raw_value === 'delivery'" t-att-src="_s + &quot;/base/static/img/truck.png&quot;"/>
+                                                        <img alt="Invoice" t-if="record.type.raw_value === 'invoice'" t-att-src="_s + &quot;/base/static/img/money.png&quot;"/>
+                                                        <t t-if="record.type.raw_value !== 'invoice' &amp;&amp; record.type.raw_value !== 'delivery'">
+                                                            <img alt="Logo" t-if="record.is_company.raw_value === true" t-att-src="_s + &quot;/base/static/img/company_image.png&quot;"/>
+                                                            <img alt="Avatar" t-if="record.is_company.raw_value === false" t-att-src="_s + &quot;/base/static/img/avatar_grey.png&quot;"/>
+                                                        </t>
+                                                    </t>
+                                                </div>
+                                                <div class="oe_kanban_details">
+                                                    <field name="name"/>
+                                                    <div t-if="record.email.raw_value"><field name="email" widget="email"/></div>
+                                                    <div t-if="record.type.raw_value != 'contact'">
+                                                        <div>
+                                                            <field name="zip"/>
+                                                            <field name="city"/>
+                                                        </div>
+                                                        <field t-if="record.state_id.raw_value" name="state_id"/>
+                                                        <field name="country_id"/>
+                                                    </div>
+                                                    <div t-if="record.phone.raw_value">Phone: <t t-esc="record.phone.value"/></div>
+                                                    <div t-if="record.mobile.raw_value">Mobile: <t t-esc="record.mobile.value"/></div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form string="Parent / Family" delete="0">
+                                    <sheet>
+                                        <group>
+                                            <field name="parent_type"/>
+                                            <field name="is_parent" eval="True" invisible="1"/>
+                                            <field name="is_child" eval="False" invisible="1"/>
+                                            <field name="name"/>
+                                            <field name="phone"/>
+                                            <field name="mobile"/>
+                                            <field name="email" widget="email"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page name="nutrition" string="Nutritions">
+                            <field name="nutrition_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="cc_interval_id"/>
+                                    <field name="nutrition_type"/>
+                                    <field name="food_count"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="allergies" string="Allergies">
+                            <field name="allergy_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="des"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="medications" string="Medications">
+                            <field name="medication_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="des"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="emerg_alert" string="Alert History">
+                            <field name="eme_alert_ids">
+                                <tree>
+                                    <field name="message_id"/>
+                                    <field name="message_status"/>
+                                    <field name="mail_id"/>
+                                    <field name="mail_status"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="notes" string="Notes">
+                            <field name="notes_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="school_regi" string="Registrations" groups="bi_morpho_childcare_management.bi_morpho_childcare_management_group_director">
+                            <field name="registration_ids">
+                                <tree>
+                                    <field name="school_id"/>
+                                    <field name="reg_date"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="cc_child_tree_view" model="ir.ui.view">
+        <field name="name">child.view.tree</field>
+        <field name="model">res.partner</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <tree string="Childs / Students">
+                <field name="name"/>
+                <field name="dob"/>
+                <field name="parent_ids" widget="many2many_tags"/>
+                <field name="gender"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="childs_action" model="ir.actions.act_window">
+        <field name="name">Childs</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_child','=',True)]</field>
+        <field name="context">{'default_is_child' : True,}</field>
+    </record>
+
+    <record id="child_form_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="child_form_view"/>
+        <field name="act_window_id" ref="childs_action"/>
+    </record>
+
+    <record id="cc_child_tree_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="cc_child_tree_view"/>
+        <field name="act_window_id" ref="childs_action"/>
+    </record>
+</odoo>

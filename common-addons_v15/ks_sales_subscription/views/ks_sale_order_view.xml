@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ks_sale_order_subscription_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]/button[1]" position="after">
+                <button class="oe_stat_button" name="ks_open_sale_subscriptions_action" type="object" icon="fa-book"
+                        attrs="{'invisible': [('ks_subscription_count', '=', 0)]}">
+                    <field name="ks_subscription_count" widget="statinfo" string="Subscriptions"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form/group/group/field[@name='price_unit']" position="after">
+                <field name="ks_subscription_id"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

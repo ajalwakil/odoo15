@@ -1,0 +1,167 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_product_bundle
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.1alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-14 10:38+0000\n"
+"PO-Revision-Date: 2020-10-14 10:38+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__sh_bundle_id
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_product_bundle_wizard_form_view
+msgid "Add Pack / Bundle"
+msgstr "إضافة حزمة / حزمة"
+
+#. module: sh_product_bundle
+#: model:ir.actions.act_window,name:sh_product_bundle.sh_action_add_pack
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_customer_invoice_form_view
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_product_bundle_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_purchase_order_form_view
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_sale_order_form_view
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_stock_picking_form_view
+msgid "Add Pack/Bundle"
+msgstr "إضافة حزمة / حزمة"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__sh_bundle_lines
+msgid "Bundle Lines"
+msgstr "خطوط حزمة"
+
+#. module: sh_product_bundle
+#: model:ir.model,name:sh_product_bundle.model_sh_product_bundle_wizard
+msgid "Bundle Wizard"
+msgstr "معالج حزمة"
+
+#. module: sh_product_bundle
+#: model:ir.model,name:sh_product_bundle.model_sh_product_bundle_wizard_line
+msgid "Bundle Wizard Lines"
+msgstr "حزمة خطوط معالج"
+
+#. module: sh_product_bundle
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_product_bundle_wizard_form_view
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__create_uid
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__create_uid
+msgid "Created by"
+msgstr "انشأ من قبل"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__create_date
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__create_date
+msgid "Created on"
+msgstr "تم إنشاؤها على"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__sh_partner_id
+msgid "Customer"
+msgstr "زبون"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_account_move__display_name
+#: model:ir.model.fields,field_description:sh_product_bundle.field_purchase_order__display_name
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sale_order__display_name
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__display_name
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__display_name
+#: model:ir.model.fields,field_description:sh_product_bundle.field_stock_picking__display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_account_move__id
+#: model:ir.model.fields,field_description:sh_product_bundle.field_purchase_order__id
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sale_order__id
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__id
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__id
+#: model:ir.model.fields,field_description:sh_product_bundle.field_stock_picking__id
+msgid "ID"
+msgstr "هوية شخصية"
+
+#. module: sh_product_bundle
+#: model:ir.model,name:sh_product_bundle.model_account_move
+msgid "Journal Entry"
+msgstr "إفتتاحية المجلة"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_account_move____last_update
+#: model:ir.model.fields,field_description:sh_product_bundle.field_purchase_order____last_update
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sale_order____last_update
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard____last_update
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line____last_update
+#: model:ir.model.fields,field_description:sh_product_bundle.field_stock_picking____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل ل"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__write_uid
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__write_date
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث:"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__sh_price
+msgid "Pack / Bundle Price"
+msgstr "حزمة / حزمة الأسعار"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__sh_product_id
+msgid "Product"
+msgstr "المنتج"
+
+#. module: sh_product_bundle
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_product_bundle_wizard_form_view
+msgid "Products"
+msgstr "منتجات"
+
+#. module: sh_product_bundle
+#: model:ir.model,name:sh_product_bundle.model_purchase_order
+msgid "Purchase Order"
+msgstr "أمر شراء"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__sh_qty
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__sh_bundle_quantity
+msgid "Quantity"
+msgstr "كمية"
+
+#. module: sh_product_bundle
+#: model:ir.model,name:sh_product_bundle.model_sale_order
+msgid "Sales Order"
+msgstr "طلب المبيعات"
+
+#. module: sh_product_bundle
+#: model:ir.model,name:sh_product_bundle.model_stock_picking
+msgid "Transfer"
+msgstr "نقل"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__sh_bundle_uom
+msgid "Unit Of Measure"
+msgstr "وحدة القياس"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__wizard_id
+msgid "Wizard ID"
+msgstr "معالج ID"
+
+#. module: sh_product_bundle
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_product_bundle_wizard_form_view
+msgid "or"
+msgstr "أو"

@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="cc_staff_form_view" model="ir.ui.view">
+        <field name="name">staff.view.form</field>
+        <field name="model">hr.employee</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <form string="Staff">
+                <header>
+                    <button name="%(bi_morpho_childcare_management.cc_userstafflink_wizard_action)d" type="action" string="Link To User" class="btn btn-primary" attrs="{'invisible': [('user_id','!=',False)]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box">
+                        <button name="action_todays_activities" type="object" class="oe_stat_button">
+                            <i class="fa fa-fw o_button_icon fa-clock-o"/>
+                            <span>Today's Activities</span>
+                        </button>
+                    </div>
+                    <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_128&quot;}"/>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group name="personal_info" string="Personal Information">
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="work_email"/>
+                            <field name="mobile_phone"/>
+                            <field name="birthday"/>
+                            <field name="user_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="emerg_cont_type"/>
+                            <field name="emergency_cont"/>
+                            <field name="staff_seq_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group name="rooms" string="Rooms">
+                            <field name="room_ids" widget="many2many_tags"/>
+                            <field name="teacher_room_ids" widget="many2many_tags"/>
+                        </group>
+                        <group name="certification" string="Certifications">
+                            <field name="degree_id"/>
+                            <field name="certificate_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="cc_staff_tree_view" model="ir.ui.view">
+        <field name="name">staff.view.tree</field>
+        <field name="model">hr.employee</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <tree string="Staff">
+                <field name="name"/>
+                <field name="work_phone"/>
+                <field name="mobile_phone"/>
+                <field name="work_email"/>
+                <field name="room_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="cc_staff_action" model="ir.actions.act_window">
+        <field name="name">Staff</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_staff','=',True)]</field>
+        <field name="context">{'default_is_staff' : True,}</field>
+    </record>
+
+    <record id="cc_staff_form_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="cc_staff_form_view"/>
+        <field name="act_window_id" ref="cc_staff_action"/>
+    </record>
+
+    <record id="cc_staff_tree_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="cc_staff_tree_view"/>
+        <field name="act_window_id" ref="cc_staff_action"/>
+    </record>
+
+
+
+    <record id="cc_room_lesson_plan_tree_view" model="ir.ui.view">
+        <field name="name">cc.room.activity.lesson.tree.view</field>
+        <field name="model">cc.room.activity</field>
+        <field name="priority" eval="60"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="room_id"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="description"/>
+                <button name="update_lesson_plan" type="object" string="Update Lesson Plan" class="oe_highlight"></button>
+            </tree>
+        </field>
+    </record>
+    
+</odoo>

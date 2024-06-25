@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="diet.interval" id="diet_interval_1">
+            <field name="name">Early Morning</field>
+        </record>
+        <record model="diet.interval" id="diet_interval_2">
+            <field name="name">Breakfast</field>
+        </record>
+        <record model="diet.interval" id="diet_interval_3">
+            <field name="name">Pre Lunch</field>
+        </record>
+        <record model="diet.interval" id="diet_interval_4">
+            <field name="name">Lunch</field>
+        </record>
+        <record model="diet.interval" id="diet_interval_5">
+            <field name="name">Snack</field>
+        </record>
+        <record model="diet.interval" id="diet_interval_6">
+            <field name="name">Dinner</field>
+        </record>
+        
+    </data>
+</odoo>

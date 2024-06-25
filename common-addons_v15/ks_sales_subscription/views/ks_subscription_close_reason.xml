@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ks_subscription_form_view_close_reason" model="ir.ui.view">
+        <field name="name">ks.subscription.reason.form</field>
+        <field name="model">ks.subscription.close.reason</field>
+        <field name="arch" type="xml">
+            <form string="Subscriptions Close Reasons">
+                <field name="ks_name" string="Listed Reasons"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="ks_subscription_tree_view_close_reason" model="ir.ui.view">
+        <field name="name">ks.subscription.reason.tree</field>
+        <field name="model">ks.subscription.close.reason</field>
+        <field name="arch" type="xml">
+            <tree string="Subscriptions Close Reasons">
+                <field name="ks_sequence" widget="handle"/>
+                <field name="ks_name" string="Listed Reasons"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ks_subscription_close_reason_action" model="ir.actions.act_window">
+        <field name="name">Subscriptions Close Reasons</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ks.subscription.close.reason</field>
+        <!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            id="ks_subscription_close_action"
+            name="Subscriptions Close Reasons"
+            groups="ks_sales_subscription.ks_manager_subscription_right"
+            action="ks_subscription_close_reason_action"
+            parent="ks_configurations_menu_action_id"
+            sequence="3"/>
+
+</odoo>

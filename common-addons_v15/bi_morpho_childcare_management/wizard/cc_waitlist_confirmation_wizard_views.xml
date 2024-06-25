@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cc_waitlistc_onfirmation_wizard_view_form" model="ir.ui.view">
+        <field name="name">cc.waitlist.confirmation.wizard.form</field>
+        <field name="model">cc.waitlist.confirmation.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <span>Are you sure you want to move this enquiry to waiting?</span>
+                </group>
+                <footer>
+                    <button name="confirm_move_to_waitlist" string="Move" type="object" class="btn btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="cc_waitlistc_onfirmation_wizard_action" model="ir.actions.act_window">
+        <field name="name">Confirmation</field>
+        <field name='type'>ir.actions.act_window</field>
+        <field name="res_model">cc.waitlist.confirmation.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="cc_waitlistc_onfirmation_wizard_view_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

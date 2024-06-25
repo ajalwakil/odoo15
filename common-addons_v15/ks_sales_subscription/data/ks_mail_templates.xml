@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ks_subscription_close_email_template" model="mail.template">
+        <field name="name">Subscription: Subscription Expired</field>
+        <field name="model_id" ref="ks_sales_subscription.model_ks_sale_subscription"/>
+        <field name="partner_to">{{object.ks_partner_id.id}}</field>
+        <!--            <field name="user_signature" eval="False"/>-->
+        <field name="auto_delete" eval="False"/>
+        <field name="subject">Your {{object.ks_code}} Subscription has been Expired.</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p>
+                    Dear
+                    <t t-out="object.ks_partner_id.name or ''"/>
+                    <t t-if="object.ks_partner_id.parent_id.name">
+                        <t t-out="object.ks_partner_id.name or ''"/>
+                    </t>
+                    <p>Your subscription has been expired.</p>
+                    <p>Do not hesitate to contact us if you have any question.</p>
+                    <t t-if="object.ks_company_id.name">
+                        <p>Thank you for choosing
+                            <t t-out="object.ks_company_id.name"/>
+                        </p>
+                    </t>
+                    <p>Thanks,</p>
+                    <t t-if="user and user.signature">
+                        <t t-out="user.signature"/>
+                    </t>
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <record id="ks_subscription_before_next_invoice_reminder" model="mail.template">
+        <field name="name">Subscription: Next Invoice Reminder</field>
+        <field name="model_id" ref="ks_sales_subscription.model_ks_sale_subscription"/>
+        <field name="partner_to">{{object.ks_partner_id.id}}</field>
+        <field name="auto_delete" eval="False"/>
+        <field name="subject">{{object.ks_code}} Subscription Renewal Reminder</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p>
+                    Dear
+                    <t t-out="object.ks_partner_id.name or ''"/>
+                    <t t-if="object.ks_partner_id.parent_id.name">
+                        <t t-out="object.ks_partner_id.name or ''"/>
+                    </t>
+                    <p>This email is just a reminder that your invoice will be generated on
+                        <t t-out="object.ks_recurring_next_date or '' "/>
+                        against
+                        <t t-out="object.ks_code or '' "/>
+                        Subscription .
+                        Please be prepared before the subscription expires.
+                    </p>
+                    <p>Do not hesitate to contact us if you have any question.</p>
+                    <t t-if="object.ks_company_id.name">
+                        <p>Thank you for choosing
+                            <t t-out="object.ks_company_id.name"/>
+                        </p>
+                    </t>
+                    <p>Thanks,</p>
+                    <t t-if="user and user.signature">
+                        <t t-out="user.signature"/>
+                    </t>
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <record id="ks_subscription_after_next_invoice_reminder" model="mail.template">
+        <field name="name">Subscription: Payment Reminder</field>
+        <field name="model_id" ref="ks_sales_subscription.model_ks_sale_subscription"/>
+        <field name="partner_to">{{object.ks_partner_id.id}}</field>
+        <!--        <field name="user_signature" eval="False"/>-->
+        <field name="auto_delete" eval="False"/>
+        <field name="subject">{{object.ks_code}} Subscription Payment Reminder.</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p>
+                    Dear
+                    <t t-out="object.ks_partner_id.name or ''"/>
+                    <t t-if="object.ks_partner_id.parent_id.name">
+                        <t t-out="object.ks_partner_id.name or ''"/>
+                    </t>
+                    <p>This email is to remind you that your invoice has been generated. We recommend paying your bill
+                        before the subscription expired on <t t-out="object.ks_buf_date"/>.
+                    </p>
+                    <p>If you have already paid. Please ignore that!.</p>
+                    <p>Do not hesitate to contact us if you have any question.</p>
+                    <!--                    % if object.ks_company_id.name:-->
+                    <t t-if="object.ks_company_id.name">
+                        <p>Thank you for choosing
+                            <t t-out="object.ks_company_id.name"/>
+                        </p>
+                    </t>
+                    <p>Thanks,</p>
+                    <t t-if="user and user.signature">
+                        <t t-out="user.signature"/>
+                    </t>
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <record id="ks_subscription_closed_for_due_payment" model="mail.template">
+        <field name="name">Subscription: Subscription Closed due to payment reminder</field>
+        <field name="model_id" ref="ks_sales_subscription.model_ks_sale_subscription"/>
+        <field name="partner_to">{{object.ks_partner_id.id}}</field>
+        <!--        <field name="user_signature" eval="False"/>-->
+        <field name="auto_delete" eval="False"/>
+        <field name="subject">Your {{object.ks_code}} Subscription Closed Due to Late Payment.</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p>
+                    Dear
+                    <t t-out="object.ks_partner_id.name"/>
+                    <t t-if="object.ks_partner_id.parent_id">
+                        <t t-out="object.ks_partner_id.parent_id.name"/>
+                    </t>
+                    <p>The
+                        <t t-out="object.ks_code"/>
+                        subscription is closed as the bill for the subscription has not been
+                        paid.
+                    </p>
+                    <p>Do not hesitate to contact us if you have any question.</p>
+                    <t t-if="object.ks_company_id.name">
+                        <p>Thank you for choosing
+                            <t t-out="object.ks_company_id.name"/>
+                        </p>
+                    </t>
+                    <p>Thanks,</p>
+                    <t t-if="user and user.signature">
+                        <t t-out="user.signature"/>
+                    </t>
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <record id="ks_subscription_close_customer_call" model="mail.template">
+        <field name="name">Subscription: Subscription Closed on customer call</field>
+        <field name="model_id" ref="ks_sales_subscription.model_ks_sale_subscription"/>
+        <field name="partner_to">{{object.ks_partner_id.id}}</field>
+        <!--        <field name="user_signature" eval="False"/>-->
+        <field name="auto_delete" eval="False"/>
+        <field name="subject">Your {{object.ks_code}} Subscription have been closed.</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p>
+                    Dear
+                    <t t-out="object.ks_partner_id.name"/>
+                    <t t-if="object.ks_partner_id.parent_id">
+                        <t t-out="object.ks_partner_id.parent_id.name"/>
+                    </t>
+                    <p>As discussed, Your
+                        <t t-out="object.ks_code"/>
+                        subscription has been closed.
+                    </p>
+                    <p>Do not hesitate to contact us if you have any question.</p>
+                    <t t-if="object.ks_company_id.name">
+                        <p>Thank you for choosing
+                            <t t-out="object.ks_company_id.name"/>
+                        </p>
+                    </t>
+                    <p>Thanks,</p>
+                    <t t-if="user and user.signature">
+                        <t t-out="user.signature"/>
+                    </t>
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <record id="ks_subscription_payment_successfully" model="mail.template">
+        <field name="name">Subscription: Subscription payment successfully</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="partner_to">{{object.partner_id.id}}</field>
+        <!--        <field name="user_signature" eval="False"/>-->
+        <field name="auto_delete" eval="False"/>
+        <field name="subject">Invoice payment successfully</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p>
+                    Dear
+                    <t t-out="object.partner_id.name"/>
+                    <t t-if="object.partner_id.parent_id">
+                        <t t-out="object.partner_id.parent_id.name"/>
+                    </t>
+                    <p>Here is your invoice
+                        <b>
+                            <t t-out="object.name"/>
+                        </b>
+                        amounting in
+                        <b>
+                            <t t-out="format_amount(object.ks_sub_amount_total, object.currency_id)"/>
+                        </b>
+                        paid successfully with due amount
+                        <b>
+                            <t t-out="format_amount(object.amount_residual, object.currency_id)"/>
+                        </b>
+                        .
+                    </p>
+                    <p>This invoice is paid.</p>
+                    <p>Do not hesitate to contact us if you have any question.</p>
+                    <t t-if="object.company_id.name">
+                        <p>Thank you for choosing
+                            <t t-out="object.company_id.name"/>
+                        </p>
+                    </t>
+                    <p>Thanks,</p>
+                    <t t-if="user and user.signature">
+                        <t t-out="user.signature"/>
+                    </t>
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <record id="ks_subscription_portal_payment_successfully" model="mail.template">
+        <field name="name">Subscription: Subscription payment from portal successfully</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="partner_to">{{object.partner_id.id}}</field>
+        <!--        <field name="user_signature" eval="False"/>-->
+        <field name="auto_delete" eval="False"/>
+        <field name="subject">Invoice payment successfully</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p>
+                    Dear
+                    <t t-out="object.partner_id.name"/>
+                    <t t-if="object.partner_id.parent_id">
+                        <t t-out="object.partner_id.parent_id.name"/>
+                    </t>
+                    <p>Here is your invoice
+                        <b>
+                            <b>
+                                <t t-out="object.name"/>
+                            </b>
+                        </b>
+                        amounting in
+                        <b>
+                            <t t-out="format_amount(object.amount_total, object.currency_id)"/>
+                        </b>
+                        paid successfully.
+                    </p>
+                    <p>This invoice is paid.</p>
+                    <p>Do not hesitate to contact us if you have any question.</p>
+                    <t t-if="object.company_id.name">
+                        <p>Thank you for choosing
+                            <t t-out="object.company_id.name"/>
+                        </p>
+                    </t>
+                    <p>Thanks,</p>
+                    <t t-if="user and user.signature">
+                        <t t-out="user.signature"/>
+                    </t>
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <record id="ks_subscription_renew_email" model="mail.template">
+        <field name="name">Subscription: Subscription Renew successfully</field>
+        <field name="model_id" ref="ks_sales_subscription.model_ks_sale_subscription"/>
+        <field name="partner_to">{{object.ks_partner_id.id}}</field>
+        <!--        <field name="user_signature" eval="False"/>-->
+        <field name="auto_delete" eval="False"/>
+        <field name="subject">Your {{object.ks_code}} Subscription have been Renewed.</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p>
+                    Dear
+                    <t t-out="object.ks_partner_id.name"/>
+                    <t t-if="object.ks_partner_id.parent_id">
+                        <t t-out="object.ks_partner_id.parent_id.name"/>
+                    </t>
+                    <p>Your
+                        <t t-out="object.ks_code"/>
+                        subscription has been renewed successfully. Enjoy our services.
+                    </p>
+                    <p>Do not hesitate to contact us if you have any question.</p>
+                    <t t-if="object.ks_company_id.name">
+                        <p>Thank you for choosing
+                            <t t-out="object.ks_company_id.name"/>
+                        </p>
+                    </t>
+                    <p>Thanks,</p>
+                    <t t-if="user and user.signature">
+                        <t t-out="user.signature"/>
+                    </t>
+                </p>
+            </div>
+        </field>
+    </record>
+
+</odoo>

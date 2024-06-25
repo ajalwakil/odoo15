@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_member_weight_tree" model="ir.ui.view">
+        <field name="name">member.weight.view.tree</field>
+        <field name="model">member.weight</field>
+        <field name="arch" type="xml">
+            <tree string="Member Weight">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="weight"/>
+            </tree>
+        </field>
+     </record>
+
+    <record id="view_member_weight_form" model="ir.ui.view">
+        <field name="name">member.weight.view.form</field>
+        <field name="model">member.weight</field>
+        <field name="arch" type="xml">
+            <form string="Member Weight">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" domain="[('is_member','=', True),]"/>
+                            <field name="date"/>
+                            <field name="weight"/>
+                        </group>
+                    </group> 
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_member_weight" model="ir.actions.act_window">
+        <field name="name">Member Weight</field>
+        <field name="res_model">member.weight</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    
+    <menuitem id="member_weight_submenu"
+        name="Member Weight" parent="gym_member_menu" action="action_member_weight" sequence="3" groups="gym_management_app.gym_management_trainer"/>
+
+</odoo>

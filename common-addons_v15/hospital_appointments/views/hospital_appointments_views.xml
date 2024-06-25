@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    Hospital Appointment form view-->
+    <record id="hospital_appointment_view_form" model="ir.ui.view">
+        <field name="name">hospital.appointment.view.form</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" clickable="1"/>
+                    <button name="action_appointment_sent"
+                            string="Send By Email"
+                            class="oe_highlight" type="object">
+                    </button>
+                    <button name="action_appointment_cancel" string="Cancel"
+                            class="oe_highlight" type="object"
+                            states="draft,approval">
+                    </button>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="appointment_seq" readonly="1"/>
+                        </h1>
+                    </div>
+                    <div class="oe_title">
+                        <h2 class="d-flex">
+                            <field name="patient_name"
+                                   placeholder="Patient's Name"
+                                   required="True"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="age"/>
+                            <field name="gender"/>
+                            <field name="address"/>
+                            <field name="doc_id"/>
+                            <field name="speciality"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="slot"/>
+                            <field name="appointment_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+<!--    Hospital Appointment Tree view-->
+    <record id="hospital_appointment_view_tree" model="ir.ui.view">
+        <field name="name">hospital.appointment.view.tree</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="appointment_seq"/>
+                <field name="patient_name"/>
+                <field name="gender"/>
+                <field name="doc_id"/>
+                <field name="speciality"/>
+                <field name="appointment_date"/>
+                <field name="slot"/>
+                <field name="phone"/>
+                <field name="email"/>
+            </tree>
+        </field>
+    </record>
+<!--    Hospital Appointment Calendar View-->
+    <record id="hospital_appointment_view_calender" model="ir.ui.view">
+        <field name="name">hospital.appointment.view.calendar</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointments" date_start="appointment_date"
+                      color="patient_name">
+                <field name="appointment_seq"/>
+                <field name="patient_name"/>
+            </calendar>
+        </field>
+    </record>
+<!--    Hospital Appointment Action-->
+    <record id="hospital_appointment_action" model="ir.actions.act_window" >
+        <field name="name">Appointment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">calendar,tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create appointment
+            </p>
+            <p>
+                You can enter patient appointment here.
+            </p>
+        </field>
+    </record>
+<!--    Top Menu Items-->
+    <menuitem name="Patient Appointment"
+              id="patient_appointment_root"
+              web_icon="hospital_appointments,static/img/icon.png"
+              sequence='10'/>
+    <menuitem name="Appointment"
+              id="appointment_root"
+              parent="patient_appointment_root"
+              sequence="9"/>
+    <menuitem name="Appointment"
+              id="appointment_details"
+              parent="appointment_root"
+              action="hospital_appointment_action"
+              sequence="8"/>
+    <menuitem name="Doctor"
+              id="doctor_root"
+              parent="patient_appointment_root"
+              sequence="10"/>
+    <menuitem name="Doctor"
+              id="doctor_details"
+              parent="doctor_root"
+              action="base_hospital_management.employee_doctor_view"
+              sequence="11"/>
+    <menuitem name="Specialization"
+              id="doctor_specialty"
+              parent="doctor_root"
+              action="base_hospital_management.specialization_action"
+              sequence="11"/>
+</odoo>

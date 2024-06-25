@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="body.parts" id="body_parts_1">
+            <field name="name">Shoulder</field>
+        </record>
+        <record model="body.parts" id="body_parts_2">
+            <field name="name">Arm</field>
+        </record>
+        <record model="body.parts" id="body_parts_3">
+            <field name="name">Chest</field>
+        </record>
+        <record model="body.parts" id="body_parts_4">
+            <field name="name">Leg</field>
+        </record>
+
+        <record model="gym.membership" id="gym_membership_1">
+            <field name="name">Weekly</field>
+            <field name="s_date" eval="time.strftime('%Y')+'-03-08'"></field>
+            <field name="e_date" eval="time.strftime('%Y')+'-03-014'"></field>
+            <field name="fees">100.00</field>
+        </record>
+
+        <record model="gym.equipment" id="gym_equipment_1">
+            <field name="name">Cable Biceps Bar</field>
+        </record>
+        <record model="gym.equipment" id="gym_equipment_2">
+            <field name="name">Lat Pull-Down</field>
+        </record>
+        <record model="gym.equipment" id="gym_equipment_3">
+            <field name="name">Pec-Deck</field>
+        </record>
+        <record model="gym.equipment" id="gym_equipment_4">
+            <field name="name">Treadmill</field>
+        </record>
+    </data>
+</odoo>

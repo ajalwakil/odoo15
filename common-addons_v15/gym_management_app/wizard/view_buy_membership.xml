@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_buy_membership_form" model="ir.ui.view">
+            <field name="name">buy.membership.form</field>
+            <field name="model">buy.membership</field>
+            <field name="arch" type="xml">
+                <form>
+	                <group>
+                        <field name="membership_id" options="{'no_create': True, 'no_edit': True}"/>
+                        <field name="price"/>        
+	                </group>
+                    <footer>
+                        <button name="create_invoice" string="Invoice Membership" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_buy_membership" model="ir.actions.act_window">
+            <field name="name">Buy Membership</field>
+            <field name="res_model">buy.membership</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_buy_membership_form"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

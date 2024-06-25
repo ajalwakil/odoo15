@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="print_patient_card" model="ir.actions.report">
+            <field name="name">Patient Card</field>
+            <field name="model">hospital.appointment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hospital_appointments.patient_card</field>
+            <field name="print_report_name">'Appoinment - %s' % (object.appointment_seq)</field>
+        </record>
+    </data>
+</odoo>

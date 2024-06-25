@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+         <!-- Subscriptions Stages -->
+        <record id="ks_subscription_stage_draft" model="ks.subscription.stage">
+            <field name="ks_name">Draft</field>
+            <field name="ks_in_progress" eval="False"/>
+            <field name="ks_sequence">10</field>
+        </record>
+        <record id="ks_subscription_stage_progress" model="ks.subscription.stage">
+            <field name="ks_name">In Progress</field>
+            <field name="ks_sequence">20</field>
+        </record>
+
+        <record id="ks_subscription_stage_closed" model="ks.subscription.stage">
+            <field name="ks_name">Closed</field>
+            <field name="ks_in_progress" eval="False"/>
+            <field name="ks_sequence">30</field>
+<!--            <field name="fold">True</field>-->
+        </record>
+
+    <data>
+        <record id="ks_sale_subscription_seq_generate" model="ir.sequence">
+            <field name="name">Subscriptions</field>
+            <field name="code">ks.sale.subscription</field>
+            <field name="prefix">SUB</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Subscription Close Reasons -->
+
+        <record id="ks_subscription_close_reason_1" model="ks.subscription.close.reason">
+            <field name="ks_name">Too expensive</field>
+        </record>
+        <record id="ks_subscription_close_reason_2" model="ks.subscription.close.reason">
+            <field name="ks_name">Does not met requirements</field>
+        </record>
+        <record id="ks_subscription_close_reason_3" model="ks.subscription.close.reason">
+            <field name="ks_name">Reached end date</field>
+        </record>
+        <record id="ks_subscription_close_reason_4" model="ks.subscription.close.reason">
+            <field name="ks_name">Expired</field>
+        </record>
+
+        <record id="ks_subscription_close_reason_5" model="ks.subscription.close.reason">
+            <field name="ks_name">Closed due to payment not paid</field>
+        </record>
+
+        <record id="ks_subscription_close_reason_6" model="ks.subscription.close.reason">
+            <field name="ks_name">Not Needed Anymore</field>
+        </record>
+        <record id="ks_subscription_close_reason_7" model="ks.subscription.close.reason">
+            <field name="ks_name">Other</field>
+        </record>
+
+         <!-- Crone Create Next Invoice -->
+
+
+    <record model="ir.cron" id="ks_cron_for_create_next_invoice">
+        <field name="name">Sale Subscription: Generate Next Invoice</field>
+        <field name="model_id" ref="ks_sales_subscription.model_ks_sale_subscription"/>
+        <field name="state">code</field>
+        <field name="code">model._ks_cron_create_next_invoice()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+    <record model="ir.cron" id="ks_cron_subscription_close">
+        <field name="name">Sale Subscription: Subscription Expired</field>
+        <field name="model_id" ref="ks_sales_subscription.model_ks_sale_subscription"/>
+        <field name="state">code</field>
+        <field name="code">model.ks_cron_subscription_close()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+    <record model="ir.cron" id="ks_cron_subscription_next_invoice_reminder">
+        <field name="name">Sale Subscription: Next Invoice Reminder</field>
+        <field name="model_id" ref="ks_sales_subscription.model_ks_sale_subscription"/>
+        <field name="state">code</field>
+        <field name="code">model.ks_crone_next_invoice_subscription_reminder()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+    <record model="ir.cron" id="ks_cron_due_payment_sub_closed">
+        <field name="name">Sale Subscription: Payment Due Closed Subscription</field>
+        <field name="model_id" ref="ks_sales_subscription.model_ks_sale_subscription"/>
+        <field name="state">code</field>
+        <field name="code">model.ks_crone_due_subscription_close()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+    <record model="ir.cron" id="ks_cron_to_renew_subscription">
+        <field name="name">Sale Subscription: Subscription Renew</field>
+        <field name="model_id" ref="ks_sales_subscription.model_ks_sale_subscription"/>
+        <field name="state">code</field>
+        <field name="code">model.ks_subscription_renew()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+
+
+    </data>
+</odoo>

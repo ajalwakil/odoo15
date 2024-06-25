@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ks_sale_subscription_form_view" model="ir.ui.view">
+        <field name="name">ks.sale.subscription.form.view</field>
+        <field name="model">ks.sale.subscription</field>
+        <field name="arch" type="xml">
+            <form string="Subscription">
+                <header>
+                    <button string="Create Invoice" name="ks_create_invoice" type="object"
+                            attrs="{'invisible': ['|',('ks_payment_mode', '!=', 'manual'),('ks_in_progress', '=', False)]}"
+                            class="btn-primary"/>
+                    <button string="Subscription Renew" name="ks_subscription_renew" context="{'ks_sub_id': True}"
+                            attrs="{'invisible': [('ks_recurring_rule_boundary','=','unlimited'), ('ks_in_progress', '=', True)]}"
+                            type="object" class="btn-primary"/>
+                    <button string="End Subscription" name="ks_cancel_invoice" type="object" class="btn-primary"
+                            attrs="{'invisible': [('ks_in_progress', '=', False)]}"/>
+                    <field name="ks_stage_id" widget="statusbar"/>
+                </header>
+                <sheet string="Sale Subscription">
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                                icon="fa-book"
+                                name="ks_open_action_subscription_invoice"
+                                type="object">
+                            <field name="ks_invoice_count" widget="statinfo" string="Invoices"/>
+                        </button>
+                        <button class="oe_stat_button"
+                                icon="fa-credit-card"
+                                name="ks_open_sales_action"
+                                type="object" attrs="{'invisible': [('ks_sale_count', '=', 0)]}">
+                            <field name="ks_sale_count" widget="statinfo" string="Sales"/>
+                        </button>
+                    </div>
+                    <div class="badge-pill badge-warning float-right"
+                         attrs="{'invisible': [('ks_to_renew', '=', False)]}">Renew
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="ks_name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="ks_partner_id" required="1"/>
+                            <field name="ks_code"/>
+                            <field name="ks_template_id"/>
+                            <field name="ks_date_start"/>
+                            <field name="ks_end_date"
+                                   attrs="{'invisible':[('ks_recurring_rule_boundary','=','unlimited')]}"/>
+                            <field name="ks_recurring_rule_boundary" invisible="1"/>
+                            <field name="ks_reason_close_id" attrs="{'invisible': [('ks_in_progress', '=', True)]}"/>
+                            <field name="ks_to_renew"/>
+                            <field name="ks_in_progress" invisible="1"/>
+                            <field name="ks_payment_mode" invisible="1"/>
+                            <field name="ks_pricelist_id" groups="product.group_sale_pricelist" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="ks_company_id"/>
+                            <field name="ks_user_id"/>
+                            <field name="ks_sale_team_id"/>
+                            <field name="ks_recurring_next_date"
+                                   attrs="{'invisible': [('ks_in_progress', '=', False)]}"/>
+                            <field name="ks_buffer_date" attrs="{'invisible': [('ks_in_progress', '=', False)]}"/>
+                            <field name="ks_reminder_day" attrs="{'invisible': [('ks_in_progress', '=', False)]}"/>
+                            <field name="ks_sale_id" invisible="1"/>
+                            <field name="ks_currency_id" invisible="1"/>
+                            <field name="ks_account_invoice_ids" widget="many2many_tags" invisible="1"/>
+
+                        </group>
+                    </group>
+                    <div>
+                        <notebook>
+                            <page string="Subscription Lines" id="lines">
+                                <div>
+                                    <field name="ks_recurring_invoice_line_ids">
+                                        <tree editable="bottom">
+                                            <field name="ks_product_id" domain="[('ks_recurring_invoice', '=', True)]"
+                                                   context="{'default_ks_recurring_invoice': True}"/>
+                                            <field name="ks_name"/>
+                                            <field name="ks_quantity"/>
+                                            <field name="ks_uom_id" groups="uom.group_uom"/>
+                                            <field name="ks_price_unit"/>
+                                            <field name="ks_discount" invisible="1"/>
+                                            <field name="ks_price_subtotal"/>
+                                        </tree>
+                                    </field>
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <field name="ks_recurring_total" class="oe_subtotal_footer_separator"
+                                               widget="monetary" options="{'currency_field': 'ks_currency_id'}"
+                                               modifiers="{'readonly': true}"
+                                        />
+                                    </group>
+                                </div>
+                            </page>
+                        </notebook>
+                    </div>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="ks_subscription_user_inherit_view_form" model="ir.ui.view">
+        <field name="name">ks.sale.subscription.form.view</field>
+        <field name="model">ks.sale.subscription</field>
+        <field name="inherit_id" ref="ks_sales_subscription.ks_sale_subscription_form_view"/>
+        <field name="groups_id" eval="[(4, ref('ks_sales_subscription.ks_user_subscription_right'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="edit">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ks_subscription_manager_inherit_view_form" model="ir.ui.view">
+        <field name="name">ks.sale.subscription.form.view</field>
+        <field name="model">ks.sale.subscription</field>
+        <field name="inherit_id" ref="ks_sales_subscription.ks_sale_subscription_form_view"/>
+        <field name="groups_id" eval="[(4, ref('ks_sales_subscription.ks_manager_subscription_right'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="edit">true</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ks_sale_subscription_tree_view" model="ir.ui.view">
+        <field name="name">ks.sale.subscription.tree</field>
+        <field name="model">ks.sale.subscription</field>
+        <field name="arch" type="xml">
+            <tree string="Sale Subscriptions">
+                <field name="ks_code"/>
+                <field name="ks_partner_id"/>
+                <field name="ks_recurring_next_date"/>
+                <field name="ks_user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ks_sale_subscription_kanban_view_new" model="ir.ui.view">
+        <field name="name">ks.sale.subscription.kanban</field>
+        <field name="model">ks.sale.subscription</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="ks_stage_id" class="o_kanban_mobile">
+                <field name="ks_user_id"/>
+                <field name="ks_stage_id"/>
+                <field name="ks_currency_id"/>
+                <field name="ks_recurring_total"/>
+                <field name="ks_template_id"/>
+                <field name="activity_ids"/>
+                <field name="ks_to_renew"/>
+                <field name="activity_state"/>
+                <progressbar field="activity_state"
+                             colors='{"planned": "success", "today": "warning", "overdue": "danger"}'/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div>
+                                    <h3>
+                                        <field name="ks_partner_id"/>
+                                    </h3>
+                                </div>
+                                <div>
+                                    <strong>
+                                        <field name="ks_recurring_total" widget="monetary"
+                                               options="{'currency_field': 'ks_currency_id'}"
+                                               modifiers="{'readonly': true}"/>
+                                    </strong>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div t-if="record.ks_to_renew.raw_value"
+                                         class="badge badge-warning border-0 float-right mt4">
+                                        Renew
+                                    </div>
+                                    <field name="ks_code"/>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="activity_ids" widget="kanban_activity"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <img t-att-src="kanban_image('res.users', 'image_small', record.ks_user_id.raw_value)"
+                                             t-att-title="record.ks_user_id.value" t-att-alt="record.ks_user_id.value"
+                                             width="24" height="24" class="oe_kanban_avatar"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="oe_clear"></div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="ks_sale_subscription_graph_view" model="ir.ui.view">
+        <field name="name">ks.sale.subscription.graph</field>
+        <field name="model">ks.sale.subscription</field>
+        <field name="arch" type="xml">
+            <graph string="Subscriptions">
+                <field name="ks_partner_id"/>
+                <field name="ks_recurring_total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="ks_sale_subscription_pivot_view" model="ir.ui.view">
+        <field name="name">ks.sale.subscription.pivot</field>
+        <field name="model">ks.sale.subscription</field>
+        <field name="arch" type="xml">
+            <pivot string="Subscriptions">
+                <field name="ks_partner_id"/>
+                <field name="ks_recurring_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+
+    <record id="ks_search_view_sale_subscription" model="ir.ui.view">
+        <field name="name">ks.sale.subscription.search</field>
+        <field name="model">ks.sale.subscription</field>
+        <field name="arch" type="xml">
+            <search string="Subscriptions">
+                <field name="ks_name" string="Subscription"/>
+                <field name="ks_end_date"/>
+                <field name="ks_partner_id" operator="child_of"/>
+                <field name="ks_user_id"/>
+                <field name="ks_template_id"/>
+                <field name="ks_code"/>
+                <filter name="ks_my_subscriptions" string="My Subscriptions" domain="[('ks_user_id','=',uid)]"/>
+                <separator/>
+                <filter name="ks_open" string="Running" domain="[('ks_in_progress','=',True)]"/>
+                <filter name="ks_renew" string="To Renew" domain="[('ks_to_renew','=',True)]"/>
+                <filter name="ks_closed" string="Closed" domain="[('ks_in_progress','=',False)]"/>
+                <filter string="Start Date" name="filter_date_start" date="ks_date_start"/>
+                <filter string="End Date" name="filter_end_start" date="ks_end_date"/>
+                <separator/>
+                <separator/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Stage" name="stage" domain="[]" context="{'group_by':'ks_stage_id'}"/>
+                    <filter string="Salesperson" name="ks_sales_person" domain="[]"
+                            context="{'group_by':'ks_user_id'}"/>
+                    <filter string="Customer" name="ks_customer" domain="[]" context="{'group_by':'ks_partner_id'}"/>
+                    <filter string="Template" name="ks_template" domain="[]" context="{'group_by':'ks_template_id'}"/>
+                    <filter string="Start Date" name="start_month" domain="[]"
+                            context="{'group_by' : 'ks_date_start'}"/>
+                    <filter string="End Date" name="end_month" domain="[]" context="{'group_by' : 'ks_end_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Subscriptions -->
+
+    <record id="ks_sale_subscription_action_view" model="ir.actions.act_window">
+        <field name="name">Subscriptions</field>
+        <field name="res_model">ks.sale.subscription</field>
+        <!--        <field name="view_type">form</field>-->
+        <field name="view_mode">kanban,tree,form,pivot,graph,activity</field>
+        <field name="context">{
+            "group_by": "ks_stage_id",
+            "search_default_ks_my_subscriptions":1
+            }
+        </field>
+        <field name="domain">[]</field>
+        <field name="search_view_id" eval='False'/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new subscription
+            </p>
+        </field>
+    </record>
+
+    <record id="ks_sale_subscription_kanban_action" model="ir.actions.act_window">
+        <field name="name">Subscriptions</field>
+        <field name="res_model">ks.sale.subscription</field>
+        <!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form,kanban,pivot,graph,activity</field>
+        <field name="context">{
+            'search_default_ks_template_id': [active_id],
+            'default_ks_template_id': active_id,
+            }
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new subscription
+            </p>
+        </field>
+    </record>
+
+    <record id="ks_account_move_line_inherit_form_subscription_view_new" model="ir.ui.view">
+        <field name="name">account.move.line.form.inherit</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="ks_subscription_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ks_account_move_inherit_form_subscription_view" model="ir.ui.view">
+        <field name="name">account.move.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='edi_state']" position="after">
+                <field name="ks_sub_buffer_date"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Menuitems -->
+    <menuitem id="ks_main_menu_sale_subscription_root" name="Subscriptions" sequence="8"
+              web_icon="ks_sales_subscription,static/description/icon.png"
+              groups="ks_sales_subscription.ks_user_subscription_right,ks_sales_subscription.ks_manager_subscription_right"/>
+    <menuitem id="ks_menu_sale_subscription_view" name="Subscriptions" parent="ks_main_menu_sale_subscription_root"
+              sequence="5"
+              groups="ks_sales_subscription.ks_user_subscription_right,ks_sales_subscription.ks_manager_subscription_right"/>
+    <menuitem action="ks_sale_subscription_action_view" id="ks_menu_sale_subscription_action" sequence="1"
+              parent="ks_menu_sale_subscription_view"
+              groups="ks_sales_subscription.ks_user_subscription_right,ks_sales_subscription.ks_manager_subscription_right"/>
+</odoo>

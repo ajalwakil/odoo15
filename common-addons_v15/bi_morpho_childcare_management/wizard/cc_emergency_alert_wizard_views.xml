@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cc_emergalert_wizard_view_form" model="ir.ui.view">
+        <field name="name">cc.emergalert.wizard.form</field>
+        <field name="model">cc.emergalert.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add Lesson Plan">
+                <group>
+                    <field name="child_ids" widget="many2many_tags"/>
+                </group>
+                <footer>
+                    <button name="send_alert" string="Send" type="object" class="btn btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="cc_emergalert_wizard_action" model="ir.actions.act_window">
+        <field name="name">Emergency Alert</field>
+        <field name='type'>ir.actions.act_window</field>
+        <field name="res_model">cc.emergalert.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="cc_emergalert_wizard_view_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

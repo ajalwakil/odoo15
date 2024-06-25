@@ -1,0 +1,167 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_product_bundle
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.1alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-14 10:38+0000\n"
+"PO-Revision-Date: 2020-10-14 10:38+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__sh_bundle_id
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_product_bundle_wizard_form_view
+msgid "Add Pack / Bundle"
+msgstr "Añadir Paquete / Bundle"
+
+#. module: sh_product_bundle
+#: model:ir.actions.act_window,name:sh_product_bundle.sh_action_add_pack
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_customer_invoice_form_view
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_product_bundle_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_purchase_order_form_view
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_sale_order_form_view
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_stock_picking_form_view
+msgid "Add Pack/Bundle"
+msgstr "Añadir Paquete / Bundle"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__sh_bundle_lines
+msgid "Bundle Lines"
+msgstr "Líneas Bundle"
+
+#. module: sh_product_bundle
+#: model:ir.model,name:sh_product_bundle.model_sh_product_bundle_wizard
+msgid "Bundle Wizard"
+msgstr "Asistente Bundle"
+
+#. module: sh_product_bundle
+#: model:ir.model,name:sh_product_bundle.model_sh_product_bundle_wizard_line
+msgid "Bundle Wizard Lines"
+msgstr "Asistente de paquete Líneas"
+
+#. module: sh_product_bundle
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_product_bundle_wizard_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__create_uid
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__create_date
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__sh_partner_id
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_account_move__display_name
+#: model:ir.model.fields,field_description:sh_product_bundle.field_purchase_order__display_name
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sale_order__display_name
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__display_name
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__display_name
+#: model:ir.model.fields,field_description:sh_product_bundle.field_stock_picking__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_account_move__id
+#: model:ir.model.fields,field_description:sh_product_bundle.field_purchase_order__id
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sale_order__id
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__id
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__id
+#: model:ir.model.fields,field_description:sh_product_bundle.field_stock_picking__id
+msgid "ID"
+msgstr "CARNÉ DE IDENTIDAD"
+
+#. module: sh_product_bundle
+#: model:ir.model,name:sh_product_bundle.model_account_move
+msgid "Journal Entry"
+msgstr "Entrada de diario"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_account_move____last_update
+#: model:ir.model.fields,field_description:sh_product_bundle.field_purchase_order____last_update
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sale_order____last_update
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard____last_update
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line____last_update
+#: model:ir.model.fields,field_description:sh_product_bundle.field_stock_picking____last_update
+msgid "Last Modified on"
+msgstr "Modificada por última vez"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__write_uid
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización realizada por"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__write_date
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualización en"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__sh_price
+msgid "Pack / Bundle Price"
+msgstr "Paquete / Bundle Precio"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__sh_product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: sh_product_bundle
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_product_bundle_wizard_form_view
+msgid "Products"
+msgstr "productos"
+
+#. module: sh_product_bundle
+#: model:ir.model,name:sh_product_bundle.model_purchase_order
+msgid "Purchase Order"
+msgstr "Orden de compra"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard__sh_qty
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__sh_bundle_quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: sh_product_bundle
+#: model:ir.model,name:sh_product_bundle.model_sale_order
+msgid "Sales Order"
+msgstr "Órdenes de venta"
+
+#. module: sh_product_bundle
+#: model:ir.model,name:sh_product_bundle.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__sh_bundle_uom
+msgid "Unit Of Measure"
+msgstr "Unidad de medida"
+
+#. module: sh_product_bundle
+#: model:ir.model.fields,field_description:sh_product_bundle.field_sh_product_bundle_wizard_line__wizard_id
+msgid "Wizard ID"
+msgstr "ID del asistente"
+
+#. module: sh_product_bundle
+#: model_terms:ir.ui.view,arch_db:sh_product_bundle.sh_product_bundle_wizard_form_view
+msgid "or"
+msgstr "o"

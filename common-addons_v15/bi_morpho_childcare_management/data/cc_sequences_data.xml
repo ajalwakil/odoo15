@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="bi_morpho_childcare_management_staff_sequence" model="ir.sequence">
+            <field name="name">Staff Sequence ID</field>
+            <field name="code">hr.employee</field>
+            <field name="prefix">STAAF/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="bi_morpho_childcare_management_child_sequence" model="ir.sequence">
+            <field name="name">Child Sequence ID</field>
+            <field name="code">res.partner</field>
+            <field name="prefix">CHILD/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="bi_morpho_childcare_management_school_sequence" model="ir.sequence">
+            <field name="name">School Sequence ID</field>
+            <field name="code">cc.school</field>
+            <field name="prefix">SCHOOL/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

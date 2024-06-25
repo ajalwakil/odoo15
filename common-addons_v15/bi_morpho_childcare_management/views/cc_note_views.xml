@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<odoo>
+	<record id="cc_note_form_view" model="ir.ui.view">
+        <field name="name">cc.note.view.form</field>
+        <field name="model">cc.note</field>
+        <field name="arch" type="xml">
+            <form string="Notes">
+            	<sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                    <group name="note_dec" string="Description">
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+	<record id="cc_note_tree_view" model="ir.ui.view">
+        <field name="name">cc.note.view.tree</field>
+        <field name="model">cc.note</field>
+        <field name="arch" type="xml">
+            <tree string="Notes">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cc_note_action" model="ir.actions.act_window">
+        <field name="name">Notes</field>
+        <field name="res_model">cc.note</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

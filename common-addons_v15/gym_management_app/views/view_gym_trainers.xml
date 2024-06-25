@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_gym_trainer_tree" model="ir.ui.view">
+        <field name="name">hr.employee.view.tree</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <tree string="Gym Members">
+                <field name="name"/>
+                <field name="mobile_no"/>
+                <field name="email"/>
+                <field name="department"/>            
+                <field name="job_id"/>
+                <field name="parent_id"/>
+            </tree>
+        </field>
+     </record>
+
+    <record id="view_gym_trainers_form" model="ir.ui.view">
+        <field name="name">hr.employee.view.form</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <form string="Gym Members">
+                <field name="active" invisible="1"/>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="member_record" type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+                            <field string="Members" name="calculate_members" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;zoom&quot;: true, &quot;preview_image&quot;:&quot;image_128&quot;}"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="mobile_no"/>
+                            <field name="phone_no"/>
+                            <field name="email"/>
+                            <field name="location"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            
+                        </group>
+                        <group>
+                            <field name="is_trainer"/>
+                            <field name="department"/>
+                            <field name="job_id"/>
+                            <field name="parent_id"/>
+                            <field name="specialist_id" widget="many2many_tags" options="{'no_create': True, 'no_edit': True}"/>
+                         </group>
+                    </group>
+                    <notebook>
+                            <page name="public" string="Work Information">
+                                <div id="o_work_employee_container">
+                                    <div id="o_work_employee_main">
+                                        <group string="Location">
+                                            <field name="address_id"
+                                                context="{'show_address': 1}"
+                                                options='{"always_reload": True, "highlight_first_line": True}'/>
+                                        </group>
+                                        <group name="managers" string="Responsibles">
+                                            <field name="coach_id"/>
+                                        </group>
+                                        <group name="departure" string="Departure">
+                                            <field name="departure_reason"/>
+                                            <field name="departure_description"/>
+                                        </group>
+                                        <group string="Schedule" groups="base.group_no_one">
+                                            <field name="resource_calendar_id" required="1"/>
+                                            <field name="tz"/>
+                                        </group>
+                                    </div>
+                                </div>
+                            </page>
+                            <page name="personal_information" string="Private Information" groups="hr.group_hr_user">
+                                <group>
+                                    <group string="Private Contact">
+                                        <field name="address_home_id"
+                                            context="{
+                                                'show_address': 1,
+                                                'default_type': 'private',
+                                                'form_view_ref': 'base.res_partner_view_form_private'}"
+                                            options='{"always_reload": True, "highlight_first_line": True}'/>
+                                        <field name="private_email" string="Email"/>
+                                        <field name="phone" groups="hr.group_hr_user" string="Phone"/>
+                                        <field name="bank_account_id" context="{'default_partner_id': address_home_id}"/>
+                                        <field name="km_home_work" groups="hr.group_hr_user"/>
+                                    </group>
+                                    <group string="Citizenship">
+                                        <field name="country_id" options='{"no_open": True, "no_create": True}'/>
+                                        <field name="identification_id" groups="hr.group_hr_user"/>
+                                        <field name="passport_id" groups="hr.group_hr_user"/>
+                                        <field name="gender"/>
+                                        <field name="birthday"/>
+                                        <field name="place_of_birth" groups="hr.group_hr_user"/>
+                                        <field name="country_of_birth" groups="hr.group_hr_user"/>
+                                    </group>
+                                    <group string="Marital Status">
+                                        <field name="marital"/>
+                                        <field name="spouse_complete_name" attrs="{'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}" groups="hr.group_hr_user"/>
+                                        <field name="spouse_birthdate" attrs="{'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}" groups="hr.group_hr_user"/>
+                                    </group>
+                                    <group string="Dependant">
+                                        <field name="children"/>
+                                    </group>
+                                    <group string="Emergency">
+                                        <field name="emergency_contact"/>
+                                        <field name="emergency_phone"/>
+                                    </group>
+                                    <group string="Work Permit" name="work_permit">
+                                        <field name="visa_no"/>
+                                        <field name="permit_no"/>
+                                        <field name="visa_expire"/>
+                                    </group>
+                                    <group string="Education">
+                                        <field name="certificate"/>
+                                        <field name="study_field"/>
+                                        <field name="study_school"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="hr_settings" string="HR Settings" groups="hr.group_hr_user">
+                                <group>
+                                    <group string='Status' name="active_group">
+                                        <field name="user_id" string="Related User"/>
+                                    </group>
+                                    <group string="Attendance" name="identification_group">
+                                        <field name="pin" string="PIN Code"/>
+                                        <label for="barcode"/>
+                                        <div class="o_row">
+                                            <field name="barcode"/>
+                                            <button string="Generate" class="btn btn-link" type="object" name="generate_random_barcode" attrs="{'invisible': [('barcode', '!=', False)]}"/>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_gym_trainers" model="ir.actions.act_window">
+        <field name="name">Gym Trainers</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name ="view_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="search_view_id" ref="hr.view_employee_filter"/>
+        <field name="domain">['|',('is_trainer','=', 'True'),('name_sequence','=','New')]</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Add a new employee
+          </p><p>
+            With just a quick glance on the Odoo employee screen, you
+            can easily find all the information you need for each person;
+            contact data, job position, availability, etc.
+          </p>
+        </field>
+    </record>
+
+    <record id="mail_activity_kanban_view" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="hr.hr_kanban_view_employees"/>
+            <field name="act_window_id" ref="action_gym_trainers"/>
+        </record>
+
+
+    <record id="new_trainer_form_view" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_gym_trainers_form"/>
+            <field name="act_window_id" ref="action_gym_trainers"/>
+        </record>
+
+    <record id="new_trainer_tree_view" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_gym_trainer_tree"/>
+            <field name="act_window_id" ref="action_gym_trainers"/>
+    </record>
+
+
+    <menuitem id="gym_trainer_submenu"
+        name="Trainers" parent="gym_member_menu" action="action_gym_trainers" sequence="4"/>
+
+
+</odoo>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xml:space="preserve">
+
+
+	<t t-name="bi_morpho_childcare_management.Attachments">
+        <div t-if="attachments.length" class="row">
+            <div t-foreach="attachments" t-as="attachment" class="col-lg-2 col-md-3 col-sm-6">
+            	<t t-set="type" t-value="widget.getMimeType(attachment.mimetype)"/>
+            	<div t-if="type === 'video'" class="o_AttachmentViewer_main">
+	            	<video controls="controls" class="o_AttachmentViewer_view o_AttachmentViewer_viewVideo"><source data-type="video/mp4" t-att-src="widget._computeDefaultSource(attachment)"/></video>
+                    <a t-attf-href="/web/content/#{attachment.id}?download=true&amp;access_token=#{attachment.access_token}" style="text-decoration:none; color:black;" target="_blank"><i class="fa fa-download"></i></a>
+	            </div>
+                <div t-if="type === 'image'" class="o_AttachmentViewer_main">
+                    <a t-attf-href="/web/content/#{attachment.id}?&amp;access_token=#{attachment.access_token}" target="_blank">
+	                   <img t-att-src="widget._computeDefaultSource(attachment)" style="max-height: 100px; max-width: 100px;" draggable="false" alt="Viewer" class="o_AttachmentViewer_view o_AttachmentViewer_viewImage"/>
+                   </a>
+                   <a t-attf-href="/web/content/#{attachment.id}?download=true&amp;access_token=#{attachment.access_token}" style="text-decoration:none; color:black;" target="_blank"><i class="fa fa-download"></i></a>
+            	</div>
+                <div t-if="type === 'application/pdf'">
+                    <a t-attf-href="/web/content/#{attachment.id}?&amp;access_token=#{attachment.access_token}" target="_blank">
+                        <div class='oe_attachment_embedded o_image' t-att-title="attachment.name" t-att-data-mimetype="attachment.mimetype"/>
+                    </a>
+                    <a t-attf-href="/web/content/#{attachment.id}?download=true&amp;access_token=#{attachment.access_token}" style="text-decoration:none; color:black;" target="_blank"><i class="fa fa-download"></i></a>
+                </div>
+                <div t-if="type === 'application/octet-stream'">
+                    <a role="button" t-attf-href="/web/content/#{attachment.id}?&amp;access_token=#{attachment.access_token}" target="_blank" class="btn btn-default" style="text-decoration:none; color:white;background-color:#0f37ff">
+                        Link
+                    </a>
+                </div>
+                <div t-if="type === false">
+                    <a t-attf-href="/web/content/#{attachment.id}?download=true&amp;access_token=#{attachment.access_token}">
+                        <div class='oe_attachment_embedded o_image' t-att-title="attachment.name" t-att-data-mimetype="attachment.mimetype"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </t>
+
+	<t t-extend="portal.chatter_messages">
+        <t t-jquery="div.media-body" t-operation="replace">
+        	<div class="media-body">
+                <t t-if="!widget.get('cc_chatter')">
+					<t t-call="portal.chatter_internal_toggle" t-if="widget.options['is_user_employee']"/>
+				</t>
+
+                <div class="o_portal_chatter_message_title">
+                    <h5 class='mb-1'><t t-esc="message.author_id[1]"/></h5>
+                    <p class="o_portal_chatter_puslished_date"><t t-esc="message.published_date_str"/></p>
+                </div>
+                <t t-out="message.body"/>
+                <div class="o_portal_chatter_attachments">
+                	<t t-if="widget.get('cc_chatter')" t-call="bi_morpho_childcare_management.Attachments">
+                        <t t-set="attachments" t-value="message.attachment_ids"/>
+                    </t>
+                    <t t-if="!widget.get('cc_chatter')" t-call="portal.Chatter.Attachments">
+                        <t t-set="attachments" t-value="message.attachment_ids"/>
+                    </t>
+                </div>
+            </div>
+		</t>
+	</t>
+
+    <t t-extend="portal.Chatter">
+        <t t-jquery="div:first" t-operation="replace">
+            <div t-attf-class="o_portal_chatter p-0 #{two_columns and 'row' or ''}">
+                <div t-if="!widget.get('cc_chatter')" t-attf-class="#{two_columns and 'col-lg-5' or ''}">
+                    <div class="o_portal_chatter_header">
+                        <t t-call="portal.chatter_message_count"/>
+                    </div>
+                    <hr t-if="widget.options['allow_composer']"/>
+                    <div class="o_portal_chatter_composer"/>
+                </div>
+                <hr t-if="!two_columns"/>
+                <div t-attf-class="#{two_columns and 'offset-lg-1 col-lg-6' or ''}">
+                    <t t-call="portal.chatter_messages"/>
+                    <div class="o_portal_chatter_footer">
+                        <t t-call="portal.pager"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+
+</template>

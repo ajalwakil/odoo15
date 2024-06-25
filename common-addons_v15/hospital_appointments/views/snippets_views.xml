@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/css" href="style.css"?>
+<odoo>
+    <data>
+        <template id="custom_para_with_a_redirect" name="Calendar">
+            <section>
+                <body>
+                <div class="container">
+                    <div class="calendar">
+                        <div class="month">
+                            <link
+                                    rel="stylesheet"
+                                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+                            />
+                            <i class="fas fa-angle-left prev"/>
+                            <div class="date">
+                                <h1/>
+                                <p/>
+                            </div>
+                            <i class="fas fa-angle-right next"/>
+                        </div>
+                        <div class="weekdays">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        <div class="days"/>
+                    </div>
+                </div>
+                </body>
+            </section>
+        </template>
+        <template id="adding_new_snippet_to_website_snippetsr" inherit_id="website.snippets"
+                  name="Place into building blocks bar">
+            <xpath expr="//div[@id='snippet_structure']" position="inside">
+                <div class="o_panel_body">
+                    <t t-snippet="hospital_appointments.custom_para_with_a_redirect"
+                       t-thumbnail="/hospital_appointments/static/img/icon.png"/>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

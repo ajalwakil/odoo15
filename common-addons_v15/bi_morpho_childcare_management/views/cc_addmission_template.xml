@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="cc_admission_enquiry_form_template" name="Admission Enquiry">
+        <t t-call="website.layout">
+            <div id="add_main_div">
+                <div id="add_sub_div">
+                    <br/>
+                    <center><h1><b>ADDMISSION ENQUIRY</b></h1></center>
+                    <form id="add_form" action="/cc/submit/add" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <br/>
+                        <table class="table table-borderless form_td">
+                            <tbody>
+                                <tr>
+                                    <td id="t_title">
+                                        <span class="inp_label">CHILD'S FIRST NAME:</span><br/>
+                                        <input name="child_first_name" class="form_name" type="text" placeholder="Enter First Name"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span class="inp_label">CHILD'S LAST NAME:</span><br/>
+                                        <input name="child_last_name" class="form_name" type="text" placeholder="Enter Last Name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="t_title">
+                                        <span class="inp_label">DATE OF BIRTH:</span><br/>
+                                        <input name="child_bod" class="form_name" type="date" placeholder="Enter Birthdate"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span class="inp_label">CHILD'S GENDER:</span><br/>
+                                        <select name="c_gender" class="form_name">
+                                            <option value="" selected="1">Select Child Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-borderless form_td">
+                            <tbody>
+                                <tr>
+                                    <td class="text-left" colspan="99">
+                                        <span class="inp_label">ALLERGIES:</span><br/>
+                                        <table class="table table-sm alg_table">
+                                            <thead>
+                                                <tr>
+                                                    <th><span class="inp_label">Name</span></th>
+                                                    <th><span class="inp_label">Description</span></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="alg_table_body" class="alg_table_body">
+                                                
+                                            </tbody>
+                                        </table>
+                                        <a type="button" title="Add" href="#" data-toggle="modal" data-target="#myModal">
+                                            <span class="inp_label">ADD</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left" colspan="99">
+                                        <span class="inp_label">MEDICATIONS:</span><br/>
+                                        <table class="table table-sm medi_table">
+                                            <thead>
+                                                <tr>
+                                                    <th><span class="inp_label">Name</span></th>
+                                                    <th><span class="inp_label">Description</span></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="medi_table_body" class="medi_table_body">
+                                            </tbody>
+                                        </table>
+                                        <a type="button" title="Add" href="#" data-toggle="modal" data-target="#myModalMedi">
+                                            <span class="inp_label">ADD</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left" colspan="99">
+                                        <span class="inp_label">REASON FOR APPLYING:</span><br/>
+                                        <textarea name="reason_applying" class="form_name" rows="3" type="text" placeholder="Enter your reason"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="t_title">
+                                        <span class="inp_label">CHILD'S PROFILE:</span><br/>
+                                        <input id="child_imge" name="child_imge" class="form_name child_imge" type="file" accept="image/*"/>
+                                    </td>
+                                    <td>
+                                        <span class="inp_label">PARENT'S PROFILE:</span><br/>
+                                        <input id="parent_imge" name="parent_imge" class="form_name parent_imge" type="file" accept="image/*"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-borderless form_td">
+                            <tbody>
+                                <tr>
+                                    <td id="t_title">
+                                        <span class="inp_label">PARENT'S FULL NAME:</span><br/>
+                                        <input name="parent_name" class="form_name" type="text" placeholder="Enter Full Name"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span class="inp_label">PARENT'S EMAIL:</span><br/>
+                                        <input name="parent_email" class="form_name valid_email" type="text" placeholder="Enter Email"/>
+                                        <span class="valid_email_war validation_war">Please enter correct email.</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="t_title">
+                                        <span class="inp_label">PARENT'S PHONE:</span><br/>
+                                        <input name="parent_phone" type="text" class="form_name valid_phone" placeholder="Enter Phone No."/>
+                                        <span class="valid_phone_war validation_war">Please enter correct phone number.</span>
+                                    </td>
+                                    <td class="text-left">
+                                        <span class="inp_label">PARENT'S MOBILE:</span><br/>
+                                        <input name="parent_mobile" type="text" class="form_name valid_mobile" placeholder="Enter Mobile No."/>
+                                        <span class="valid_mobile_war validation_war">Please enter correct mobile number.</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="t_title">
+                                        <span class="inp_label">PARENT'S TYPE:</span><br/>
+                                        <select name="parent_type" class="form_name">
+                                            <option value="" selected="1">Select Parent Type</option>
+                                            <option value="parent">Parent</option>
+                                            <option value="family">Family</option>
+                                            <option value="pickup">Approved Pickup</option>
+                                        </select>
+                                    </td>
+                                    <td class="text-left">
+                                        <span class="inp_label">PARENT'S GENDER:</span><br/>
+                                        <select name="p_gender" class="form_name">
+                                            <option value="" selected="1">Select Parent Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left" colspan="99">
+                                        <span class="inp_label">ADDRESS:</span><br/>
+                                        <div style="width:auto">
+                                            <div style="width:100%;">
+                                                <input class="addr_inp form_name" name="street" type="text" placeholder="Street..." style="width:100%;"/><br/>
+                                                <input class="addr_inp" name="street2" type="text" placeholder="Street2..." style="width:100%;"/><br/>
+                                            </div>
+                                            <div class="addr_inp">
+                                              <input type="text" name="city" placeholder="City" style="width:49%;" class="form_name"/>
+                                              <input type="number" name="zip" placeholder="Zip" style="width:49%;"/><br/>
+                                            </div>
+                                            <select id="parent_add_country" name="parent_country" class="addr_sel_inp form_name" type="text" placeholder="Country" style="width:100%;">
+                                                <option value="">Select Country</option>
+                                                <t t-foreach="country" t-as="c">
+                                                    <option t-att-value="c.id"><t t-esc="c.name"/></option>
+                                                </t>
+                                            </select>
+                                            <select id="parent_add_state" name="parent_add_state" class="addr_sel_inp form_name" type="text" placeholder="State" style="width:100%;">
+                                                <option value="">Select State</option>
+                                                <t t-foreach="state" t-as="s">
+                                                    <option class="state_options" t-att-value="s.id" t-att-data-country="s.country_id.id" style="display:none;"><t t-esc="s.name"/></option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="max-width:50%;margin-top:10px;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">ADD ALLERGY</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="alg_modal_body_div" class="alg_modal_body_div">
+                                        <span class="inp_label">ALLERGY NAME:</span><br/>
+                                        <input name="alg_name" class="form_name" type="text"/><br/>
+                                        <span class="inp_label">ALLERGY DESCRIPTION:</span><br/>
+                                        <textarea name="alg_des" class="form_name" rows="5" type="text"/>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <a id="add_allergy" type="button" class="btn btn-primary bi_btn"><span style="color:white;">Add</span></a>
+                                    <a id="edit_allergy" type="button" class="btn btn-primary bi_btn" style="display:none;"><span style="color:white;">Edit</span></a>
+                                    <a type="button" data-dismiss="modal" class="btn btn-default alg_mdl_dis">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="myModalMedi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="max-width:50%;margin-top:10px;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">ADD MEDICATION</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="medi_modal_body_div" class="alg_modal_body_div">
+                                        <span class="inp_label">MEDICATION NAME:</span><br/>
+                                        <input name="medi_name" class="form_name" type="text"/><br/>
+                                        <span class="inp_label">MEDICATION DESCRIPTION:</span><br/>
+                                        <textarea name="medi_des" class="form_name" rows="5" type="text"/>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <a id="add_medication" type="button" class="btn btn-primary bi_btn"><span style="color:white;">Add</span></a>
+                                    <a id="edit_medication" type="button" class="btn btn-primary bi_btn" style="display:none;"><span style="color:white;">Edit</span></a>
+                                    <a type="button" data-dismiss="modal" class="btn btn-default medi_mdl_dis">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="fields_mand" class="badge badge-warning"><span>Fill all mandatory fields</span></div>
+                    <div id="cc_button_box">
+                        <button id="cc_form_submit" class="btn btn-primary bi_btn">Submit</button>
+                        <a id="cc_form_cancel" role="button" href="/cc/add/cancel"  class="btn btn-default bi_btn">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="cc_form_submission_status" name="Form Submmitted Status">
+        <t t-call="website.layout">
+            <div t-if="status" id="cc_success">
+                <div class="alert alert-success">
+                    <h3><strong>Thanks <t t-esc="name"/>,<br/> We have received your Request</strong></h3>
+                    <br/>
+                    We will process your request and reach back to you in a short time.
+                </div>
+                <a href="/my/home" class="btn btn-primary bi_btn">Home</a> 
+            </div>
+
+            <div t-if="not status" id="cc_fail">
+                <div class="alert alert-danger">
+                    <h3><strong>Failed</strong></h3>
+                    <br/>
+                    Not able to submit your form, you can try again on clicking below button.
+                </div>
+                <a href="/web/childcare/add" class="btn btn-primary bi_btn">Fill Again</a> 
+            </div>
+        </t>
+    </template>
+</odoo>

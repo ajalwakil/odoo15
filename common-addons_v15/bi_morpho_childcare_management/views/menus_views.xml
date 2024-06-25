@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<odoo>
+    <!--Main App Menu-->
+    <menuitem id="bi_childcare_management_main_menu" sequence="50" name="Childcare Management" groups="bi_morpho_childcare_management.bi_morpho_childcare_management_group_director,bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff" web_icon="bi_morpho_childcare_management,static/description/icon.png"/>
+
+    <!-- Childcare Menus -->
+    <menuitem id="childcare_main_menu" parent="bi_childcare_management_main_menu" sequence="0" name="My Childcare"/>
+    <menuitem id="cc_childs_menu" parent="childcare_main_menu" sequence="0" name="Childs" action="childs_action"/>
+    <menuitem id="cc_parent_menu" parent="childcare_main_menu" sequence="1" name="Parents" action="cc_parent_action"/>
+    <menuitem id="cc_staff_menu" parent="childcare_main_menu" sequence="2" name="Staff" action="cc_staff_action"/>
+
+
+    <!-- Childcare Leads -->
+    <menuitem id="cc_addmission_menu" parent="bi_childcare_management_main_menu" sequence="2" name="Addmission"/>
+    <menuitem id="cc_child_leads_menu" parent="cc_addmission_menu" sequence="1" name="Enquiries" action="cc_child_leads_action"/>
+    <menuitem id="cc_child_oppr_menu" parent="cc_addmission_menu" sequence="2" name="Enrollments" action="cc_child_oppo_action"/>
+    <menuitem id="cc_child_invoice_menu" parent="cc_addmission_menu" sequence="3" name="Invoices" action="cc_child_invoice_action"/>
+    <menuitem id="cc_child_lead_waitlist_menu" parent="cc_addmission_menu" sequence="4" name="Waitlist" action="cc_child_lead_waitlilst_action"/>
+
+
+    <!-- Childcare School Menu -->
+    <menuitem id="cc_school_main_menu" parent="bi_childcare_management_main_menu" sequence="3" name="Schools"/>
+    <menuitem id="cc_school_menu" parent="cc_school_main_menu" sequence="1" name="Schools" action="cc_school_action"/>
+    <menuitem id="cc_room_menu" parent="cc_school_main_menu" sequence="2" name="ClassRooms" action="cc_room_action"/>
+    <menuitem id="cc_room_calendar_menu" parent="cc_school_main_menu" sequence="2" name="ClassRoom Activities" action="cc_room_calendar_action"/>
+
+
+    <!-- Suppy Chain -->
+    <menuitem id="cc_suppy_chain_main_menu" parent="bi_childcare_management_main_menu" sequence="3" name="Supply Chain"/>
+    <menuitem id="cc_suppy_chain_menu" parent="cc_suppy_chain_main_menu" sequence="1" name="Supply Chain" action="cc_supply_chain_action"/>
+    <menuitem id="cc_supply_chain_toapprove_menu" parent="cc_suppy_chain_main_menu" sequence="2" name="Request To Approve" action="cc_supply_chain_toapprove_action" groups="bi_morpho_childcare_management.bi_morpho_childcare_management_group_director"/>
+    <menuitem id="cc_supply_chain_po_menu" parent="cc_suppy_chain_main_menu" sequence="3" name="Purchase Orders" action="cc_supply_chain_po_action"/>
+
+
+    <!-- Attendance Menu -->
+    <menuitem id="cc_attendance_chk_menu" sequence="-2" parent="bi_childcare_management_main_menu" name="Check In/Check Out" action="bi_morpho_childcare_management.cc_attendance_js_action"/>
+    <menuitem id="cc_attendance_menu" parent="bi_childcare_management_main_menu" sequence="4" name="Attendance"/>
+    <menuitem id="cc_staff_attendance_menu" parent="cc_attendance_menu" sequence="1" name="Staff Attendance" action="cc_attendance_action"/>
+    <menuitem id="cc_child_attendance_menu" parent="cc_attendance_menu" sequence="2" name="Child Attendance" action="cc_child_attendance_action"/>
+    <menuitem id="cc_print_attendance_menu" parent="cc_attendance_menu" sequence="3" name="Print Attendance" action="cc_attendance_wizard_action"/>
+    
+
+    <!-- Notifications -->
+    <menuitem id="cc_notification_main_menu" parent="bi_childcare_management_main_menu" sequence="5" name="Notifications"/>
+    <menuitem id="cc_emergency_alert_menu" parent="cc_notification_main_menu" sequence="1" name="Emergency Alert" action="cc_emergalert_wizard_action"/>
+    <menuitem id="cc_parentmsg_menu" parent="cc_notification_main_menu" sequence="2" name="Message To Parent" action="cc_parentmsg_wizard_action"/>
+
+
+    <!-- Configuration Menu -->
+    <menuitem id="cc_configration_main_menu" parent="bi_childcare_management_main_menu" sequence="100" name="Configuration"/>
+    <menuitem id="cc_product_fees_menu" parent="cc_configration_main_menu" sequence="1" name="School Fees" action="cc_product_action"/>
+    <menuitem id="cc_doctor_menu" parent="cc_configration_main_menu" sequence="2" name="Doctors" action="cc_product_action"/>
+
+    <menuitem id="cc_interval_menu" parent="cc_configration_main_menu" sequence="3" name="Nutrition Interval" action="cc_interval_action"/>
+    <menuitem id="cc_nutrition_meal_menu" parent="cc_configration_main_menu" sequence="4" name="Nutrition Configuration" action="cc_nutrition_meal_action"/>
+    <menuitem id="cc_doctor_menu" parent="cc_configration_main_menu" sequence="4" name="Doctors" action="cc_doctor_action"/>
+
+    <menuitem id="cc_note_menu" parent="cc_configration_main_menu" sequence="5" name="Notes For Child" action="cc_note_action"/>
+    <menuitem id="cc_staff_degree_menu" parent="cc_configration_main_menu" sequence="50" name="Staff Degrees" action="cc_staff_degree_action"/>
+    <menuitem id="cc_staff_certificate_menu" parent="cc_configration_main_menu" sequence="60" name="Staff Certificate" action="cc_staff_certificate_action"/>
+
+</odoo>

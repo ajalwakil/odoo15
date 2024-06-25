@@ -1,0 +1,23 @@
+<odoo>
+    <record id="sales_view_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page string="Terms and Conditions" name="terms_and_conditions">
+                    <field name="sale_terms_and_conditions" placeholder="Terms and Conditions...."
+                           attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    <field name="arabic_sale_terms_and_conditions" placeholder="Arabic Terms and Conditions...."
+                           attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+
+</odoo>

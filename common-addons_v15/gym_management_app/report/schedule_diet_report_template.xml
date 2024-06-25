@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="schedule_diet_report_view">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="text-center">
+                        <h3> Diet Schedule Report</h3>
+                    </div> <br/>      
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <div class="oe_structure"/>
+                            <div> 
+                                <strong> Member : </strong> <span t-esc="doc.members_id.name"/> 
+                            </div>
+                        </div><br/><br/>
+                        <table  style="border: 1px solid;width:100%">
+                            <thead>
+                                <tr style="border: 1px solid">
+                                    <td style="border: 1px solid;width:40%;height:20%;font-weight: bold;" class="text-center">Trainers</td>
+                                    <td style="border: 1px solid;height:20%;" class="text-center"><span t-field="doc.trainers_id.name"/></td>
+                                </tr>
+                                <tr style="border: 1px solid">
+                                    <td style="border: 1px solid;width:40%;height:20%;font-weight: bold;" class="text-center">Diet Plan</td>
+                                
+                                    <td style="border: 1px solid;height:20%;" class="text-center"><span t-field="doc.diet_plan_id.name"/></td>
+                                </tr>
+                                <tr style="border: 1px solid">
+                                    <td style="border: 1px solid;width:40%;height:20%;font-weight: bold;" class="text-center">From Date</td>
+                                    <td style="border: 1px solid;height:20%;" class="text-center"><span t-field="doc.from_date"/></td>
+                                </tr>
+                                <tr style="border: 1px solid">
+                                    <td style="border: 1px solid;width:40%;height:20%;font-weight: bold;" class="text-center">To Date</td>
+                                    <td style="border: 1px solid;height:20%;" class="text-center"><span t-field="doc.to_date"/></td>
+                                </tr>
+                            </thead>
+                    </table>
+                    <br/><br/>
+
+                    <div> 
+                        <strong> Meal Interval  </strong> 
+                    </div>
+                    <div> 
+                        <strong> Interval : </strong> <span t-esc="doc.interval"/> 
+                    </div><br/><br/>
+
+                    <table  style="border: 1px solid;width:100%">
+                        <thead>
+                            <tr style="border: 1px solid">
+                                <td style="border: 1px solid;width:12%;font-weight: bold;" class="text-center">Food Item</td>
+                                <td style="border: 1px solid;width:12%;font-weight: bold;" class="text-center">Quantity</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.diet_plan_id.food_line_ids" t-as="line">
+                            <tr style="border: 1px solid">
+                                <td style="border: 1px solid" class="text-center"><span t-field="line.food_id.name"/></td>
+                                <td style="border: 1px solid" class="text-center"><span t-field="line.quantity"/></td>
+                            </tr>
+                        </t>
+                        </tbody>
+                    </table>
+                    <br/><br/>
+                    </t>  
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

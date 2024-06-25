@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.module.category" id="ks_module_subscription_category">
+        <field name="name">Subscriptions</field>
+        <field name="sequence">3</field>
+    </record>
+
+    <record id="ks_user_subscription_right" model="res.groups">
+        <field name="name">Subscriptions User</field>
+        <field name="category_id" ref="ks_module_subscription_category"/>
+    </record>
+
+    <record id="ks_manager_subscription_right" model="res.groups">
+        <field name="name">Subscriptions Manager</field>
+        <field name="category_id" ref="ks_module_subscription_category"/>
+        <field name="implied_ids" eval="[(4, ref('ks_sales_subscription.ks_user_subscription_right'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="ks_user_subscription_access_rights" model="ir.rule">
+        <field name="name">User Subscriptions Access</field>
+        <field name="model_id" ref="model_ks_sale_subscription"/>
+        <field name="domain_force">[('ks_user_id','in',[user.id])]</field>
+        <field name="groups" eval="[(4, ref('ks_sales_subscription.ks_user_subscription_right'))]"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="perm_read" eval="1"/>
+    </record>
+
+    <record id="ks_manager_subscription_access_rights" model="ir.rule">
+        <field name="name">Manager Subscriptions Access</field>
+        <field name="model_id" ref="model_ks_sale_subscription"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('ks_sales_subscription.ks_manager_subscription_right'))]"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="perm_read" eval="1"/>
+    </record>
+
+    <record model="ir.rule" id="ks_multicompany_sale_subscription">
+        <field name="name">Multi-Company Subscription</field>
+        <field name="model_id" ref="model_ks_sale_subscription"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|', ('ks_company_id', '=', False), ('ks_company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record model="ir.rule" id="ks_multicompany_sale_subscription_line">
+        <field name="name">Multi-Company Subscription line</field>
+        <field name="model_id" ref="model_ks_sale_subscription_line"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|',('ks_analytic_account_id.ks_company_id','=',False),('ks_analytic_account_id.ks_company_id','in',company_ids)]
+        </field>
+    </record>
+
+    <record id="ks_analytic_account_portal" model="ir.rule">
+        <field name="name">Portal access for Analytic Account</field>
+        <field name="model_id" ref="analytic.model_account_analytic_account"/>
+        <field name="domain_force">[('partner_id','in',[user.partner_id.id,user.commercial_partner_id.id])]</field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+    <record id="ks_sub_line_portal" model="ir.rule">
+        <field name="name">Portal access for Subscription line</field>
+        <field name="model_id" ref="ks_sales_subscription.model_ks_sale_subscription_line"/>
+        <field name="domain_force">
+            [('ks_analytic_account_id.ks_partner_id','in',[user.partner_id.id,user.commercial_partner_id.id])]
+        </field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+
+</odoo>

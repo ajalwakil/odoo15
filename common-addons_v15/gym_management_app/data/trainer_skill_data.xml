@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="trainer.skill" id="trainer_skill_1">
+            <field name="name">Weight Loss</field>
+            <field name="sequence">1</field>
+        </record>
+        <record model="trainer.skill" id="trainer_skill_2">
+            <field name="name">Body Building</field>
+            <field name="sequence">2</field>
+        </record>
+    </data>
+</odoo>

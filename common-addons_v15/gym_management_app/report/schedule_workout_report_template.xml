@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="schedule_workout_report_view">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="text-center">
+                        <h3> Workout Schedule Report </h3>
+                    </div> <br/>      
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <div class="oe_structure"/>
+                            <div> 
+                                <strong> Member : </strong> <span t-esc="doc.gym_members_id.name"/> 
+                            </div>
+                            <div> 
+                                <strong> Workout : </strong> <span t-esc="doc.workout_id.name"/> 
+                            </div><br/><br/>
+                        </div>
+                        <table  style="border: 1px solid;width:100%">
+                            <thead>
+                                <tr style="border: 1px solid">
+                                    <td style="border: 1px solid;width:40%;height:20%;font-weight: bold;" class="text-center">Trainers</td>
+                                    <td style="border: 1px solid;height:20%;" class="text-center"><span t-field="doc.gym_trainers_id.name"/></td>
+                                </tr>
+                                <tr style="border: 1px solid">
+                                    <td style="border: 1px solid;width:40%;height:20%;font-weight: bold;" class="text-center">Days</td>
+                                
+                                    <td style="border: 1px solid;height:20%;" class="text-center"><span t-field="doc.days_ids"/></td>
+                                </tr>
+                                <tr style="border: 1px solid">
+                                    <td style="border: 1px solid;width:40%;height:20%;font-weight: bold;" class="text-center">From Date</td>
+                                    <td style="border: 1px solid;height:20%;" class="text-center"><span t-field="doc.from_date"/></td>
+                                </tr>
+                                <tr style="border: 1px solid">
+                                    <td style="border: 1px solid;width:40%;height:20%;font-weight: bold;" class="text-center">To Date</td>
+                                    <td style="border: 1px solid;height:20%;" class="text-center"><span t-field="doc.to_date"/></td>
+                                </tr>
+                            </thead>
+                    </table>
+                    <br/><br/>
+
+                    <div> 
+                        <strong> List Of Exercises : </strong> 
+                    </div> <br/>
+
+                    <table  style="border: 1px solid">
+                        <thead>
+                            <tr style="border: 1px solid">
+                                <td style="border: 1px solid;width:12%;font-weight: bold;" class="text-center">Exercise Name</td>
+                                <td style="border: 1px solid;width:12%;font-weight: bold;" class="text-center">Exercises For</td>
+                                <td style="border: 1px solid;width:12%;font-weight: bold;" class="text-center">Equipement</td>
+                                <td style="border: 1px solid;width:12%;font-weight: bold;" class="text-center">set</td>
+                                <td style="border: 1px solid;width:12%;font-weight: bold;" class="text-center">Repeat</td>
+                                <td style="border: 1px solid;width:12%;font-weight: bold;" class="text-center">Kgs</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.workout_id.exercise_list_ids" t-as="line"> 
+                                <tr style="border: 1px solid">
+                                    <td style="border: 1px solid" class="text-center"><span t-field="line.exercises_id.name"/></td>
+                                    <td style="border: 1px solid" class="text-center"><span t-field="line.exercise_for_id.name"/></td>
+                                    <td style="border: 1px solid" class="text-center"><span t-field="line.equipment_id.name"/></td>
+                                    <td style="border: 1px solid" class="text-center"><span t-field="line.sets"/></td>
+                                    <td style="border: 1px solid" class="text-center"><span t-field="line.repeat"/></td>
+                                    <td style="border: 1px solid" class="text-center"><span t-field="line.kgs"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <br/><br/>
+                    </t>  
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

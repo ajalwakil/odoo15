@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ksa_e_invoive.access_res_branch_manager,ksa_e_invoive.res.branch.manager,ksa_e_invoive.model_res_branch,group_user_rights,1,1,0,1
+point_of_sale.access_pos_config_manager,point_of_sale.pos.config manager,point_of_sale.model_pos_config,group_user_rights,1,1,0,1

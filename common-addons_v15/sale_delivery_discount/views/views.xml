@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+    <record id="view_sales_order_form_inherit" model="ir.ui.view">
+      <field name="name">sale.order.form.inherit</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//notebook/page[@name='other_information']//group[@name='sale_shipping']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//form/sheet/group/group[@name='order_details']" position="after">
+          <group name="sale_shipping">
+            <label for="commitment_date" string="Delivery Date"/>
+            <div name="commitment_date_div" class="o_row">
+              <field name="commitment_date"/>
+              <span name="expected_date_span" class="text-muted">Expected:
+                <field name="expected_date" widget="date"/>
+              </span>
+            </div>
+          </group>
+        </xpath>
+        <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='discount']"
+               position="after">
+          <field name="discount_amount"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

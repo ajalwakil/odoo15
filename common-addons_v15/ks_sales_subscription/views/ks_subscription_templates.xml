@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ks_sale_subscription_form_view_templates" model="ir.ui.view">
+        <field name="name">ks.sale.subscription.form.view</field>
+        <field name="model">ks.sale.subscription.template</field>
+        <field name="arch" type="xml">
+            <form string="Subscription Plan">
+                <sheet string="Subscription Plan">
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                                icon="fa-book"
+                                name="%(ks_sales_subscription.ks_sale_subscription_action_view)d"
+                                context="{'search_default_ks_template_id': [active_id], 'default_ks_template_id': active_id}"
+                                type="action">
+                            <field name="ks_subscription_count" widget="statinfo" string="Subscriptions"/>
+                        </button>
+                        <button class="oe_stat_button"
+                                icon="fa-book"
+                                name="%(ks_sales_subscription.ks_subscription_product_template_action)d"
+                                type="action">
+                            <field name="ks_product_count" widget="statinfo" string="Products"/>
+                        </button>
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="ks_name" placeholder="e.g. Subscription Plan"/>
+                        </h1>
+                    </div>
+                    <group name="ks_config">
+                        <group name="ks_invoicing">
+                            <label for="ks_recurring_interval" string="Invoice"/>
+                            <div class="o_row">
+                                <span class="mr-1">Every</span>
+                                <field name="ks_recurring_interval" required="1"/>
+                                <field name="ks_recurring_rule_type" class="field_rule_type" required="1"/>
+                            </div>
+                            <field name="ks_reminder_day"/>
+                            <field name="ks_recurring_rule_boundary" widget="radio" options="{'horizontal':true}"/>
+                            <span class="o_form_label"
+                                  attrs="{'invisible': [('ks_recurring_rule_boundary','=','unlimited')]}"/>
+                            <div class="o_row" attrs="{'invisible': [('ks_recurring_rule_boundary','=','unlimited')]}">
+                                <span class="mr-1">For</span>
+                                <field name="ks_recurring_rule_count"/>
+                                <field name="ks_recurring_rule_type_readonly"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="ks_journal_id" string="Journal" options="{'no_create': True}"/>
+                            <field name="ks_payment_mode" widget="radio"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="ks_description" string="Terms and Conditions">
+                            <field name="ks_description" placeholder="Terms and Conditions"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="ks_tree_view_sale_subscription_template" model="ir.ui.view">
+        <field name="name">ks.sale.subscription.template.tree</field>
+        <field name="model">ks.sale.subscription.template</field>
+        <field name="arch" type="xml">
+            <tree string="Subscription Templates Plan">
+                <field name="ks_name"/>
+                <field name="ks_recurring_rule_type"/>
+                <field name="ks_recurring_rule_boundary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ks_sale_subscription_search_view_template" model="ir.ui.view">
+        <field name="name">ks.sale.subscription.template.search</field>
+        <field name="model">ks.sale.subscription.template</field>
+        <field name="arch" type="xml">
+            <search string="Subscription Plan">
+                <field name="ks_name" filter_domain="[('ks_name','ilike',self)]" string="Subscription Plan Template"/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="ks_sale_subscription_kanban_view" model="ir.ui.view">
+        <field name="name">ks.sale.subscription.template.kanban</field>
+        <field name="model">ks.sale.subscription.template</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey o_kanban_dashboard o_subscription_kanban">
+                <field name="ks_name"/>
+                <field name="ks_recurring_rule_type"/>
+                <field name="ks_recurring_interval"/>
+                <field name="ks_payment_mode"/>
+                <field name="ks_subscription_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="o_subscription_kanban_main">
+                                <div class="o_kanban_card_content">
+                                    <div class="o_kanban_primary_left">
+                                        <h2 class="mt0">
+                                            <strong>
+                                                <t t-esc="record.ks_name.value"/>
+                                            </strong>
+                                        </h2>
+                                        <div>Recurrence:<t t-esc="record.ks_recurring_interval.value"/>&amp;nbsp;
+                                            <t t-esc="record.ks_recurring_rule_type.value"/>
+                                        </div>
+                                        <div>
+                                            <i class="fa fa-check"/>
+                                            <t t-esc="record.ks_payment_mode.value"/>
+                                        </div>
+                                    </div>
+                                    <div class="ml16">
+                                        <a name="%(ks_sales_subscription.ks_sale_subscription_kanban_action)d"
+                                           type="action">
+                                            <span>
+                                                <t t-esc="record.ks_subscription_count.value"/>
+                                            </span>
+                                            <span>Subscriptions</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="ks_sale_subscription_view_templates_action" model="ir.actions.act_window">
+        <field name="name">Subscription Plan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ks.sale.subscription.template</field>
+        <!--        <field name="view_type">form</field>-->
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new template of subscription
+            </p>
+            <p>
+                Templates are used to prefigure subscription that
+                can be selected by the salespeople to quickly configure the
+                terms and conditions of the subscription.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="ks_configurations_menu_action_id"
+            name="Configurations"
+            groups="ks_sales_subscription.ks_manager_subscription_right"
+            parent="ks_main_menu_sale_subscription_root"
+            sequence="5"/>
+
+    <menuitem
+            id="ks_sale_templates_action_id"
+            name="Subscription Plan"
+            groups="ks_sales_subscription.ks_manager_subscription_right"
+            action="ks_sale_subscription_view_templates_action"
+            parent="ks_configurations_menu_action_id"
+            sequence="2"/>
+
+</odoo>

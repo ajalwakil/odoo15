@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+
+		<!-- Website Menus -->
+		<record id="bi_morpho_childcare_management_home_menu" model="website.menu">
+	        <field name="name">Childcare</field>
+	        <field name="url">/web/childcare</field>
+	        <field name="parent_id" ref="website.main_menu"/>
+	        <field name="sequence" type="int">30</field>
+	    </record>
+
+	    <record id="bi_morpho_childcare_management_addmission_menu" model="website.menu">
+	        <field name="name">Enquiry</field>
+	        <field name="url">/web/childcare/add</field>
+	        <field name="parent_id" ref="website.main_menu"/>
+	        <field name="sequence" type="int">35</field>
+	    </record>
+
+
+	    <!-- School Fees -->
+	    <record id="cc_monthly_fees" model="product.product">
+            <field name="name">School Fees</field>
+            <field name="lst_price" type="float">400</field>
+            <field name="default_code">SCHOOL-FEES</field>
+            <field name="type">service</field>
+            <field name="cc_product" eval="True"></field>
+        </record>
+	</data>
+</odoo>

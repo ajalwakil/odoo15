@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ks_subscription_stage_form_view" model="ir.ui.view">
+        <field name="name">ks.subscription.stage.form</field>
+        <field name="model">ks.subscription.stage</field>
+        <field name="arch" type="xml">
+            <form string="Subscription Stage">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="ks_name"/>
+                            <!--                            <field name="ks_sequence"/>-->
+                            <field name="ks_in_progress"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ks_subscription_stage_tree_view" model="ir.ui.view">
+        <field name="name">ks.subscription.stage.form</field>
+        <field name="model">ks.subscription.stage</field>
+        <field name="arch" type="xml">
+            <tree string="Subscription Stage">
+                <field name="ks_name"/>
+                <field name="ks_in_progress"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ks_sale_subscription_stage_action" model="ir.actions.act_window">
+        <field name="name">Stages</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ks.subscription.stage</field>
+        <!--        <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new subscription stage
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="ks_subscription_stage_action_id"
+            name="Subscription Stage "
+            action="ks_sale_subscription_stage_action"
+            parent="ks_configurations_menu_action_id"
+            groups="ks_sales_subscription.ks_manager_subscription_right"
+            sequence="3"/>
+</odoo>

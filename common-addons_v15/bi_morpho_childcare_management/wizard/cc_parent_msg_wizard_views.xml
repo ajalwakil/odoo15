@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cc_parentmsg_wizard_view_form" model="ir.ui.view">
+        <field name="name">cc.parentmsg.wizard.form</field>
+        <field name="model">cc.parentmsg.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add Lesson Plan">
+                <group>
+                    <group>
+                        <field name="child_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="send_email"/>
+                        <field name="send_messg"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="message"/>
+                </group>
+                <footer>
+                    <button name="send_messeges" string="Send" type="object" class="btn btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="cc_parentmsg_wizard_action" model="ir.actions.act_window">
+        <field name="name">Parent Messeging</field>
+        <field name='type'>ir.actions.act_window</field>
+        <field name="res_model">cc.parentmsg.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="cc_parentmsg_wizard_view_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

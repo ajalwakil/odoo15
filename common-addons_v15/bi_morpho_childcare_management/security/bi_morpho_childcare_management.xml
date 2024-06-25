@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		<record id="module_category_bi_morpho_childcare_management" model="ir.module.category">
+	        <field name="name">Childcare Management</field>
+	        <field name="description">Category For Childcare Management</field>
+	    </record>
+
+		<record id="bi_morpho_childcare_management_group_director" model="res.groups">
+	        <field name="name">Director</field>
+	        <field name="category_id" ref="module_category_bi_morpho_childcare_management"/>
+		</record>
+
+		<record id="bi_morpho_childcare_management_group_staff" model="res.groups">
+	        <field name="name">Staff</field>
+	        <field name="category_id" ref="module_category_bi_morpho_childcare_management"/>
+	    </record>
+
+	    <record id="bi_morpho_childcare_management_group_parent" model="res.groups">
+	        <field name="name">Parents</field>
+	        <field name="category_id" ref="module_category_bi_morpho_childcare_management"/>
+	    </record>
+
+	    <record id="bi_morpho_childcare_management_group_family" model="res.groups">
+	        <field name="name">Family</field>
+	        <field name="category_id" ref="module_category_bi_morpho_childcare_management"/>
+	    </record>
+
+	    <record id="bi_morpho_childcare_management_group_pickup" model="res.groups">
+	        <field name="name">Approved Pickup</field>
+	        <field name="category_id" ref="module_category_bi_morpho_childcare_management"/>
+	    </record>
+	</data>
+
+	<data noupdate="1">
+
+		<!-- Res Partner Record Rules -->
+		<function name="write" model="ir.model.data">
+		    <function name="search" model="ir.model.data">
+		        <value eval="[('module', '=', 'base')]"/>
+		    </function>
+		    <value eval="{'noupdate': False}"/>
+		</function>
+
+	    <record id="base.res_partner_portal_public_rule" model="ir.rule">
+			<field name="domain_force">[
+		        	'|',
+
+		        	'&amp;','&amp;',('is_child','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_parent')),('id','in',user.partner_id.cc_child_ids.get_childs().ids),
+
+
+		        	('id', 'child_of', user.commercial_partner_id.id)
+	        	]
+	        </field>
+	    </record>
+
+
+	    <function name="write" model="ir.model.data">
+		    <function name="search" model="ir.model.data">
+		        <value eval="[('module', '=', 'base')]"/>
+		    </function>
+		    <value eval="{'noupdate': True}"/>
+		</function>
+
+
+        <record id="bi_morpho_childcare_management_rule_child_staff" model="ir.rule">
+            <field name="name">Child Parent</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[
+                    '|',
+
+
+                    '&amp;','&amp;',('is_child','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff')),'|',('staff_ids','in',user.employee_id.ids),('staff_ids','=',False),
+
+
+                    '|',
+
+                    '&amp;','&amp;',('is_parent','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff')),'|',('cc_child_ids.cc_child_id.staff_ids','in',user.employee_id.ids),('cc_child_ids.cc_child_id.staff_ids','=',False),
+
+                    '|',
+
+
+                    '&amp;','&amp;',('is_child','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_parent')),('id','in',user.partner_id.cc_child_ids.get_childs().ids),
+
+
+                    '|',
+
+                    '&amp;',('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_director')),'|',('is_parent','=',True),('is_child','=',True),
+
+
+                    '&amp;',('is_parent','=',False),('is_child','=',False)                    
+                ]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+
+        <!-- Mail Message -->
+	    <record id="bi_morpho_childcare_management_rule_mail_message_parent" model="ir.rule">
+	        <field name="name">Mail Message Parent</field>
+	        <field name="model_id" ref="mail.model_mail_message"/>
+	        <field name="domain_force">[]</field>
+	        <field name="groups" eval="[(4, ref('bi_morpho_childcare_management.bi_morpho_childcare_management_group_parent'))]"/>
+	        <field name="perm_read" eval="True"/>
+	        <field name="perm_write" eval="False"/>
+	        <field name="perm_create" eval="False"/>
+	        <field name="perm_unlink" eval="False"/>
+	    </record>
+
+        <!-- SMS -->
+        <record id="bi_morpho_childcare_management_rule_sms_message_parent" model="ir.rule">
+            <field name="name">SMS Message Parent</field>
+            <field name="model_id" ref="sms.model_sms_sms"/>
+            <field name="domain_force">[]</field>
+            <field name="groups" eval="[(4, ref('bi_morpho_childcare_management.bi_morpho_childcare_management_group_parent')),(4, ref('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff')),(4, ref('base.group_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <!-- Ir Attachements -->
+	    <record id="bi_morpho_childcare_management_rule_ir_attachement_parent" model="ir.rule">
+	        <field name="name">Ir Attachement Parent</field>
+	        <field name="model_id" ref="base.model_ir_attachment"/>
+	        <field name="domain_force">[]</field>
+	        <field name="groups" eval="[(4, ref('bi_morpho_childcare_management.bi_morpho_childcare_management_group_parent'))]"/>
+	        <field name="perm_read" eval="True"/>
+	        <field name="perm_write" eval="True"/>
+	        <field name="perm_create" eval="True"/>
+	        <field name="perm_unlink" eval="True"/>
+	    </record>
+
+
+
+        <!-- Staff Record Rule -->
+        <record id="bi_morpho_childcare_management_rule_staff_staff" model="ir.rule">
+            <field name="name">Staff Staff</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="domain_force">[('id','=',user.employee_id.id)]</field>
+            <field name="groups" eval="[(4, ref('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+
+        <!-- Lead CRM -->
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'crm')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <record id="crm.crm_rule_personal_lead" model="ir.rule">
+            <field name="domain_force">[
+                    '|',
+                    '&amp;','&amp;',('is_cc_lead','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff')),'|',('room_id','in',user.employee_id._get_assigned_rooms().ids),('room_id','=',False),
+
+                    '|',
+
+                    '&amp;',('is_cc_lead','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_director')),
+
+
+                    '&amp;',('is_cc_lead','=',False),'|',('user_id','=',user.id),('user_id','=',False)
+                ]
+            </field>
+        </record>
+
+        <record id="crm.crm_rule_all_lead" model="ir.rule">
+            <field name="domain_force">[
+                    '|',
+                    '&amp;','&amp;',('is_cc_lead','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff')),'|',('room_id','in',user.employee_id._get_assigned_rooms().ids),('room_id','=',False),
+
+                    '|',
+
+                    '&amp;',('is_cc_lead','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_director')),
+
+
+                    '&amp;',('is_cc_lead','=',False),(1,'=',1)
+                ]
+            </field>
+        </record>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'crm')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+
+        <!-- Invoice -->
+        <record id="bi_morpho_childcare_management_rule_cc_invoice" model="ir.rule">
+            <field name="name">CC Invoice</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="domain_force">[
+                '|',
+
+                '&amp;','&amp;',('cc_invoice','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff')),'|',('cc_child_id.staff_ids','in',user.employee_id.ids),('cc_child_id.staff_ids','=',False),
+
+                '|',
+
+                '&amp;','&amp;',('cc_invoice','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_parent')),('partner_id','=',user.partner_id.id),
+
+                '|',
+
+                '&amp;',('cc_invoice','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_director')),
+
+
+                '&amp;',('cc_invoice','=',False),(1,'=',1)
+                ]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+
+
+        <!-- Purchase -->
+        <record id="bi_morpho_childcare_management_rule_cc_po" model="ir.rule">
+            <field name="name">CC Purchase</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="domain_force">[
+                '|',
+
+                '&amp;','&amp;',('cc_po','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff')),'|',('cc_supply_chain_id.room_id','in',user.employee_id._get_assigned_rooms().ids),('cc_supply_chain_id','=',False),
+
+                '|',
+
+                '&amp;',('cc_po','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_director')),
+
+
+                '&amp;',('cc_po','=',False),(1,'=',1)
+                ]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+
+
+        <!-- School -->
+        <record id="bi_morpho_childcare_management_rule_school_staff" model="ir.rule">
+            <field name="name">School Staff</field>
+            <field name="model_id" ref="bi_morpho_childcare_management.model_cc_school"/>
+            <field name="domain_force">[('room_ids','in',user.employee_id._get_assigned_rooms().ids)]</field>
+            <field name="groups" eval="[(4, ref('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+
+        <!-- ClassRooms -->
+        <record id="bi_morpho_childcare_management_rule_rooms_staff" model="ir.rule">
+            <field name="name">ClassRooms Staff</field>
+            <field name="model_id" ref="bi_morpho_childcare_management.model_cc_room"/>
+            <field name="domain_force">[('id','in',user.employee_id._get_assigned_rooms().ids)]</field>
+            <field name="groups" eval="[(4, ref('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+
+        <!-- ClassRooms Activities -->
+        <record id="bi_morpho_childcare_management_rule_room_activity_staff" model="ir.rule">
+            <field name="name">ClassRooms Activities Staff</field>
+            <field name="model_id" ref="bi_morpho_childcare_management.model_cc_room_activity"/>
+            <field name="domain_force">[('staff_id','in',user.employee_id.ids)]</field>
+            <field name="groups" eval="[(4, ref('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+
+
+        <!-- Supply Chain -->
+        <record id="bi_morpho_childcare_management_rule_supply_chain_staff" model="ir.rule">
+            <field name="name">Supply Chain Staff</field>
+            <field name="model_id" ref="bi_morpho_childcare_management.model_cc_supply_chain"/>
+            <field name="domain_force">[('room_id','in',user.employee_id._get_assigned_rooms().ids)]</field>
+            <field name="groups" eval="[(4, ref('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+		<record id="bi_morpho_childcare_management_rule_supply_chain_director" model="ir.rule">
+	        <field name="name">Supply Chain Director</field>
+	        <field name="model_id" ref="bi_morpho_childcare_management.model_cc_supply_chain"/>
+	        <field name="domain_force">[('director_id','=',user.employee_id.id)]</field>
+	        <field name="groups" eval="[(4, ref('bi_morpho_childcare_management.bi_morpho_childcare_management_group_director'))]"/>
+	        <field name="perm_read" eval="True"/>
+	        <field name="perm_write" eval="True"/>
+	        <field name="perm_create" eval="True"/>
+	        <field name="perm_unlink" eval="True"/>
+	    </record>
+
+
+        <!-- Staff Attendance -->
+        <record id="bi_morpho_childcare_management_rule_staff_att_staff" model="ir.rule">
+            <field name="name">Staff Attendance Staff</field>
+            <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+            <field name="domain_force">[
+                '|',
+
+                '&amp;','&amp;',('cc_attendance','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff')),('employee_id','=',user.employee_id.id),
+
+                '|',
+
+                '&amp;',('cc_attendance','=',True),('group_flag','=',user.has_group('bi_morpho_childcare_management.bi_morpho_childcare_management_group_director')),
+
+                ('cc_attendance','=',False),
+
+                ]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+
+        <!-- Childs Attendance -->
+        <record id="bi_morpho_childcare_management_rule_childs_att_staff" model="ir.rule">
+            <field name="name">Childs Attendance Staff</field>
+            <field name="model_id" ref="bi_morpho_childcare_management.model_cc_child_attendance"/>
+            <field name="domain_force">['|',('child_id.main_room_id','in',user.employee_id._get_assigned_rooms().ids),('child_id.other_room_ids','in',user.employee_id._get_assigned_rooms().ids)]</field>
+            <field name="groups" eval="[(4, ref('bi_morpho_childcare_management.bi_morpho_childcare_management_group_staff'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+
+
+	    <!-- School Registration -->
+	    <record id="cc_school_registration_multi_rule" model="ir.rule">
+            <field name="name">School Registration Multi-Company</field>
+            <field name="model_id" ref="model_cc_school_registration"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_school_registration_rule" model="ir.rule">
+            <field name="name">School Registration Company</field>
+            <field name="model_id" ref="model_cc_school_registration"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+        <!-- School Rooms -->
+	    <record id="cc_room_multi_rule" model="ir.rule">
+            <field name="name">School Rooms Multi-Company</field>
+            <field name="model_id" ref="model_cc_room"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_room_rule" model="ir.rule">
+            <field name="name">School Rooms Company</field>
+            <field name="model_id" ref="model_cc_room"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+        <!-- Rooms Timetable -->
+	    <record id="cc_room_timetable_multi_rule" model="ir.rule">
+            <field name="name">Rooms Timetable Multi-Company</field>
+            <field name="model_id" ref="model_cc_room_timetable"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_room_timetable_rule" model="ir.rule">
+            <field name="name">Rooms Timetable Company</field>
+            <field name="model_id" ref="model_cc_room_timetable"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+        <!-- Rooms Activity -->
+	    <record id="cc_room_activity_multi_rule" model="ir.rule">
+            <field name="name">Rooms Activity Multi-Company</field>
+            <field name="model_id" ref="model_cc_room_activity"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_room_activity_rule" model="ir.rule">
+            <field name="name">Rooms Activity Company</field>
+            <field name="model_id" ref="model_cc_room_activity"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+        <!-- Notes -->
+	    <record id="cc_note_multi_rule" model="ir.rule">
+            <field name="name">Notes Multi-Company</field>
+            <field name="model_id" ref="model_cc_note"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_note_rule" model="ir.rule">
+            <field name="name">Notes Company</field>
+            <field name="model_id" ref="model_cc_note"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+        <!-- Doctors -->
+	    <record id="cc_doctor_multi_rule" model="ir.rule">
+            <field name="name">Doctors Multi-Company</field>
+            <field name="model_id" ref="model_cc_doctor"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_doctor_rule" model="ir.rule">
+            <field name="name">Doctors Company</field>
+            <field name="model_id" ref="model_cc_doctor"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+        <!-- Allergy -->
+	    <record id="lead_allergy_multi_rule" model="ir.rule">
+            <field name="name">Allergy Multi-Company</field>
+            <field name="model_id" ref="model_lead_allergy"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="lead_allergy_rule" model="ir.rule">
+            <field name="name">Allergy Company</field>
+            <field name="model_id" ref="model_lead_allergy"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+        <!-- Medication -->
+	    <record id="lead_medication_multi_rule" model="ir.rule">
+            <field name="name">Medication Multi-Company</field>
+            <field name="model_id" ref="model_lead_medication"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="lead_medication_rule" model="ir.rule">
+            <field name="name">Medication Company</field>
+            <field name="model_id" ref="model_lead_medication"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+        <!-- Supply Chain -->
+	    <record id="cc_supply_chain_multi_rule" model="ir.rule">
+            <field name="name">Supply Chain Multi-Company</field>
+            <field name="model_id" ref="model_cc_supply_chain"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_supply_chain_rule" model="ir.rule">
+            <field name="name">Supply Chain Company</field>
+            <field name="model_id" ref="model_cc_supply_chain"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+        <!-- Child Attendance -->
+	    <record id="cc_child_attendance_multi_rule" model="ir.rule">
+            <field name="name">Child Attendance Multi-Company</field>
+            <field name="model_id" ref="model_cc_child_attendance"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_child_attendance_rule" model="ir.rule">
+            <field name="name">Child Attendance Company</field>
+            <field name="model_id" ref="model_cc_child_attendance"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+        <!-- Staff Certificate -->
+	    <record id="cc_staff_certificate_multi_rule" model="ir.rule">
+            <field name="name">Staff Certificate Multi-Company</field>
+            <field name="model_id" ref="model_cc_staff_certificate"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_staff_certificate_rule" model="ir.rule">
+            <field name="name">Staff Certificate Company</field>
+            <field name="model_id" ref="model_cc_staff_certificate"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+        <!-- Staff Degree -->
+	    <record id="cc_staff_degree_multi_rule" model="ir.rule">
+            <field name="name">Staff Degree Multi-Company</field>
+            <field name="model_id" ref="model_cc_staff_degree"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_staff_degree_rule" model="ir.rule">
+            <field name="name">Staff Degree Company</field>
+            <field name="model_id" ref="model_cc_staff_degree"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+        <!-- Nutrition Meal -->
+	    <record id="cc_nutrition_meal_multi_rule" model="ir.rule">
+            <field name="name">Nutrition Meal Multi-Company</field>
+            <field name="model_id" ref="model_cc_nutrition_meal"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_nutrition_meal_rule" model="ir.rule">
+            <field name="name">Nutrition Meal Company</field>
+            <field name="model_id" ref="model_cc_nutrition_meal"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+
+        <!-- Nutrition Lines -->
+	    <record id="cc_nutrition_line_multi_rule" model="ir.rule">
+            <field name="name">Nutrition Lines Multi-Company</field>
+            <field name="model_id" ref="model_cc_nutrition_line"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_nutrition_line_rule" model="ir.rule">
+            <field name="name">Nutrition Lines Company</field>
+            <field name="model_id" ref="model_cc_nutrition_line"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+		
+
+		<!-- Meal Interval -->
+	    <record id="cc_interval_multi_rule" model="ir.rule">
+            <field name="name">Meal Interval Multi-Company</field>
+            <field name="model_id" ref="model_cc_interval"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_interval_rule" model="ir.rule">
+            <field name="name">Meal Interval Company</field>
+            <field name="model_id" ref="model_cc_interval"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+
+        <!-- Emergency Alert -->
+	    <record id="cc_emergency_alert_multi_rule" model="ir.rule">
+            <field name="name">Emergency Alert Multi-Company</field>
+            <field name="model_id" ref="model_cc_emergency_alert"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+        <record id="cc_emergency_alert_rule" model="ir.rule">
+            <field name="name">Emergency Alert Company</field>
+            <field name="model_id" ref="model_cc_emergency_alert"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', '=', company_id)]</field>
+        </record>
+
+
+	</data>
+</odoo>

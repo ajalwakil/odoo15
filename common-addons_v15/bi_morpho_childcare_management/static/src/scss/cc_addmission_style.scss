@@ -1,0 +1,116 @@
+
+#add_main_div{
+	border: 1px solid #ffffff;
+	background-color: #f2f2f2;
+}
+
+#add_form,#enquiry_form{
+	margin: 2% 20% 2% 20%;
+	border: 1px solid #ffffff;
+	border-radius: 8px;
+	background-color: #ffffff;
+}
+
+.form_td{
+	border: 1px solid #ffffff;
+	font-size: 16px;
+	td{
+		width: 50%;
+	}
+
+	.inp_label{
+		font-size: 14px;
+		font-weight: bold;
+	}
+
+	input,select{
+		width: 90%;
+	}
+
+	textarea{
+		width: 100%;
+	}
+
+}
+
+#cc_button_box{	
+	margin: 2% 20% 6% 20%;
+	border: 2px solid #f2f2f2;
+
+	#cc_form_submit,#cc_form_enq_submit{
+		float:right;
+	}
+	#cc_form_cancel{
+		border: 1px solid black; 
+		float:right;
+	}
+}
+
+
+.alg_modal_body_div{
+	margin: 2% 10% 2% 10%;
+
+	input, textarea{
+		margin-bottom: 4%;
+		width:100%;
+	}
+
+	.inp_label{
+		font-size: 14px;
+	}
+
+}
+
+
+.alg_table{
+	tr{
+		border-bottom: 1px solid #5a5a5c;
+	}
+}
+
+
+.medi_modal_body_div{
+	margin: 2% 10% 2% 10%;
+
+	input, textarea{
+		margin-bottom: 4%;
+		width:100%;
+	}
+
+	.inp_label{
+		font-size: 14px;
+	}
+}
+
+.medi_table{
+	tr{
+		border-bottom: 1px solid #5a5a5c;
+	}
+}
+
+
+#cc_success{
+	margin: 10% 20% 10% 20%;
+
+	.bi_btn{
+		float:right;
+	}
+}
+
+#cc_fail{
+	margin: 10% 20% 10% 20%;
+
+	.bi_btn{
+		float:right;
+	}
+}
+
+
+.validation_war{
+	color : red;
+	display: none;
+}
+
+#fields_mand{
+	display: none;
+}

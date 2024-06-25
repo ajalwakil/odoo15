@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="patient_card">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="doc">
+                        <t t-if="not patient" t-set="patient" t-value="doc"/>
+                        <div class="col-md-6">
+                                <table style="width:243pt; height:153pt; border: 1pt solid black; border-collapse:separate; border-radius:8pt; margin:5pt">
+                                    <td style="width:33%;" valign="center">
+                                        <table style="width:77pt; height:150pt">
+                                            <tr style="height:30%">
+                                                <td align="center" valign="center">
+                                                    <img t-if="request.env.user.company_id.logo"
+                                                         t-att-src="image_data_uri(request.env.user.company_id.logo)"
+                                                         style="max-height:45pt;max-width:90%" alt="Company Logo"/>
+                                                </td>
+                                            </tr>
+                                            <tr style="height:70%;">
+                                                <td align="center" valign="center">
+                                                    <img t-att-src="'data:image/png;base64,%s'%to_text(qr_code if qr_code else patient.qr_code)"
+                                                         style="max-height:45pt;max-width:90%;"
+                                                    />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td style="width:67%" valign="center">
+                                        <table style="width:155pt; height:85pt">
+                                            <tr>
+                                                <div style="font-size:6pt; margin-bottom:0pt;margin-top:0pt;"
+                                                     align="center"><t t-esc="request.env.user.company_id.name"/>,
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div style="font-size:6pt; margin-bottom:0pt;margin-top:0pt;"
+                                                     align="center">
+                                                    <t t-esc="request.env.user.company_id.street"/>
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div style="font-size:6pt; margin-bottom:0pt;margin-top:0pt;"
+                                                     align="center">
+                                                    <t t-esc="request.env.user.company_id.state_id.name"/>
+                                            <tr>
+                                                <div style="font-size:6pt; margin-bottom:0pt;margin-top:0pt;"
+                                                     align="center">
+                                                    <t t-esc="registration_date"/>
+                                                </div>
+                                            </tr>
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div style="font-size:10pt; margin-bottom:0pt;margin-top:0pt;"
+                                                     align="center">
+                                                    <t t-esc="patient.appointment_seq"/>
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div style="font-size:10pt; margin-bottom:0pt;margin-top:0pt;"
+                                                     align="center"><t t-esc="patient.patient_name.name"/>/
+                                                    <t t-esc="patient.gender"/>
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                               <div style="font-size:10pt; margin-bottom:0pt;margin-top:0pt;"
+                                                     align="center">Phone No:
+                                                    <t t-esc="patient.phone"/>
+                                                </div>
+                                            </tr>
+                                                <tr>
+                                                <div style="font-size:10pt; margin-bottom:0pt;margin-top:0pt;"
+                                                     align="center">Doctor: Dr.
+                                                    <t t-esc="patient.doc_id.name"/>
+                                                </div>
+                                            </tr>
+                                                 <tr>
+                                                <div style="font-size:10pt; margin-bottom:0pt;margin-top:0pt;"
+                                                     align="center">Appointment Date:
+                                                    <t t-esc="patient.appointment_date"/>
+                                                </div>
+                                            </tr>
+                                             <tr>
+                                               <div style="font-size:10pt; margin-bottom:0pt;margin-top:0pt;"
+                                                     align="center">Slot:
+                                                    <t t-esc="patient.slot"/>
+                                                </div>
+                                            </tr>
+
+                                        </table>
+                                    </td>
+                                </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

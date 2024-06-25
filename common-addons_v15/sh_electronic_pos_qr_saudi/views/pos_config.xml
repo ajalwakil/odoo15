@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sh_element_pos_qr_saudi_config" model="ir.ui.view">
+        <field name="name">sh.elemetns.pos.qr.saudi.view</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[12]" position="after">
+                <h3>Arabic Receipt Configuration</h3>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-xs-6 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane" >
+                            <field name="display_qr_code" />
+                        </div>
+                        <div class="o_setting_right_pane" >
+                            <label for="display_qr_code" />
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6 o_setting_box" attrs="{'invisible': [('display_qr_code', '=', False)]}">
+                        <div class="o_setting_left_pane" >
+                            <field name="sh_display_arabic_name" />
+                        </div>
+                        <div class="o_setting_right_pane" >
+                            <label for="sh_display_arabic_name" />
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6 o_setting_box" attrs="{'invisible': [('display_qr_code', '=', False)]}">
+                        <div class="o_setting_left_pane">
+                            <field name="sh_display_arabic_address" />
+                        </div>
+                        <div class="o_setting_right_pane" >
+                            <label for="sh_display_arabic_address" />
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6 o_setting_box" attrs="{'invisible': [('display_qr_code', '=', False)]}">
+                        <div class="o_setting_left_pane" >
+                        </div>
+                        <div class="o_setting_right_pane" >
+                            <label for="qr_code_setting" /><br/>
+                            <field name="qr_code_setting" widget="radio" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt16 o_settings_container" attrs="{'invisible': [('display_qr_code', '=', False)]}">
+                    <div class="col-xs-6 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane" style='width: 130px !important;'>
+                            <label for="qr_code_height" />
+                        </div>
+                        <div class="o_setting_right_pane" style='margin-left: 150px ;'>
+                            <field name="qr_code_width" placeholder='Width' />
+                            <field name="qr_code_height" placeholder='height' /> 
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6 o_setting_box" attrs="{'invisible': [('display_qr_code', '=', False)]}">
+                        <div class="o_setting_left_pane" >
+                            <field name="show_return_order_ref" />
+                        </div>
+                        <div class="o_setting_right_pane" >
+                            <label for="show_return_order_ref" />
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+            
+        </field>
+    </record>
+    <record id="sh_element_product_product_view_inheri" model="ir.ui.view">
+        <field name="name">sh.elemetns.product.product.saudi.view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="sh_arabic_name" placeholder='Arabic name'></field>
+            </field>
+        </field>
+    </record>
+    <record id="sh_element_product_template_view_inheri" model="ir.ui.view">
+        <field name="name">sh.elemetns.product.template.saudi.view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="sh_arabic_name" placeholder='Arabic name' attrs="{'invisible': [('product_variant_count', '>', 1)]}"></field>
+            </field>
+        </field>
+    </record>   
+    <record id="sh_element_payment_method_arebic_name_view_inheri" model="ir.ui.view">
+        <field name="name">sh.elemetns.payment.method.arabic.name.view</field>
+        <field name="model">pos.payment.method</field>
+        <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="sh_payment_method_arabic_name" placeholder='Payment Method Arabic Name'></field>
+            </field>
+        </field>
+    </record>
+    <record id="sh_element_res_partner_view_inherit" model="ir.ui.view">
+        <field name="name">sh.elemetns.res.partner.saudi.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="sh_cr_no" invisible="1"></field>
+            </field>
+        </field>
+    </record>
+    <record id="sh_element_company_form_view_inheri" model="ir.ui.view">
+        <field name="name">sh.elemetns.res.comapny.view</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <field name="phone" position="before">
+                <label for="arabic_street" string="Arabic Address" />
+                <div class="o_address_format">
+                    <field name="arabic_street" placeholder="Arabic Street..." class="o_address_street" />
+                    <field name="arabic_street2" placeholder="Arabic Street 2..." class="o_address_street" />
+                    <field name="arabic_city" placeholder="Arabic City" class="o_address_city" />
+                    <field name="arabic_zip" placeholder=" Arabic ZIP" class="o_address_zip" />
+                </div>
+            </field>
+            <field name="name" position="after">
+                <field name='sh_arabic_name' placeholder="Arabic Name" />
+            </field>
+        </field>
+    </record>
+</odoo>

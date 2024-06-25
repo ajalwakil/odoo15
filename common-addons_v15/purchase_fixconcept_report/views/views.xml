@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="purchase_order_other_inherit">
+            <field name="name">purchase.order.field.other.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[@name='purchase_delivery_invoice']/group"
+                       position="after">
+                    <group>
+                        <group>
+                            <field name="prepared_by"></field>
+                            <field name="Approved_by"></field>
+                            <field name="shipping_location"></field>
+                            <field name="shipping_marks"></field>
+                        </group>
+                        <group>
+                            <field name="project_name_no"></field>
+                            <field name="po_type"></field>
+                            <field name="requistion_no"></field>
+                            <field name="delivery_period"></field>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

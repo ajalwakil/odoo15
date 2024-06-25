@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_gym_days_tree" model="ir.ui.view">
+        <field name="name">gym.days.view.tree</field>
+        <field name="model">gym.days</field>
+        <field name="arch" type="xml">
+            <tree string="Gym days">
+                <field name="name"/>
+                <field name="sequence"/>
+            </tree>
+        </field>
+     </record>
+
+    <record id="view_gym_days_form" model="ir.ui.view">
+        <field name="name">gym.days.view.form</field>
+        <field name="model">gym.days</field>
+        <field name="arch" type="xml">
+            <form string="Gym days">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sequence"/>
+                        </group>
+                    </group> 
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gym_days" model="ir.actions.act_window">
+        <field name="name">Gym days</field>
+        <field name="res_model">gym.days</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="gym_configuration_menu"
+        name="Configuration" parent="menu_gym_management_root" groups="gym_management_app.gym_management_trainer"/>
+
+
+    <menuitem id="gym_configuration_submenu"
+        name="Gym Days" parent="gym_configuration_menu" action="action_gym_days" sequence="4"/>
+
+</odoo>

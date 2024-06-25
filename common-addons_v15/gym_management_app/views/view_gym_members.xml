@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		<record id="view_gym_members_tree_trainer" model="ir.ui.view">
+			<field name="name">hr.employee.view.tree</field>
+			<field name="model">hr.employee</field>
+			<field name="arch" type="xml">
+				<tree string="Gym Members">
+					<field name="name"/>
+					<field name="trainer_id"/>
+					<field name="mobile_no"/>
+					<field name="email"/>            
+					<field name="start_date"/>
+					<field name="end_date"/>
+					<field name="is_member"/>
+				</tree>
+			</field>
+		 </record>
+
+		 <record id="view_gym_members_tree" model="ir.ui.view">
+			<field name="name">hr.employee.view.tree</field>
+			<field name="model">hr.employee</field>
+			<field name="arch" type="xml">
+				<tree string="Gym Members">
+					<field name="name"/>
+					<field name="trainer_id"/>
+					<field name="start_date"/>
+					<field name="end_date"/>
+					<field name="is_member"/>
+				</tree>
+			</field>
+		 </record>
+
+		 <record id="view_order_member_pivot" model="ir.ui.view">
+			 <field name="name">hr.employee.report.pivot</field>
+			 <field name="model">hr.employee</field>
+			 <field name="arch" type="xml">
+				<pivot string="Member Analysis" disable_linking="True">
+					<field name="name" type="row"/>
+					<field name="invoice_number" type="measure"/>
+					<field name="invoice_amount" type="measure"/>
+				</pivot>
+			 </field>
+		</record>
+
+		<record id="view_order_member_graph" model="ir.ui.view">
+			 <field name="name">hr.employee.report.graph</field>
+			 <field name="model">hr.employee</field>
+			 <field name="arch" type="xml">
+				<graph string="Member Analysis">
+					<field name="name" type="row"/>
+					<field name="invoice_number" type="measure"/>
+					<field name="invoice_amount" type="measure"/>
+				</graph>
+			 </field>
+		</record>
+
+		<record id="view_gym_members_form" model="ir.ui.view">
+			<field name="name">hr.employee.view.form</field>
+			<field name="model">hr.employee</field>
+			<field name="arch" type="xml">
+				<form string="Gym Members">
+					<field name="active" invisible="1"/>
+					<sheet>
+						<div class="oe_button_box" name="button_box">
+							<button name="open_account_move_details" type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+								<field string="Invoice" name="calculate_invoice" widget="statinfo"/>
+							</button>
+							<button name="action_member_since" type="object" class="oe_stat_button" icon="fa-calendar-o" >
+								<field string="Member Since" name="start_date" widget="statinfo" readonly="1"/>
+							</button>
+							<button name="action_member_since" type="object" class="oe_stat_button" icon="fa-calendar" >
+								<field string="Member End" name="end_date" widget="statinfo" readonly="1"/>
+							</button>
+						</div>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;zoom&quot;: true, &quot;preview_image&quot;:&quot;image_128&quot;}"/>
+						<div class="oe_title">
+							<h1>
+								<field name="name" placeholder="Name" required="1"/>
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="is_member"/>
+								<field name="name_sequence"/>
+								<field name="address"/>
+								<field name="gender"/>
+								<field name="start_date" required="1"/>
+								<field name="end_date" required="1"/>
+							</group>
+							<group>
+								<field name="birth_date"/>
+								<field name="age"/>
+								<field name="mobile_no"/>
+								<field name="email"/>
+								<field name="invoice_id" invisible="1"/>
+							</group>
+						</group> 
+					 	<notebook>
+							<page string="Membership">
+								<group>
+									<group>
+										<button name="%(gym_management_app.action_buy_membership)d" string="Buy Membership" type="action" class="oe_highlight"/> 
+									</group>
+									<group>
+										<field name="trainer_id" domain="[('is_trainer','=', True)]"/>
+										<field name="specialist_id" widget="many2many_tags" options="{'no_create': True, 'no_edit': True}"/>
+									</group>       
+								</group>
+								<field name = "invoice_ids" >
+									<tree create="false" edit="false">
+										<field name = "employee_id" invisible="1"/>
+										<field name = "join_date"/>
+										<field name = "membership"/>
+										<field name = "fees"/>
+										<field name = "invoice_id"/>
+										<field name = "status"/>
+									</tree>
+								</field>
+							
+							</page>
+							<page string="Weight">
+								<field name = "weight_ids" >
+									<tree create="false" edit="false">
+										<field name = "members_weight_id" invisible="1"/>
+										<field name = "name"/>
+										<field name = "date"/>
+										<field name = "weight"/>
+									</tree>
+								</field>
+							</page>
+
+							<page string="BMI">
+								<field name = "bmi_ids" >
+									<tree create="false" edit="false">
+										<field name = "members_bmi_id" invisible="1"/>
+										<field name = "name"/>
+										<field name = "gender"/>
+										<field name = "date"/>
+										<field name = "bmi_calculation"/>
+									</tree>
+								</field>   
+							</page>
+							<page string="Diet">
+								<field name = "diet_ids" >
+									<tree create="false" edit="false">
+										<field name = "members_diet_id" invisible="1"/>
+										<field name = "members_id"/>
+										<field name = 'trainers_id'/>
+										<field name = "diet_plan_id"/>
+										<field name = "interval"/>
+										<field name = "from_date"/>
+										<field name = "to_date"/>
+									</tree>
+								</field>
+							</page>
+
+							<page string="Workout">
+								<field name = "workout_ids" >
+									<tree create="false" edit="false">
+										<field name = "members_workout_id" invisible="1"/>
+										<field name = "gym_members_id"/>
+										<field name = 'gym_trainers_id'/>
+										<field name = "workout_id"/>
+										<field name = "from_date"/>
+										<field name = "to_date"/>
+									</tree>
+								</field>                         
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_gym_members" model="ir.actions.act_window">
+			<field name="name">Gym Members</field>
+			<field name="res_model">hr.employee</field>
+			<field name="view_mode">kanban,tree,form,activity</field>
+			<field name ="view_id" ref="hr.hr_kanban_view_employees"/>
+			<field name="search_view_id" ref="hr.view_employee_filter"/>
+			<field name="domain">['|',('is_member','=', 'True'),('name_sequence','=','New')]</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					Add a new employee
+				</p><p>
+					With just a quick glance on the Odoo employee screen, you
+					can easily find all the information you need for each person;
+					contact data, job position, availability, etc.
+				</p>
+			</field>
+		</record>
+
+		<record id="mail_activity_tree_view" model="ir.actions.act_window.view">
+			<field eval="1" name="sequence"/>
+			<field name="view_mode">kanban</field>
+			<field name="view_id" ref="hr.hr_kanban_view_employees"/>
+			<field name="act_window_id" ref="action_gym_members"/>
+		</record>
+
+
+		<record id="new_member_form_view" model="ir.actions.act_window.view">
+			<field eval="2" name="sequence"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_gym_members_form"/>
+			<field name="act_window_id" ref="action_gym_members"/>
+		</record>
+
+		<record id="new_member_tree_view" model="ir.actions.act_window.view">
+			<field eval="2" name="sequence"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_gym_members_tree"/>
+			<field name="act_window_id" ref="action_gym_members"/>
+		</record>
+
+		<record id="action_member_report_all" model="ir.actions.act_window">
+			<field name="name">Member Analysis</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.employee</field>
+			<field name="view_mode">pivot,graph</field>
+			
+		</record>
+
+		<menuitem id="menu_gym_management_root"
+				name="Gym Management"/>
+
+		<menuitem id="gym_member_menu"
+				name="Gym Members" parent="menu_gym_management_root" sequence="1"/>
+
+		<menuitem id="gym_member_submenu"
+				name="Members" parent="gym_member_menu" action="action_gym_members" sequence="1"/>
+
+		<menuitem id="member_report_submenu"
+				name="Member Report" parent="workout_schedule_report_menu" action="action_member_report_all" groups="gym_management_app.gym_management_trainer" sequence="3"/>
+
+</odoo>

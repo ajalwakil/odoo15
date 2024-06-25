@@ -1,0 +1,33 @@
+<odoo>
+    <record id="view_electronic_res_partner_form" model="ir.ui.view">
+        <field name="name">view.electronic.res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                 <field name="commercial_register" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//page[last()]" position="after">
+                <page string="electronic Invoice" name="electronic_invoice">
+                    <group>
+                        <group>
+                            <field name="arabic_name"/>
+                            <field name="arabic_street"/>
+                            <field name="arabic_city"/>
+                            <field name="arabic_state_id"/>
+                            <field name="arabic_country_id"/>
+                            <field name="arabic_building_no"/>
+                            <field name="arabic_district"/>
+                        </group>
+                        <group>
+                            <field name="building_no"/>
+                            <field name="district"/>
+                            <field name="postal_code"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

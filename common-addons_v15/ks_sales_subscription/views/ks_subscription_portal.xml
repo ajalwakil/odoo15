@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <template id="ks_subscription_template" name="Subscription">
+        <t t-call="portal.portal_layout">
+            <t t-set="wrapwrap_classes" t-value="'o_portal_bg_dark'"/>
+            <div class="row mt16 oe_website_contract o_portal_sidebar">
+                <!-- ====== Page Content  ====== -->
+                <div class="col-12 col-lg">
+                    <div class="card oe_website_contract">
+                        <div class="card-header bg-white pb-2 pt-3">
+                            <div class="row">
+                                <div class="col-12 col-lg flex-grow-1 mb-1 mb-lg-0">
+                                    <h4 class="mb-0">
+                                        <small class="text-muted">Subscription -</small>
+                                        <span t-field="ks_subscription.display_name"/>
+                                    </h4>
+                                </div>
+                                <div class="col-12 col-lg flex-grow-0 text-lg-right mb-1 mb-lg-0">
+                                    <span t-if="ks_subscription.ks_in_progress and not ks_subscription.ks_to_renew"
+                                          class="badge badge-pill badge-success">
+                                        <i class="fa fa-fw fa-check"/>
+                                        In Progress
+                                    </span>
+                                    <span t-if="ks_subscription.ks_to_renew" class="badge badge-pill badge-warning">
+                                        <i class="fa fa-fw fa-refresh"/>
+                                        To Renew
+                                    </span>
+                                    <span t-if="not ks_subscription.ks_in_progress"
+                                          class="badge badge-pill badge-default">
+                                        <i class="fa fa-fw fa-remove"/>
+                                        Closed
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div t-if="message" t-att-class="'alert ' + message_class" role="alert">
+                                <p t-esc="message"/>
+                            </div>
+
+                            <div class="row mt-4">
+                                <!-- ======  Plan Overview ====== -->
+                                <div class="col-12 col-lg-5  mb-3 mb-lg-0">
+                                    <h5 class="mb-1">Your informations</h5>
+                                    <hr class="my-0"/>
+                                    <div t-field="ks_subscription.ks_partner_id"
+                                         t-options='{ "widget": "contact", "fields": [ "name", "address", "phone", "email"]}'/>
+                                    <a t-if="ks_user.partner_id == ks_subscription.ks_partner_id" class="small"
+                                       t-attf-href="/my/account?redirect=/my/subscription/#{ks_subscription.id}/#">
+                                        (Wrong address?)
+                                    </a>
+                                </div>
+
+                                <!-- ======  Costumer Informations  ====== -->
+                                <div class="col-12 col-lg-5 offset-lg-1">
+                                    <h5 class="mb-1">Your plan</h5>
+                                    <hr class="my-0"/>
+                                    <table class="table table-borderless table-sm">
+                                        <tbody style="white-space:nowrap">
+                                            <tr>
+                                                <th class="text-right pb-0">Subscription plan:</th>
+                                                <th class="w-100 pb-0">
+                                                    <span t-field="ks_subscription.ks_template_id.ks_name"/>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-right">Reference:</th>
+                                                <td class="w-100">
+                                                    <span t-field="ks_subscription.ks_code"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-right pb-0">Invoice Billing:</th>
+                                                <th class="w-100 pb-0">
+                                                    Every:
+                                                    <t t-esc="ks_subscription.ks_recurring_interval"/>
+                                                    <t t-if="ks_subscription.ks_recurring_rule_type=='daily'">day(s)</t>
+                                                    <t t-if="ks_subscription.ks_recurring_rule_type=='weekly'">week(s)
+                                                    </t>
+                                                    <t t-if="ks_subscription.ks_recurring_rule_type=='monthly'">
+                                                        month(s)
+                                                    </t>
+                                                    <t t-if="ks_subscription.ks_recurring_rule_type=='yearly'">year(s)
+                                                    </t>
+                                                </th>
+                                            </tr>
+
+                                            <tr>
+                                                <th class="text-right pb-0">Start date:</th>
+                                                <td class="w-100 pb-0">
+                                                    <span t-field="ks_subscription.ks_date_start"/>
+                                                </td>
+                                            </tr>
+                                            <tr t-if="ks_subscription.ks_end_date">
+                                                <th class="text-right pb-0">Valid until:</th>
+                                                <td class="w-100 pb-0">
+                                                    <span t-field="ks_subscription.ks_end_date"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-right pb-0">Next invoice:</th>
+                                                <td class="w-100 pb-0">
+                                                    <span t-field="ks_subscription.ks_recurring_next_date"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- ====== Plan details ====== -->
+                            <div class="row">
+                                <div class="col-12 mt-4">
+                                    <h5 class="mb-1">Subscription Plan details</h5>
+                                    <table class="table table-sm table-responsive-lg" id="wc-account-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Quantity</th>
+                                                <th>Unit Price</th>
+                                                <th>Subtotal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="ks_subscription.ks_recurring_invoice_line_ids"
+                                                t-as="ks_line">
+                                                <td class="line-description">
+                                                    <span t-field="ks_line.ks_name"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="ks_line.ks_quantity"/>
+                                                    <span t-field="ks_line.ks_uom_id" data-oe-readonly="1"/>
+                                                </td>
+                                                <td t-if="not ks_line.ks_discount">
+                                                    <span t-esc="ks_line.ks_price_unit"
+                                                          t-options='{"widget": "monetary", "display_currency": ks_pricelist.currency_id}'/>
+                                                </td>
+                                                <td t-if="ks_line.ks_discount">
+                                                    <s t-esc="ks_line.ks_price_unit"
+                                                       t-options='{"widget": "monetary", "display_currency": ks_pricelist.currency_id}'/>
+                                                    <br/>
+                                                    <div>
+                                                        <strong class="text-success"
+                                                                t-esc="ks_line.ks_price_unit*(100.0-ks_line.ks_discount)/100.0"
+                                                                t-options='{"widget": "monetary", "display_currency": ks_pricelist.currency_id}'/>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="ks_line.ks_price_subtotal"
+                                                          t-options='{"widget": "monetary", "display_currency": ks_pricelist.currency_id}'/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="2" class="py-2">
+                                                    <br/>
+                                                </td>
+                                                <td class="py-2">
+                                                    <strong>Subtotal:</strong>
+                                                </td>
+                                                <td class="py-2">
+                                                    <strong t-field="ks_subscription.ks_recurring_total"
+                                                            t-options='{"widget": "monetary", "display_currency": ks_pricelist.currency_id}'/>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <div>
+                                        <t t-if="ks_subscription.ks_reason_close_id">
+                                            <strong t-field="ks_subscription.ks_reason_close_id.ks_name"/>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="ks_subscription_portal_my_home_menu" name="Portal layout : Subscription menu entry"
+              inherit_id="portal.portal_breadcrumbs" priority="10">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'subscription' or ks_subscription"
+                t-attf-class="breadcrumb-item #{'active ' if not ks_subscription else ''}">
+                <a t-if="ks_subscription" t-attf-href="/my/subscription?{{ keep_query() }}">Subscriptions</a>
+                <t t-else="">Subscriptions</t>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="ks_subscription_portal_my_home" name="Portal My Home : Subscription entries"
+              inherit_id="portal.portal_my_home" priority="90">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="ks_subscription_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Subscriptions</t>
+                <t t-set="url" t-value="'/my/subscription'"/>
+                <t t-set="count" t-value="ks_subscription_count"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="ks_portal_my_subscriptions" name="My Subscriptions">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Subscriptions</t>
+            </t>
+            <t t-if="not ks_subscriptions">
+                <p>You don't have any subscriptions yet.</p>
+            </t>
+            <t t-if="ks_subscriptions" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th class="w-75">Subscription</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-right">Total</th>
+                    </tr>
+                </thead>
+                <t t-foreach="ks_subscriptions" t-as="ks_subscription">
+                    <tr>
+                        <td>
+                            <a t-att-href="'/my/subscription/'+str(ks_subscription.id)+'/'+'?'+keep_query()">
+                                <t t-esc="ks_subscription.display_name"/>
+                            </a>
+                        </td>
+                        <td class="text-center" id="ks_subscription_state">
+                            <t t-if="ks_subscription.ks_in_progress and not ks_subscription.ks_to_renew">
+                                <span class="badge badge-pill badge-success">
+                                    <i class="fa fa-fw fa-check"/>
+                                    In Progress
+                                </span>
+                            </t>
+                            <t t-if="ks_subscription.ks_to_renew">
+                                <span class="badge badge-pill badge-warning">
+                                    <i class="fa fa-fw fa-refresh"/>
+                                    To Renew
+                                </span>
+                            </t>
+                            <t t-if="not ks_subscription.ks_in_progress">
+                                <span class="badge badge-pill badge-danger">
+                                    <i class="fa fa-fw fa-remove"/>
+                                    Closed
+                                </span>
+                            </t>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="ks_subscription.ks_recurring_total"
+                                  t-options="{'widget': 'monetary', 'display_currency': ks_subscription.ks_currency_id}"/>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

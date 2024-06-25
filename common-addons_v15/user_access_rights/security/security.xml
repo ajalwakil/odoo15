@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+
+        <record model="ir.module.category" id="user_rights">
+            <field name="name">User Access Rights</field>
+            <field name="description">User Access Rights</field>
+        </record>
+        <record id="group_user_rights" model="res.groups">
+            <field name="name">Admin</field>
+            <field name="category_id" ref="user_rights"/>
+        </record>
+
+<!--        <record model="ir.module.category" id="reset_rights">-->
+<!--            <field name="name">Reset to Draft Rights</field>-->
+<!--            <field name="description">Reset to Draft Rights</field>-->
+<!--        </record>-->
+<!--        <record id="group_reset_draft_rights" model="res.groups">-->
+<!--            <field name="name">Admin</field>-->
+<!--            <field name="category_id" ref="reset_rights"/>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

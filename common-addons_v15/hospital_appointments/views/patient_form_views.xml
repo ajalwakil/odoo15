@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="patient_form">
+            <t t-call="website.layout">
+                <div id="request_form">
+                    <section class="s_website_form" data-vcss="001"
+                             data-snippet="s_website_form">
+                        <div class="container">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-xl">
+                                        <div class="wizard">
+                                            <div class="progress-wizard">
+                                                <a class="no-decoration"
+                                                   href="#">
+                                                    <div id="wizard-step10"
+                                                         data-oe-model="ir.ui.view"
+                                                         data-oe-id="1758"
+                                                         data-oe-field="arch"
+                                                         data-oe-xpath="/t[1]/div[1]/div[1]/div[1]/div[1]/a[1]/div[1]"
+                                                         class="progress-wizard-step complete">
+                                                        <div class="progress-wizard-bar d-none d-md-block"></div>
+                                                        <span class="progress-wizard-dot d-none d-md-inline-block"></span>
+                                                        <div class="text-center progress-wizard-steplabel">
+                                                            Select
+                                                            Speciality/Doctor
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a class="no-decoration"
+                                                   href="#">
+                                                    <div id="wizard-step20"
+                                                         data-oe-model="ir.ui.view"
+                                                         data-oe-id="1758"
+                                                         data-oe-field="arch"
+                                                         data-oe-xpath="/t[1]/div[1]/div[1]/div[1]/div[1]/a[2]/div[1]"
+                                                         class="progress-wizard-step complete">
+                                                        <div class="progress-wizard-bar d-none d-md-block"></div>
+                                                        <span class="progress-wizard-dot d-none d-md-inline-block"></span>
+                                                        <div class="text-center progress-wizard-steplabel">
+                                                            Book Your Slot
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a class="no-decoration"
+                                                   href="#">
+                                                    <div id="wizard-step40"
+                                                         data-oe-model="ir.ui.view"
+                                                         data-oe-id="1758"
+                                                         data-oe-field="arch"
+                                                         data-oe-xpath="/t[1]/div[1]/div[1]/div[1]/div[1]/a[3]/div[1]"
+                                                         class="progress-wizard-step active">
+                                                        <div class="progress-wizard-bar d-none d-md-block"></div>
+                                                        <span class="progress-wizard-dot d-none d-md-inline-block"></span>
+                                                        <div class="text-center progress-wizard-steplabel">
+                                                            Confirm Your
+                                                            Appointment
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form id="request_form" method="post"
+                                  action="/create/appointment/data">
+                                <div class="s_website_form_rows row s_col_no_bgcolor">
+                                    <div class="form-group col-12 s_website_form_field s_website_form_required">
+                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label"
+                                                   style="width: 200px">
+                                                <span class="s_website_form_label_content">
+                                                    Patient Name
+                                                </span>
+                                                <span class="s_website_form_mark">
+                                                    *
+                                                </span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text"
+                                                       class="form-control s_website_form_input"
+                                                       name="patient_name"
+                                                       required="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-12 s_website_form_field s_website_form_required">
+                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label"
+                                                   style="width: 200px">
+                                                <span class="s_website_form_label_content">
+                                                    Gender
+                                                </span>
+                                                <span class="s_website_form_mark">
+                                                    *
+                                                </span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <select name="gender"
+                                                        class="form-control link-style"
+                                                        required="1">
+                                                    <option t-attf-value="female">
+                                                        Female
+                                                    </option>
+                                                    <option t-attf-value="male">
+                                                        Male
+                                                    </option>
+                                                    <option t-attf-value="other">
+                                                        Others
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-12 s_website_form_field s_website_form_required">
+                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label"
+                                                   style="width: 200px">
+                                                <span class="s_website_form_label_content">
+                                                    Age
+                                                </span>
+                                                <span class="s_website_form_mark">
+                                                    *
+                                                </span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="tel"
+                                                       class="form-control s_website_form_input"
+                                                       name="age" required="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                       <div class="form-group col-12 s_website_form_field s_website_form_required">
+                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label"
+                                                   style="width: 200px">
+                                                <span class="s_website_form_label_content">
+                                                    Place
+                                                </span>
+                                                <span class="s_website_form_mark">
+                                                    *
+                                                </span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text"
+                                                       class="form-control s_website_form_input"
+                                                       name="place" required="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-12 s_website_form_field"
+                                         data-type="char"
+                                         data-name="Field">
+                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label"
+                                                   style="width: 200px">
+                                                <span class="s_website_form_label_content">
+                                                    Phone Number
+                                                </span>
+                                                 <span class="s_website_form_mark">
+                                                    *
+                                                </span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="tel"
+                                                       class="form-control s_website_form_input"
+                                                       name="phone" required="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                         data-type="char" data-name="Field">
+                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label"
+                                                   style="width: 200px">
+                                                <span class="s_website_form_label_content">
+                                                    Email
+                                                </span>
+                                                <span class="s_website_form_mark">
+                                                    *
+                                                </span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input id="email" type="tel"
+                                                       class="form-control s_website_form_input"
+                                                       name="email"
+                                                       required="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="text" style="display:none"
+                                           class="form-control s_website_form_input"
+                                           id="doctor_name" name="doctor_name"
+                                           required=""
+                                           t-att-value="doctors.id"/>
+                                     <input type="text" style="display:none"
+                                           class="form-control s_website_form_input"
+                                           id="special_id_ne" name="special_id_ne"
+                                           required=""
+                                           t-att-value="speciality.id"/>
+                                     <input type="text" style="display:none"
+                                           class="form-control s_website_form_input"
+                                           id="slot_id_ne" name="slot_id_ne"
+                                           required=""
+                                           t-att-value="slots.id"/>
+                                     <input type="text" style="display:none"
+                                           class="form-control s_website_form_input"
+                                           id="appoint_date" name="appoint_date"
+                                           required=""
+                                           t-att-value="appointment_date"/>
+                                    <div class="form-group col-12 s_website_form_submit"
+                                         data-name="Submit Button">
+                                        <div style="width: 200px;"
+                                             class="s_website_form_label"/>
+                                        <a t-attf-href="'report/pdf/hospital_appointments.patient_card/%s'%patient">
+                                            <button type="submit"
+                                                    class="btn btn-primary pull-left">
+                                                Submit
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>
+

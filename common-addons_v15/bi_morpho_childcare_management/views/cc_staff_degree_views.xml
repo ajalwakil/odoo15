@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<odoo>    
+    <record id="cc_staff_degree_form_view" model="ir.ui.view">
+        <field name="name">cc.staff.degree.view.form</field>
+        <field name="model">cc.staff.degree</field>
+        <field name="arch" type="xml">
+            <form string="Staff Certificate">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="level"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="cc_staff_degree_tree_view" model="ir.ui.view">
+        <field name="name">cc.staff.degree.view.tree</field>
+        <field name="model">cc.staff.degree</field>
+        <field name="arch" type="xml">
+            <tree string="Staff Certificate">
+                <field name="name"/>
+                <field name="level"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cc_staff_degree_action" model="ir.actions.act_window">
+        <field name="name">Staff Certificate</field>
+        <field name="res_model">cc.staff.degree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

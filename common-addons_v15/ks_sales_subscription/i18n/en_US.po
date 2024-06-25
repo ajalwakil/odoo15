@@ -1,0 +1,1571 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ks_sales_subscription
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.1alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-15 08:30+0000\n"
+"PO-Revision-Date: 2020-10-15 08:30+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ks_sales_subscription
+#: model:res.groups,name:ks_sales_subscription.ks_manager_subscription_right
+msgid " Subscriptions Manager"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,subject:ks_sales_subscription.ks_subscription_after_next_invoice_reminder
+msgid "${object.ks_code} Subscription Payment Reminder."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,subject:ks_sales_subscription.ks_subscription_before_next_invoice_reminder
+msgid "${object.ks_code} Subscription Renewal Reminder"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_kanban_view
+msgid "&amp;nbsp;"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "(Wrong address?)"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,body_html:ks_sales_subscription.ks_subscription_before_next_invoice_reminder
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                        <p>\n"
+"                            Dear ${object.ks_partner_id.name}\n"
+"                            % if object.ks_partner_id.parent_id:\n"
+"                                (${object.ks_partner_id.parent_id.name})\n"
+"                            % endif\n"
+"                            <p>This email is just a reminder that your invoice will be generated on ${object.ks_recurring_next_date} against ${object.ks_code} Subscription .\n"
+"                                Please be prepared before the subscription expires.</p>\n"
+"                            <p>Do not hesitate to contact us if you have any question.</p>\n"
+"                            % if object.ks_company_id.name:\n"
+"                                <p>Thank you for choosing ${object.ks_company_id.name}!</p>\n"
+"                             % endif\n"
+"                            <p>Thanks,</p>\n"
+"                            % if user and user.signature:\n"
+"                                ${user.signature | safe}\n"
+"                            % endif\n"
+"                        </p>\n"
+"                    </div>\n"
+"            "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,body_html:ks_sales_subscription.ks_subscription_close_email_template
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                        <p>\n"
+"                            Dear ${object.ks_partner_id.name}\n"
+"                            % if object.ks_partner_id.parent_id:\n"
+"                                (${object.ks_partner_id.parent_id.name})\n"
+"                            % endif\n"
+"                            <p>Your subscription has been expired.</p>\n"
+"                            <p>  Do not hesitate to contact us if you have any question.</p>\n"
+"                            % if object.ks_company_id.name:\n"
+"                                <p>Thank you for choosing ${object.ks_company_id.name}!</p>\n"
+"                             % endif\n"
+"                            <p>Thanks,</p>\n"
+"                            % if user and user.signature:\n"
+"                                ${user.signature | safe}\n"
+"                            % endif\n"
+"                        </p>\n"
+"                    </div>\n"
+"            "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,body_html:ks_sales_subscription.ks_subscription_close_customer_call
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p>\n"
+"                        Dear ${object.ks_partner_id.name}\n"
+"                        % if object.ks_partner_id.parent_id:\n"
+"                            (${object.ks_partner_id.parent_id.name})\n"
+"                        % endif\n"
+"                        <p>As discussed, Your ${object.ks_code} subscription has been closed.</p>\n"
+"                        <p>Do not hesitate to contact us if you have any question.</p>\n"
+"                        % if object.ks_company_id.name:\n"
+"                            <p>Thank you for choosing ${object.ks_company_id.name}!</p>\n"
+"                         % endif\n"
+"                        <p>Thanks,</p>\n"
+"                        % if user and user.signature:\n"
+"                            ${user.signature | safe}\n"
+"                        % endif\n"
+"                    </p>\n"
+"                </div>\n"
+"        "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,body_html:ks_sales_subscription.ks_subscription_closed_for_due_payment
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p>\n"
+"                        Dear ${object.ks_partner_id.name}\n"
+"                        % if object.ks_partner_id.parent_id:\n"
+"                            (${object.ks_partner_id.parent_id.name})\n"
+"                        % endif\n"
+"                        <p>The ${object.ks_code} subscription is closed as the bill for the subscription has not been paid.</p>\n"
+"                        <p>Do not hesitate to contact us if you have any question.</p>\n"
+"                        % if object.ks_company_id.name:\n"
+"                            <p>Thank you for choosing ${object.ks_company_id.name}!</p>\n"
+"                         % endif\n"
+"                        <p>Thanks,</p>\n"
+"                        % if user and user.signature:\n"
+"                            ${user.signature | safe}\n"
+"                        % endif\n"
+"                    </p>\n"
+"                </div>\n"
+"        "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,body_html:ks_sales_subscription.ks_subscription_after_next_invoice_reminder
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p>\n"
+"                        Dear ${object.ks_partner_id.name}\n"
+"                        % if object.ks_partner_id.parent_id:\n"
+"                            (${object.ks_partner_id.parent_id.name})\n"
+"                        % endif\n"
+"                        <p>This email is to remind you that your invoice has been generated. We recommend paying your bill before the subscription expired on ${object.ks_buf_date} .</p>\n"
+"                        <p>If you have already paid. Please ignore that!.</p>\n"
+"                        <p>Do not hesitate to contact us if you have any question.</p>\n"
+"                        % if object.ks_company_id.name:\n"
+"                            <p>Thank you for choosing ${object.ks_company_id.name}!</p>\n"
+"                         % endif\n"
+"                        <p>Thanks,</p>\n"
+"                        % if user and user.signature:\n"
+"                            ${user.signature | safe}\n"
+"                        % endif\n"
+"                    </p>\n"
+"                </div>\n"
+"        "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,body_html:ks_sales_subscription.ks_subscription_renew_email
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p>\n"
+"                        Dear ${object.ks_partner_id.name}\n"
+"                        % if object.ks_partner_id.parent_id:\n"
+"                            (${object.ks_partner_id.parent_id.name})\n"
+"                        % endif\n"
+"                        <p>Your ${object.ks_code} subscription has been renewed successfully. Enjoy our services. </p>\n"
+"                        <p>Do not hesitate to contact us if you have any question.</p>\n"
+"                        % if object.ks_company_id.name:\n"
+"                            <p>Thank you for choosing ${object.ks_company_id.name}!</p>\n"
+"                         % endif\n"
+"                        <p>Thanks,</p>\n"
+"                        % if user and user.signature:\n"
+"                            ${user.signature | safe}\n"
+"                        % endif\n"
+"                    </p>\n"
+"                </div>\n"
+"        "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,body_html:ks_sales_subscription.ks_subscription_portal_payment_successfully
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p>\n"
+"                        Dear ${object.partner_id.name}\n"
+"                        % if object.partner_id.parent_id:\n"
+"                            (${object.partner_id.parent_id.name})\n"
+"                        % endif\n"
+"                        <p>Here is your invoice <b>${object.name}</b> amounting in <b>${format_amount(object.amount_total, object.currency_id)}</b> paid successfully.</p>\n"
+"                        <p>This invoice is paid.</p>\n"
+"                        <p>Do not hesitate to contact us if you have any question.</p>\n"
+"                        % if object.company_id.name:\n"
+"                            <p>Thank you for choosing ${object.company_id.name}!</p>\n"
+"                         % endif\n"
+"                        <p>Thanks,</p>\n"
+"                        % if user and user.signature:\n"
+"                            ${user.signature | safe}\n"
+"                        % endif\n"
+"                    </p>\n"
+"                </div>\n"
+"        "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,body_html:ks_sales_subscription.ks_subscription_payment_successfully
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p>\n"
+"                        Dear ${object.partner_id.name}\n"
+"                        % if object.partner_id.parent_id:\n"
+"                            (${object.partner_id.parent_id.name})\n"
+"                        % endif\n"
+"                        <p>Here is your invoice <b>${object.name}</b> amounting in <b>${format_amount(object.ks_sub_amount_total, object.currency_id)}</b> paid successfully with due amount <b>${format_amount(object.amount_residual, object.currency_id)}</b>.</p>\n"
+"                        <p>This invoice is paid.</p>\n"
+"                        <p>Do not hesitate to contact us if you have any question.</p>\n"
+"                        % if object.company_id.name:\n"
+"                            <p>Thank you for choosing ${object.company_id.name}!</p>\n"
+"                         % endif\n"
+"                        <p>Thanks,</p>\n"
+"                        % if user and user.signature:\n"
+"                            ${user.signature | safe}\n"
+"                        % endif\n"
+"                    </p>\n"
+"                </div>\n"
+"        "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "<i class=\"fa fa-fw fa-check\"/> In Progress"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "<i class=\"fa fa-fw fa-refresh\"/> To Renew"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "<i class=\"fa fa-fw fa-remove\"/> Closed"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "<small class=\"text-muted\">Subscription -</small>"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_portal_my_subscriptions
+msgid ""
+"<span class=\"badge badge-pill badge-danger\"><i class=\"fa fa-fw fa-"
+"remove\"/> Closed</span>"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_portal_my_subscriptions
+msgid ""
+"<span class=\"badge badge-pill badge-success\"><i class=\"fa fa-fw fa-"
+"check\"/> In Progress</span>"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_portal_my_subscriptions
+msgid ""
+"<span class=\"badge badge-pill badge-warning\"><i class=\"fa fa-fw fa-"
+"refresh\"/> To Renew</span>"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view_templates
+msgid "<span class=\"mr-1\">Every</span>"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view_templates
+msgid "<span class=\"mr-1\">For</span>"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_kanban_view
+msgid "<span>Subscriptions</span>"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "<strong>Subtotal:</strong>"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_needaction
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_needaction
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__active
+msgid "Active"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/controllers/ks_subscription_portal.py:0
+#, python-format
+msgid "All"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_analytic_account_id
+msgid "Analytic Account"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_search_view_template
+msgid "Archived"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_attachment_count
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_attachment_count
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__ks_auto_close_limit
+msgid "Automatic closing limit"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_buf_date
+msgid "Buffer Date"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/models/ks_sale_subscription.py:0
+#, python-format
+msgid "Chose Customer for Subscription %s!"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/models/ks_sale_subscription.py:0
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_reason_close_id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason_wizard__ks_reason_close_id
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_reason_close_view_form
+#, python-format
+msgid "Close Reason"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_reason_close_view_form
+msgid "Close Reasons"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/controllers/ks_subscription_portal.py:0
+#: model:ks.subscription.stage,ks_name:ks_sales_subscription.ks_subscription_stage_closed
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_search_view_sale_subscription
+#, python-format
+msgid "Closed"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_company_id
+msgid "Company"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.ui.menu,name:ks_sales_subscription.ks_configurations_menu_action_id
+msgid "Configurations"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__ks_subscription_count
+msgid "Count"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_payment_mode
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__ks_payment_mode
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view
+msgid "Create Invoice"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.actions.act_window,help:ks_sales_subscription.ks_product_subscription_plan_action
+msgid "Create a new product"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.actions.act_window,help:ks_sales_subscription.ks_sale_subscription_action_view
+#: model_terms:ir.actions.act_window,help:ks_sales_subscription.ks_sale_subscription_kanban_action
+msgid "Create a new subscription"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.actions.act_window,help:ks_sales_subscription.ks_sale_subscription_stage_action
+msgid "Create a new subscription stage"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.actions.act_window,help:ks_sales_subscription.ks_sale_subscription_view_templates_action
+msgid "Create a new template of subscription"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__create_uid
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__create_uid
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__create_uid
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason__create_uid
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason_wizard__create_uid
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_stage__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__create_date
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__create_date
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__create_date
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason__create_date
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason_wizard__create_date
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_stage__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields.selection,name:ks_sales_subscription.selection__sale_order__ks_subscription_management__create
+msgid "Creation"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_partner_id
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_search_view_sale_subscription
+msgid "Customer"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields.selection,name:ks_sales_subscription.selection__ks_sale_subscription_template__ks_recurring_rule_type__daily
+msgid "Day(s)"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__ks_name
+msgid "Description"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__ks_discount
+msgid "Discount (%)"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_move__display_name
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_payment_register__display_name
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__display_name
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__display_name
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__display_name
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason__display_name
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason_wizard__display_name
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_stage__display_name
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_payment_transaction__display_name
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_product_template__display_name
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__display_name
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ks.subscription.stage,ks_name:ks_sales_subscription.ks_subscription_stage_draft
+msgid "Draft"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields.selection,name:ks_sales_subscription.selection__ks_sale_subscription_template__ks_payment_mode__draft_invoice
+msgid "Draft invoice"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_recurring_rule_boundary
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__ks_recurring_rule_boundary
+msgid "Duration"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_recurring_rule_count
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__ks_recurring_rule_count
+msgid "End After"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_end_date
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_search_view_sale_subscription
+msgid "End Date"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view
+msgid "End Subscriptions"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Every:"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_follower_ids
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_follower_ids
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_channel_ids
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_channel_ids
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_partner_ids
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_partner_ids
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_search_view_sale_subscription
+msgid "Group By"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ks.subscription.close.reason,ks_name:ks_sales_subscription.ks_subscription_close_reason_6
+msgid "I don't use it"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_move__id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_move_line__id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_payment_register__id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason__id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason_wizard__id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_stage__id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_payment_transaction__id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_product_template__id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order_line__id
+msgid "ID"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__message_needaction
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__message_unread
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription_template__message_needaction
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription_template__message_unread
+#: model:ir.model.fields,help:ks_sales_subscription.field_sale_order__message_needaction
+#: model:ir.model.fields,help:ks_sales_subscription.field_sale_order__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__message_has_error
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__message_has_sms_error
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription_template__message_has_error
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription_template__message_has_sms_error
+#: model:ir.model.fields,help:ks_sales_subscription.field_sale_order__message_has_error
+#: model:ir.model.fields,help:ks_sales_subscription.field_sale_order__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__ks_payment_token_id
+msgid "If not set, the default payment token of the partner will be used."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/controllers/ks_subscription_portal.py:0
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_in_progress
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_stage__ks_in_progress
+#: model:ks.subscription.stage,ks_name:ks_sales_subscription.ks_subscription_stage_progress
+#, python-format
+msgid "In Progress"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_account_invoice_ids
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view_templates
+msgid "Invoice"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Invoice Billing:"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_reminder_day
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__ks_reminder_day
+msgid "Invoice Reminder Days"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__ks_recurring_rule_type
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__ks_recurring_rule_type_readonly
+msgid "Invoice automatically repeat at specified interval"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,subject:ks_sales_subscription.ks_subscription_payment_successfully
+#: model:mail.template,subject:ks_sales_subscription.ks_subscription_portal_payment_successfully
+msgid "Invoice payment successfully "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_invoice_count
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view
+msgid "Invoices"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_is_follower
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_is_follower
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_product_product__ks_recurring_invoice
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_product_template__ks_recurring_invoice
+msgid "Is Subscription Product"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_product_search_view_inherit
+msgid "Is Subscription Products"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__ks_journal_id
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view_templates
+msgid "Journal"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model,name:ks_sales_subscription.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model,name:ks_sales_subscription.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_name
+msgid "Ks Name"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason__ks_sequence
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_stage__ks_sequence
+msgid "Ks Sequence"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_move____last_update
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_payment_register____last_update
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription____last_update
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line____last_update
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template____last_update
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason____last_update
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason_wizard____last_update
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_stage____last_update
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_payment_transaction____last_update
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_product_template____last_update
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order____last_update
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__write_uid
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__write_uid
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__write_uid
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason__write_uid
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason_wizard__write_uid
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_stage__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__write_date
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__write_date
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__write_date
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason__write_date
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason_wizard__write_date
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_stage__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields.selection,name:ks_sales_subscription.selection__ks_sale_subscription_template__ks_recurring_rule_boundary__limited
+msgid "Limited"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/models/ks_subscription_template.py:0
+#, python-format
+msgid "Limited Plan duration must be greater then Invoice generation period!."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_main_attachment_id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_main_attachment_id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields.selection,name:ks_sales_subscription.selection__ks_sale_subscription_template__ks_payment_mode__manual
+msgid "Manual Invoice"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_has_error
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_has_error
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_ids
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_ids
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields.selection,name:ks_sales_subscription.selection__ks_sale_subscription_template__ks_recurring_rule_type__monthly
+msgid "Month(s)"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_search_view_sale_subscription
+msgid "My Subscriptions"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/controllers/ks_subscription_portal.py:0
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__ks_name
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_close_reason__ks_name
+#, python-format
+msgid "Name"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/controllers/ks_subscription_portal.py:0
+#, python-format
+msgid "Newest"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_recurring_next_date
+msgid "Next Invoice"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Next invoice:"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.actions.act_window,help:ks_sales_subscription.ks_subscription_product_template_action
+msgid "No product found"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_needaction_counter
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_needaction_counter
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription_template__ks_auto_close_limit
+msgid ""
+"Number of days before a subscription gets closed when the chosen payment "
+"mode trigger automatically the payment."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_has_error_counter
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_has_error_counter
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__message_needaction_counter
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription_template__message_needaction_counter
+#: model:ir.model.fields,help:ks_sales_subscription.field_sale_order__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__message_has_error_counter
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription_template__message_has_error_counter
+#: model:ir.model.fields,help:ks_sales_subscription.field_sale_order__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__message_unread_counter
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription_template__message_unread_counter
+#: model:ir.model.fields,help:ks_sales_subscription.field_sale_order__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ks.subscription.close.reason,ks_name:ks_sales_subscription.ks_subscription_close_reason_7
+msgid "Other"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_payment_token_id
+msgid "Payment Token"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model,name:ks_sales_subscription.model_payment_transaction
+msgid "Payment Transaction"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/models/ks_sale_subscription.py:0
+#, python-format
+msgid "Please define Date of Next Invoice of \"%s\"."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/models/ks_sale_subscription.py:0
+#, python-format
+msgid "Please define a sale journal for the company \"%s\"."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_pricelist_id
+msgid "Pricelist"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__ks_product_id
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Product"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model,name:ks_sales_subscription.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.actions.act_window,name:ks_sales_subscription.ks_subscription_product_template_action
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view_templates
+msgid "Products"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__ks_quantity
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Quantity"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription_line__ks_quantity
+msgid "Quantity that will be invoiced."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_recurring_rule_type
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_recurring_rule_type_readonly
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__ks_recurring_rule_type
+msgid "Recurrence"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__ks_recurring_rule_type_readonly
+msgid "Recurrence Unit"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_kanban_view
+msgid "Recurrence:"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_recurring_total
+msgid "Recurring Price"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_code
+msgid "Reference"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Reference:"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model,name:ks_sales_subscription.model_account_payment_register
+msgid "Register Payment"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/models/ks_subscription_template.py:0
+#, python-format
+msgid "Reminder days can not be greater then Invoice period."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/models/ks_subscription_template.py:0
+#, python-format
+msgid "Reminder days can not be greater then Invoice period. "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/models/ks_sale_subscription.py:0
+#, python-format
+msgid "Reminder days can not be greater then Subscription start date!. "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_kanban_view_new
+msgid "Renew"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_to_renew
+msgid "Renew Subscription"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields.selection,name:ks_sales_subscription.selection__sale_order__ks_subscription_management__renew
+msgid "Renewal"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_recurring_interval
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__ks_recurring_interval
+msgid "Repeat Every"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__ks_recurring_interval
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription_template__ks_recurring_interval
+msgid "Repeat every (Days/Week/Month/Year)"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_search_view_sale_subscription
+msgid "Running"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_has_sms_error
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_has_sms_error
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_sale_id
+msgid "Sale"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view
+msgid "Sale Subscription"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.actions.server,name:ks_sales_subscription.ks_cron_for_create_next_invoice_ir_actions_server
+#: model:ir.cron,cron_name:ks_sales_subscription.ks_cron_for_create_next_invoice
+#: model:ir.cron,name:ks_sales_subscription.ks_cron_for_create_next_invoice
+msgid "Sale Subscription: Generate Next Invoice"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.actions.server,name:ks_sales_subscription.ks_cron_subscription_next_invoice_reminder_ir_actions_server
+#: model:ir.cron,cron_name:ks_sales_subscription.ks_cron_subscription_next_invoice_reminder
+#: model:ir.cron,name:ks_sales_subscription.ks_cron_subscription_next_invoice_reminder
+msgid "Sale Subscription: Next Invoice Reminder"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.actions.server,name:ks_sales_subscription.ks_cron_due_payment_sub_closed_ir_actions_server
+#: model:ir.cron,cron_name:ks_sales_subscription.ks_cron_due_payment_sub_closed
+#: model:ir.cron,name:ks_sales_subscription.ks_cron_due_payment_sub_closed
+msgid "Sale Subscription: Payment Due Closed Subscription"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.actions.server,name:ks_sales_subscription.ks_cron_subscription_close_ir_actions_server
+#: model:ir.cron,cron_name:ks_sales_subscription.ks_cron_subscription_close
+#: model:ir.cron,name:ks_sales_subscription.ks_cron_subscription_close
+msgid "Sale Subscription: Subscription Expired"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.actions.server,name:ks_sales_subscription.ks_cron_to_renew_subscription_ir_actions_server
+#: model:ir.cron,cron_name:ks_sales_subscription.ks_cron_to_renew_subscription
+#: model:ir.cron,name:ks_sales_subscription.ks_cron_to_renew_subscription
+msgid "Sale Subscription: Subscription Renew"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_tree_view
+msgid "Sale Subscriptions"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view
+msgid "Sales"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model,name:ks_sales_subscription.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model,name:ks_sales_subscription.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/models/ks_sale_subscription.py:0
+#, python-format
+msgid "Sales Orders"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_sale_team_id
+msgid "Sales Team"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_user_id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__user_id
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_search_view_sale_subscription
+msgid "Salesperson"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_stage_id
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_search_view_sale_subscription
+msgid "Stage"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_subscription_stage__ks_name
+msgid "Stage Name"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.actions.act_window,name:ks_sales_subscription.ks_sale_subscription_stage_action
+msgid "Stages"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_date_start
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_search_view_sale_subscription
+msgid "Start Date"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Start date:"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_portal_my_subscriptions
+msgid "Status"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__ks_price_subtotal
+msgid "Sub Total"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_reason_close_view_form
+msgid "Submit"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model,name:ks_sales_subscription.model_ks_sale_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__ks_analytic_account_id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order_line__ks_subscription_id
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_portal_my_subscriptions
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_search_view_sale_subscription
+msgid "Subscription"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_bank_statement_line__ks_sub_amount_total
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_move__ks_sub_amount_total
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_payment__ks_sub_amount_total
+msgid "Subscription Amount Paid"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_bank_statement_line__ks_sub_buffer_date
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_move__ks_sub_buffer_date
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_payment__ks_sub_buffer_date
+msgid "Subscription Buffer Date"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model,name:ks_sales_subscription.model_ks_subscription_close_reason_wizard
+msgid "Subscription Close Reason"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__ks_subscription_count
+msgid "Subscription Count"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view
+msgid "Subscription Lines"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__ks_subscription_management
+msgid "Subscription Management"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.actions.act_window,name:ks_sales_subscription.ks_sale_subscription_view_templates_action
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_template_id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_product_product__ks_subscription_plan_id
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_product_template__ks_subscription_plan_id
+#: model:ir.ui.menu,name:ks_sales_subscription.ks_sale_templates_action_id
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_product_template_form_recurring_view
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view_templates
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_search_view_template
+msgid "Subscription Plan"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_search_view_template
+msgid "Subscription Plan Template"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Subscription Plan details"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.actions.act_window,name:ks_sales_subscription.ks_product_subscription_plan_action
+#: model:ir.ui.menu,name:ks_sales_subscription.ks_menu_sale_subscription_plan_product
+msgid "Subscription Products"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_stage_form_view
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_stage_tree_view
+msgid "Subscription Stage"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.ui.menu,name:ks_sales_subscription.ks_subscription_stage_action_id
+msgid "Subscription Stage "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_tree_view_sale_subscription_template
+msgid "Subscription Templates Plan"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_buffer_date
+msgid "Subscription buffer date"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ks.subscription.close.reason,ks_name:ks_sales_subscription.ks_subscription_close_reason_5
+msgid "Subscription closed due to payment not paid"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ks.subscription.close.reason,ks_name:ks_sales_subscription.ks_subscription_close_reason_2
+msgid "Subscription does not meet my requirements"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ks.subscription.close.reason,ks_name:ks_sales_subscription.ks_subscription_close_reason_4
+msgid "Subscription has been expired"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ks.subscription.close.reason,ks_name:ks_sales_subscription.ks_subscription_close_reason_1
+msgid "Subscription is too expensive"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Subscription plan:"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ks.subscription.close.reason,ks_name:ks_sales_subscription.ks_subscription_close_reason_3
+msgid "Subscription reached its end date"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.actions.act_window,name:ks_sales_subscription.ks_sale_subscription_action_view
+#: model:ir.actions.act_window,name:ks_sales_subscription.ks_sale_subscription_kanban_action
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_account_move_line__ks_subscription_id
+#: model:ir.module.category,name:ks_sales_subscription.ks_module_subscription_category
+#: model:ir.ui.menu,name:ks_sales_subscription.ks_main_menu_sale_subscription_root
+#: model:ir.ui.menu,name:ks_sales_subscription.ks_menu_sale_subscription_action
+#: model:ir.ui.menu,name:ks_sales_subscription.ks_menu_sale_subscription_view
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_portal_my_subscriptions
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_order_subscription_view_inherit
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view_templates
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_graph_view
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_pivot_view
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_search_view_sale_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_portal_my_home
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_portal_my_home_menu
+msgid "Subscriptions"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.actions.act_window,name:ks_sales_subscription.ks_subscription_close_reason_action
+#: model:ir.ui.menu,name:ks_sales_subscription.ks_subscription_close_action
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_form_view_close_reason
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_tree_view_close_reason
+msgid "Subscriptions Close Reasons"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_recurring_invoice_line_ids
+msgid "Subscriptions Invoice Lines"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_product_template_form_recurring_view
+msgid "Subscriptions Plan"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view
+msgid "Subscriptions Renew"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:res.groups,name:ks_sales_subscription.ks_user_subscription_right
+msgid "Subscriptions User"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Subtotal"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_search_view_sale_subscription
+msgid "Template"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.actions.act_window,help:ks_sales_subscription.ks_sale_subscription_view_templates_action
+msgid ""
+"Templates are used to prefigure subscription that\n"
+"                can be selected by the salespeople to quickly configure the\n"
+"                terms and conditions of the subscription."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__ks_description
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view_templates
+msgid "Terms and Conditions"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/models/ks_subscription_template.py:0
+#, python-format
+msgid "The recurring interval must be positive"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/models/ks_sale_subscription.py:0
+#, python-format
+msgid "This invoice covers the following period: %s - %s"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/controllers/ks_subscription_portal.py:0
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_search_view_sale_subscription
+#, python-format
+msgid "To Renew"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_portal_my_subscriptions
+msgid "Total"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__ks_price_unit
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Unit Price"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_line__ks_uom_id
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields.selection,name:ks_sales_subscription.selection__ks_sale_subscription_template__ks_recurring_rule_boundary__unlimited
+msgid "Unlimited"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_unread
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_unread
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__message_unread_counter
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__message_unread_counter
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Valid until:"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields.selection,name:ks_sales_subscription.selection__ks_sale_subscription_template__ks_payment_mode__validate_send
+msgid "Validate Invoice"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__website_message_ids
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__website_message_ids
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_sale_order__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription__website_message_ids
+#: model:ir.model.fields,help:ks_sales_subscription.field_ks_sale_subscription_template__website_message_ids
+#: model:ir.model.fields,help:ks_sales_subscription.field_sale_order__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields.selection,name:ks_sales_subscription.selection__ks_sale_subscription_template__ks_recurring_rule_type__weekly
+msgid "Week(s)"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields.selection,name:ks_sales_subscription.selection__ks_sale_subscription_template__ks_recurring_rule_type__yearly
+msgid "Year(s)"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: code:addons/ks_sales_subscription/models/ks_sale_subscription.py:0
+#, python-format
+msgid ""
+"You can not delete a subscription until in progress state. You must first "
+"cancel it."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_portal_my_subscriptions
+msgid "You don't have any subscriptions yet."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.actions.act_window,help:ks_sales_subscription.ks_product_subscription_plan_action
+msgid ""
+"You must define a product for everything you purchase,\n"
+"            whether it's a physical product, a consumable or services."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.actions.act_window,help:ks_sales_subscription.ks_subscription_product_template_action
+msgid ""
+"You will find here all the products related to this subscription template."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,subject:ks_sales_subscription.ks_subscription_closed_for_due_payment
+msgid "Your ${object.ks_code} Subscription Closed Due to Late Payment."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,subject:ks_sales_subscription.ks_subscription_close_email_template
+msgid "Your ${object.ks_code} Subscription has been Expired."
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,subject:ks_sales_subscription.ks_subscription_renew_email
+msgid "Your ${object.ks_code} Subscription have been Renewed. "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:mail.template,subject:ks_sales_subscription.ks_subscription_close_customer_call
+msgid "Your ${object.ks_code} Subscription have been closed. "
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Your informations"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "Your plan"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "day(s)"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_sale_subscription_form_view_templates
+msgid "e.g. Subscription Plan"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model,name:ks_sales_subscription.model_ks_sale_subscription_line
+msgid "ks.sale.subscription.line"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model,name:ks_sales_subscription.model_ks_sale_subscription_template
+msgid "ks.sale.subscription.template"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model,name:ks_sales_subscription.model_ks_subscription_close_reason
+msgid "ks.subscription.close.reason"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model,name:ks_sales_subscription.model_ks_subscription_stage
+msgid "ks.subscription.stage"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "month(s)"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription_template__ks_product_count
+msgid "product count"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model:ir.model.fields,field_description:ks_sales_subscription.field_ks_sale_subscription__ks_sale_count
+msgid "sale"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "week(s)"
+msgstr ""
+
+#. module: ks_sales_subscription
+#: model_terms:ir.ui.view,arch_db:ks_sales_subscription.ks_subscription_template
+msgid "year(s)"
+msgstr ""

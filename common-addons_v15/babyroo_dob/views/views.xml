@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record id="view_partner_structured_form_inherit" model="ir.ui.view">
+            <field name="name">view_partner_structured_form_inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="dob"/>
+                    <field name="kid_age"/>
+                </xpath>
+                <xpath expr="//field[@name='function']" position="replace">
+                    <field name="function" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

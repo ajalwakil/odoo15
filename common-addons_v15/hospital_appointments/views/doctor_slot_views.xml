@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!--    Doctor slots template-->
+    <template id="doctor_slot">
+        <t t-call="website.layout">
+            <div id="request_form">
+                <section class="s_website_form" data-vcss="001"
+                         data-snippet="s_website_form">
+                    <div class="container">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-xl">
+                                    <div class="wizard">
+                                        <div class="progress-wizard">
+                                            <a class="no-decoration"
+                                               href="/doctor_appointment">
+                                                <div id="wizard-step10"
+                                                     data-oe-model="ir.ui.view"
+                                                     class="progress-wizard-step complete">
+                                                    <div class="text-center progress-wizard-steplabel">
+                                                        Select
+                                                        Speciality/Doctor
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="no-decoration" href="#">
+                                                <div id="wizard-step20"
+                                                     data-oe-model="ir.ui.view"
+                                                     class="progress-wizard-step active">
+                                                    <div class="text-center progress-wizard-steplabel">
+                                                        Book Your Slot
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="no-decoration" href="#">
+                                                <div id="wizard-step40"
+                                                     data-oe-model="ir.ui.view"
+                                                     class="progress-wizard-step active">
+                                                    <div class="text-center progress-wizard-steplabel">
+                                                        Confirm Your
+                                                        Appointment
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <section class="s_text_image pt32 pb32 o_colored_level"
+                                 data-snippet="s_image_text"
+                                 data-name="Image - Text"
+                                 style="background-image: none;">
+                            <div class="container">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6 pt16 pb16 o_colored_level">
+                                        <t t-if="image">
+                                            <img t-attf-src="data:image/png;base64,{{image}}"
+                                                 class="img img-fluid mx-auto"
+                                                 alt="" loading="lazy"/>
+                                        </t>
+                                        <t t-else="!image">
+                                            <img t-attf-src="/hospital_appointments/static/img/doctor.png"
+                                                 class="img img-fluid mx-auto"
+                                                 alt="" loading="lazy"
+                                                 width="150px" height="150px"/>
+                                        </t>
+                                    </div>
+                                    <div class="col-lg-6 pt16 pb16 o_colored_level">
+                                        <h2 class="o_default_snippet_text">
+                                            Dr.
+                                            <t t-esc="doc_name.name"/>
+                                        </h2>
+                                        <p>
+                                            Consultancy Charge:
+                                            <t t-esc="currency"/>
+                                            <t t-esc="consult_charge"/>
+                                        </p>
+                                        <p>
+                                            Consultancy Type:
+                                            <t t-esc="consult_type"/>
+                                        </p>
+                                        <p>
+                                            Specialization:
+                                            <t t-foreach="specialization"
+                                               t-as="doc">
+                                                <span t-att-value="doc.id"
+                                                      t-esc="doc.specialization"/>
+                                            </t>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="container">
+                            <form id="slot_form" method="post"
+                                  action="/create/slot/appointment">
+                                <div class="s_website_form_rows row s_col_no_bgcolor">
+                                    <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                         data-type="char" data-name="Field">
+                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label"
+                                                   style="width: 200px">
+                                                <span class="s_website_form_label_content">
+                                                    Appointment Date
+                                                </span>
+                                                <span class="s_website_form_mark">
+                                                    *
+                                                </span>
+                                            </label>
+                                            <input type="text"
+                                                   style="display:none"
+                                                   class="form-control s_website_form_input"
+                                                   id="doctor_inv_id"
+                                                   name="doctor_inv_id"
+                                                   required=""
+                                                   t-att-value="doc_name.id"/>
+                                            <input type="text"
+                                                   style="display:none"
+                                                   class="form-control s_website_form_input"
+                                                   id="special_id"
+                                                   name="special_id" required=""
+                                                   t-att-value="special_id.id"/>
+                                            <div class="col-sm">
+                                                <input id="appointment_date"
+                                                       type="date"
+                                                       name="appointment_date"
+                                                       class="form-control o_website_form_input o_website_form_date"
+                                                       required="1"
+                                                       style="width:180px"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="slot_section"
+                                         style="display:none;">
+                                        <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label"
+                                                       style="width: 200px">
+                                                    <span class="s_website_form_label_content">
+                                                        Select Slot :
+                                                    </span>
+                                                    <span class="s_website_form_mark">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm radio_div"
+                                                     id="div_slots"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-12 s_website_form_submit"
+                                             data-name="Submit Button">
+                                            <div style="width: 200px;"
+                                                 class="s_website_form_label"/>
+                                            <a t-attf-href="'report/pdf/hospital_appointments.patient_card/%s'%patient">
+                                                <button type="submit"
+                                                        class="btn btn-primary pull-left">
+                                                    Submit
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

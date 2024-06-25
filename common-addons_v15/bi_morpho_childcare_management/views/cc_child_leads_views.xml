@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<odoo>
+	<record id="cc_child_leads_form_view" model="ir.ui.view">
+        <field name="name">cc.child.leads.view.form</field>
+        <field name="model">crm.lead</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="confirm_enrollment" string="Confirm Enquiry" type="object" class="oe_highlight" attrs="{'invisible': [('cc_status', 'in', ['confirm','wait','invoice','enroll','cancel'])]}"/>
+                    <button name="action_move_waitlist" string="Move To Waitlist" type="object" class="oe_highlight" attrs="{'invisible': ['|',('cc_status','!=','wait'),('in_waiting_list','=',True)]}"/>
+                    <button name="action_confirm_waitlist" string="Confirm" type="object" class="oe_highlight" attrs="{'invisible': [('cc_status','!=','wait'),('in_waiting_list','=',False)]}"/>
+                    <button name="action_confirm_payment" string="Confirm Payment" type="object" class="oe_highlight" attrs="{'invisible': [('cc_status','in',['draft','wait','enroll'])]}"/>
+                    <button name="action_enrolled" type="object" string="Confirm Enrolled" class="oe_highlight" attrs="{'invisible': [('cc_status','in',['draft','wait','invoice','enroll','cancel'])]}"/>
+                    <field name="cc_status" widget="statusbar" statusbar_visible="draft,confirm,wait,invoice,enroll"/>
+                </header>
+            	<sheet>
+                    <div class="oe_button_box">
+                        <button name="action_cc_invoice" type="object" class="oe_stat_button" attrs="{'invisible': [('move_id','=',False)]}">
+                            <i class="fa o_button_icon fa-dollar"/>
+                            <span>Invoice</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group name="child_details" string="Child Info">
+                            <field name="c_fname"/>
+                            <field name="c_lname"/>
+                            <field name="c_dob"/>
+                        </group>
+                        <group name="parent_details" string="Parent Info">
+                            <field name="p_name"/>
+                            <field name="p_email"/>
+                            <field name="p_phone"/>
+                            <field name="p_mobile"/>
+                            <field name="p_type"/>
+                        </group>
+                        <group>
+                            <field name="enquiry_id"/>
+                            <field name="date_open"/>
+                            <field name="in_waiting_list"/>
+                            <field name="move_id" invisible="1"/>
+                            <field name="user_company_ids" invisible="1"/>
+                            <field name="group_flag" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="child_id" context="{'default_is_child':True, 'form_view_ref':'bi_morpho_childcare_management.child_form_view'}"/>
+                            <field name="room_id"/>
+                            <field name="school_id"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="reason" string="Reason For Applying">
+                            <field name="description" nolabel="1"/>
+                        </page>
+                        <page name="allergies" string="Allergies">
+                            <field name="allergy_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="des"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="medications" string="Medications">
+                            <field name="medication_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="des"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+	<record id="cc_child_leads_tree_view" model="ir.ui.view">
+        <field name="name">cc.child.leads.view.tree</field>
+        <field name="model">crm.lead</field>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <tree string="Children Leads">
+                <field name="date_open" string="Enquiry Date"/>
+                <field name="c_fname" string="Child First Name"/>
+                <field name="c_lname" string="Child Last Name"/>
+                <field name="p_name"/>
+                <field name="enquiry_id"/>
+                <field name="cc_status" widget="badge" decoration-success="cc_status in ('invoice','enroll')" decoration-warning="cc_status == 'wait'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cc_child_leads_action" model="ir.actions.act_window">
+        <field name="name">Enquiries</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_cc_lead','=',True),('type','=','lead'),('in_waiting_list','=',False),('cc_status','!=','enroll')]</field>
+        <field name="context">{'is_cc_lead':True, 'type':'lead',}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                Enquiries will show here.
+            </p>
+        </field>
+    </record>
+
+    <record id="cc_child_leads_form_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="cc_child_leads_form_view"/>
+        <field name="act_window_id" ref="cc_child_leads_action"/>
+    </record>
+
+    <record id="cc_child_leads_tree_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="cc_child_leads_tree_view"/>
+        <field name="act_window_id" ref="cc_child_leads_action"/>
+    </record>
+
+
+    <record id="cc_child_oppo_action" model="ir.actions.act_window">
+        <field name="name">Enrollments</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('cc_status','=','enroll')]</field>
+        <field name="context">{'is_cc_lead':True, 'type':'lead',}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                Enrollements will show here.
+            </p>
+        </field>
+    </record>
+
+    <record id="cc_child_oppo_form_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="cc_child_leads_form_view"/>
+        <field name="act_window_id" ref="cc_child_oppo_action"/>
+    </record>
+
+    <record id="cc_child_oppo_tree_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="cc_child_leads_tree_view"/>
+        <field name="act_window_id" ref="cc_child_oppo_action"/>
+    </record>
+
+
+
+    <record id="cc_child_lead_waitlilst_action" model="ir.actions.act_window">
+        <field name="name">Waitlist</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_cc_lead','=',True),('in_waiting_list','=',True),('cc_status','=','wait')]</field>
+        <field name="context">{'is_cc_lead':True, 'type':'lead', 'in_waiting_list': True,}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                Records in waitlist will show here.
+            </p>
+        </field>
+    </record>
+
+    <record id="cc_child_lead_waitlilst_form_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="cc_child_leads_form_view"/>
+        <field name="act_window_id" ref="cc_child_lead_waitlilst_action"/>
+    </record>
+
+    <record id="cc_child_lead_waitlilst_tree_action" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="cc_child_leads_tree_view"/>
+        <field name="act_window_id" ref="cc_child_lead_waitlilst_action"/>
+    </record>
+</odoo>
